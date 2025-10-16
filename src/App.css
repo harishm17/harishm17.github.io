@@ -1,0 +1,257 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: var(--bg-secondary);
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-left: 280px;
+  flex: 1;
+  background-color: var(--bg-secondary);
+  min-height: 100vh;
+}
+
+/* Section Styling (for embedded components) */
+section {
+  margin-bottom: 28px;
+}
+
+section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: -0.01em;
+}
+
+/* Entry Styles */
+.entry {
+  background: white;
+  padding: 24px 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 18px;
+  transition: all 0.2s ease;
+}
+
+.entry:hover {
+  border-color: var(--neutral-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.entry h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.institution {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.entry-date {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+
+.entry-date p {
+  margin-bottom: 4px;
+}
+
+.gpa {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.location {
+  color: var(--text-tertiary);
+}
+
+.details {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* Lists */
+ul {
+  margin-left: 22px;
+  margin-top: 12px;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  position: relative;
+}
+
+li::before {
+  content: "▹";
+  position: absolute;
+  left: -20px;
+  color: var(--neutral-500);
+  font-weight: bold;
+}
+
+/* Skills Section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.skill-category {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.skill-category:hover {
+  border-color: var(--neutral-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.skill-category h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.skill-category p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Certifications Section */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.cert-entry {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.cert-entry:hover {
+  border-color: var(--neutral-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.cert-entry h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.cert-issuer {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.cert-date {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.cert-credential {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .entry {
+    padding: 20px;
+  }
+
+  .entry-header {
+    flex-direction: column;
+  }
+
+  .entry-date {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+
+  .entry h3 {
+    font-size: 1.15rem;
+  }
+
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .entry {
+    padding: 16px;
+  }
+
+  ul {
+    margin-left: 20px;
+  }
+
+  li {
+    font-size: 0.95rem;
+  }
+}

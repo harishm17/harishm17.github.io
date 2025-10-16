@@ -1,0 +1,134 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: white;
+  padding: 24px 28px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  border-color: var(--neutral-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  gap: 14px;
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.project-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.github-link {
+  color: var(--text-tertiary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.github-link:hover {
+  color: var(--accent-blue);
+  background: var(--accent-blue-subtle);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.project-tag {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.project-tag:hover {
+  background: var(--neutral-200);
+  border-color: var(--neutral-300);
+  color: var(--text-primary);
+}
+
+.project-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-points li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.project-points li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--neutral-500);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .project-card {
+    padding: 24px;
+  }
+
+  .project-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .project-tags {
+    gap: 6px;
+  }
+
+  .project-tag {
+    font-size: 0.85rem;
+    padding: 5px 12px;
+  }
+}
