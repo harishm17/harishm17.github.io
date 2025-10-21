@@ -5,7 +5,7 @@
 .coursework-section {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border-color);
 }
 
 .coursework-title {
@@ -39,6 +39,17 @@
 .course-badge:hover {
   background: var(--neutral-200);
   border-color: var(--neutral-300);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .course-badge {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+
+[data-theme='dark'] .course-badge:hover {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
   color: var(--text-primary);
 }
 

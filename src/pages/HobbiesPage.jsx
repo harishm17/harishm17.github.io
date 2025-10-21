@@ -74,17 +74,28 @@ function HobbiesPage() {
       author: "Hans Rosling, Ola Rosling, Anna Rosling Rönnlund",
       icon: "✅",
       status: "Just Completed",
-      rating: 4,
+      rating: 5,
       color: "#16a34a"
     }
   ]
 
-  // Fetch random xkcd comic
+  // Fetch random xkcd comic with improved error handling
   const fetchRandomComic = async () => {
     setLoading(true)
     try {
+      // Add timeout to prevent hanging requests
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+
       // First get the latest comic number
-      const latestResponse = await fetch('https://xkcd.vercel.app/?comic=latest')
+      const latestResponse = await fetch('https://xkcd.vercel.app/?comic=latest', {
+        signal: controller.signal
+      })
+      
+      if (!latestResponse.ok) {
+        throw new Error(`HTTP error! status: ${latestResponse.status}`)
+      }
+      
       const latestData = await latestResponse.json()
       const maxNum = latestData.num
 
@@ -92,14 +103,33 @@ function HobbiesPage() {
       const randomNum = Math.floor(Math.random() * maxNum) + 1
 
       // Fetch the random comic
-      const comicResponse = await fetch(`https://xkcd.vercel.app/?comic=${randomNum}`)
+      const comicResponse = await fetch(`https://xkcd.vercel.app/?comic=${randomNum}`, {
+        signal: controller.signal
+      })
+      
+      if (!comicResponse.ok) {
+        throw new Error(`HTTP error! status: ${comicResponse.status}`)
+      }
+      
       const comicData = await comicResponse.json()
+      
+      // Validate comic data
+      if (!comicData.img || !comicData.title) {
+        throw new Error('Invalid comic data received')
+      }
 
+      clearTimeout(timeoutId)
       setXkcdComic(comicData)
     } catch (error) {
       console.error('Error fetching xkcd comic:', error)
-      // Set error state to show fallback message
-      setXkcdComic(null)
+      
+      // Set a fallback comic with a friendly message
+      setXkcdComic({
+        num: 0,
+        title: "Comic temporarily unavailable",
+        img: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM2QjcyODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNvbWljIHRlbXBvcmFyaWx5IHVuYXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4K",
+        alt: "Comic temporarily unavailable - please try again later"
+      })
     } finally {
       setLoading(false)
     }
@@ -248,8 +278,17 @@ function HobbiesPage() {
                     setXkcdComic(null)
                   }}
                 />
-                <p className="xkcd-date">
-                  {xkcdComic.month}/{xkcdComic.day}/{xkcdComic.year}
+                {xkcdComic.num > 0 && (
+                  <p className="xkcd-date">
+                    {xkcdComic.month}/{xkcdComic.day}/{xkcdComic.year}
+                  </p>
+                )}
+                <p className="xkcd-attribution">
+                  {xkcdComic.num > 0 ? (
+                    <>Comic from <a href="https://xkcd.com" target="_blank" rel="noopener noreferrer">xkcd</a> by Randall Munroe</>
+                  ) : (
+                    <>Comic temporarily unavailable - API may be down</>
+                  )}
                 </p>
                 <button
                   className="randomize-button"

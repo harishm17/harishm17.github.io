@@ -1,39 +1,75 @@
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import ThemeToggle from './ThemeToggle'
 import './Sidebar.css'
 
 function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleMenu = () => setIsOpen(!isOpen)
+  const closeMenu = () => setIsOpen(false)
+
   const navItems = [
     { path: '/', label: 'Home', icon: '🏠' },
     { path: '/about', label: 'About', icon: '👤' },
     { path: '/experience', label: 'Experience', icon: '💼' },
+    { path: '/research', label: 'Research', icon: '🔬' },
     { path: '/projects', label: 'Projects', icon: '🚀' },
-    { path: '/hobbies', label: 'Hobbies', icon: '🎮' },
+    { path: '/skills', label: 'Skills', icon: '⚡' },
     { path: '/certifications', label: 'Certifications', icon: '📜' },
     { path: '/leadership', label: 'Leadership', icon: '⭐' },
-    { path: '/skills', label: 'Skills', icon: '⚡' }
+    { path: '/hobbies', label: 'Hobbies', icon: '🎮' },
+    { path: '/contact', label: 'Contact', icon: '📬' }
   ]
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <h2>Harish Manoharan</h2>
-        <p className="tagline">Software Engineer & AI Enthusiast</p>
-      </div>
+    <>
+      <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+        <span className={`hamburger ${isOpen ? 'open' : ''}`}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
 
-      <nav className="sidebar-nav">
-        {navItems.map((item) => (
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <h2>Harish Manoharan</h2>
+          <p className="tagline">Software Engineer & AI Enthusiast</p>
+        </div>
+
+        <nav className="sidebar-nav">
+          {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            onClick={closeMenu}
           >
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-label">{item.label}</span>
           </NavLink>
-        ))}
-      </nav>
+          ))}
+        </nav>
 
-      <div className="sidebar-footer">
+        <div className="sidebar-footer">
+        <a
+          href="/HarishManoharan.pdf"
+          download="Harish_Manoharan_Resume.pdf"
+          className="resume-download-btn"
+          title="Download Resume"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download Resume</span>
+        </a>
+
+        <div className="theme-toggle-wrapper">
+          <ThemeToggle />
+        </div>
         <div className="social-links">
           <a href="https://linkedin.com/in/harishm17" target="_blank" rel="noopener noreferrer" title="LinkedIn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -51,8 +87,11 @@ function Sidebar() {
             </svg>
           </a>
         </div>
-      </div>
-    </aside>
+        </div>
+      </aside>
+
+    {isOpen && <div className="sidebar-overlay" onClick={closeMenu}></div>}
+    </>
   )
 }
 

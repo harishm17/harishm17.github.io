@@ -1,0 +1,144 @@
+.quick-contact {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-primary);
+  padding: 12px 18px;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border-color);
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+.quick-contact:hover {
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.2);
+  border-color: var(--accent-blue-light);
+  transform: translateY(-2px);
+}
+
+[data-theme='dark'] .quick-contact {
+  background: rgba(26, 26, 26, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .quick-contact:hover {
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.3);
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.quick-contact-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.quick-contact-links {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.quick-contact-link:hover {
+  background: var(--accent-blue-subtle);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.quick-contact-link svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.quick-contact-link:hover svg {
+  transform: scale(1.1);
+}
+
+.contact-label {
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .quick-contact-link {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+
+[data-theme='dark'] .quick-contact-link:hover {
+  background: rgba(37, 99, 235, 0.15);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue-light);
+}
+
+/* Mobile - Show only on desktop */
+@media screen and (max-width: 768px) {
+  .quick-contact {
+    display: none;
+  }
+}
+
+/* Tablet - Compact version */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .quick-contact {
+    right: 20px;
+    bottom: 70px;
+  }
+
+  .contact-label {
+    display: none;
+  }
+
+  .quick-contact-link {
+    padding: 10px;
+    border-radius: 50%;
+  }
+}
+
+/* Large screens - Full version */
+@media screen and (min-width: 1920px) {
+  .quick-contact {
+    bottom: 100px;
+    right: 40px;
+    padding: 14px 22px;
+  }
+
+  .quick-contact-label {
+    font-size: 0.9rem;
+  }
+
+  .quick-contact-link {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+}

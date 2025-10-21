@@ -5,7 +5,7 @@
 }
 
 .skill-category-card {
-  background: white;
+  background: var(--bg-primary);
   padding: 24px 28px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
@@ -13,9 +13,15 @@
   transition: all 0.2s ease;
 }
 
+[data-theme='dark'] .skill-category-card {
+  background: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 .skill-category-card:hover {
-  border-color: var(--neutral-300);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-blue-light);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.1);
+  transform: translateY(-4px);
 }
 
 .category-header {
@@ -24,7 +30,7 @@
   gap: 10px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1.5px solid #e2e8f0;
+  border-bottom: 1.5px solid var(--border-color);
 }
 
 .category-icon {
@@ -48,7 +54,7 @@
 .skill-badge {
   background: var(--bg-tertiary);
   color: var(--text-secondary);
-  padding: 6px 13px;
+  padding: 8px 14px;
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -56,12 +62,65 @@
   transition: all 0.2s ease;
   cursor: default;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .skill-badge:hover {
   background: var(--neutral-200);
   border-color: var(--neutral-300);
   color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .skill-badge {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+
+[data-theme='dark'] .skill-badge:hover {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: var(--text-primary);
+}
+
+.skill-name {
+  flex: 1;
+}
+
+.skill-level-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.level-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.level-dot.active {
+  background: var(--dot-color, var(--accent-blue));
+  box-shadow: 0 0 6px var(--dot-color, var(--accent-blue));
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.skill-badge:hover .level-dot.active {
+  transform: scale(1.2);
 }
 
 /* Responsive Design */
