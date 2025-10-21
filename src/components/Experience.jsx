@@ -1,3 +1,5 @@
+import ScrollFadeIn from './ScrollFadeIn'
+
 function Experience({ showTitle = true }) {
   const experiences = [
     {
@@ -6,9 +8,9 @@ function Experience({ showTitle = true }) {
       date: "Jun 2025 - Present",
       location: "San Francisco Bay Area",
       points: [
-        "Worked on a full-stack validation module (TypeScript, NestJS, React) to automate IQ/OQ testing for Databricks Clinical Data Repository validation, executing multi-step validation workflows to reduce manual checks by 80%",
-        "Orchestrated a secure, end-to-end eSignature workflow by integrating the DocuSign API, managing the full OAuth 2.0 lifecycle for authentication, and processing real-time webhooks for signing notifications",
-        "Automated service deployment to GCP Cloud Run using a CI/CD pipeline built with Docker and GitHub Actions"
+        "Reduced manual validation checks by 80% by building a full-stack validation module automating IQ/OQ testing for Databricks Clinical Data Repository — TypeScript, NestJS, React",
+        "Automated e-signing via DocuSign integration, managing OAuth 2.0 lifecycle and real-time webhook processing for signing notifications — eliminated manual document routing",
+        "Accelerated deployment cycles by implementing CI/CD pipeline with Docker and GitHub Actions, automating service deployment to GCP Cloud Run"
       ]
     },
     {
@@ -17,10 +19,9 @@ function Experience({ showTitle = true }) {
       date: "May 2024 - Jul 2024",
       location: "Bengaluru, Karnataka, India",
       points: [
-        "Built a self-correcting text-to-SQL chatbot featuring iterative refinement capabilities for database interaction",
-        "Developed and deployed tools for automated Contract Generation and Contract Comparison",
-        "Developed an integration interface between QAD ERP system and Malaysia's MyInvois tax authority portal, enabling automated submission of invoices and tax documents",
-        "Implemented event notification system to track document submission status and receive real-time updates from the tax authority"
+        "Enabled natural-language database queries by building a self-correcting text-to-SQL chatbot with iterative refinement — improved data access for non-technical users",
+        "Streamlined legal workflows by developing automated Contract Generation and Comparison tools — reduced contract processing time significantly",
+        "Automated tax compliance by integrating QAD ERP with Malaysia's MyInvois portal, enabling automated invoice submission and real-time status tracking — eliminated manual document filing"
       ]
     },
     {
@@ -29,33 +30,9 @@ function Experience({ showTitle = true }) {
       date: "May 2023 - Jul 2023",
       location: "Bengaluru, Karnataka, India",
       points: [
-        "Improved accuracy and added visualizations for Customer Segmentation and sales forecasting analyses",
-        "Engineered Python solutions for product and store reviews analysis and customer churn prediction",
-        "Developed and integrated APIs to incorporate the functionalities into an existing Django platform",
-        "Designed custom PowerBI charts to visually communicate the client data insights for strategic decision making"
-      ]
-    },
-    {
-      title: "Young Research Fellow",
-      company: "Indian Institute of Technology, Madras",
-      date: "Sep 2021 - Sep 2022",
-      location: "Chennai, Tamil Nadu, India",
-      points: [
-        "Advised by Prof. Karthik Raman (IIT Madras)",
-        "Constructed and analyzed complex metabolic network models to investigate microbial interactions within diverse environmental conditions, aiming to identify key drivers of ecosystem stability",
-        "Applied graph theory and centrality measures, including the Metabolic Support Index, to successfully identify pivotal microbial species essential for the health of the microbiome",
-        "YRF Showcase Event - Poster Presentation of project outcomes to professors and fellow students"
-      ]
-    },
-    {
-      title: "Research Intern",
-      company: "SciWhyLab",
-      date: "May 2021 - Aug 2021",
-      location: "Remote",
-      points: [
-        "Investigated the tumor microenvironment by analyzing bulk gene expression data to identify and predict the behavior of relative cell populations",
-        "Experimented with PCA and other dimensionality reduction methods to reduce the large number of genes",
-        "Employed SVM with hyperparameter tuning to obtain a Pearson correlation coefficient of 0.89"
+        "Improved customer segmentation accuracy by engineering Python solutions for review analysis and churn prediction — enabled data-driven client strategies",
+        "Enhanced decision-making capabilities by designing custom PowerBI dashboards visualizing sales forecasts and customer insights — used by leadership for strategic planning",
+        "Integrated analytics functionalities into existing Django platform via RESTful APIs — enabled real-time access to ML predictions"
       ]
     }
   ]
@@ -64,7 +41,8 @@ function Experience({ showTitle = true }) {
     <section id="experience">
       {showTitle && <h2>Experience</h2>}
       {experiences.map((exp, index) => (
-        <div key={index} className="entry">
+        <ScrollFadeIn key={index} delay={index * 100}>
+          <div className="entry">
           <div className="entry-header">
             <div>
               <h3>{exp.title}</h3>
@@ -80,7 +58,8 @@ function Experience({ showTitle = true }) {
               <li key={idx}>{point}</li>
             ))}
           </ul>
-        </div>
+          </div>
+        </ScrollFadeIn>
       ))}
     </section>
   )

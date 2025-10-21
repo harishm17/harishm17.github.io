@@ -1,0 +1,29 @@
+.footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  padding: 20px 30px;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 16px 20px;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+  }
+}

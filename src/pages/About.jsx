@@ -11,8 +11,7 @@ function About() {
         <div className="about-intro">
           <h2>Hello! 👋</h2>
           <p>
-            I'm Harish Manoharan, a Master's student in Computer Science at the University of Texas at Dallas,
-            maintaining a perfect 4.0 GPA as a Dean's Graduate Scholar.
+            I'm Harish Manoharan, a Master's student in Computer Science at the University of Texas at Dallas.
           </p>
           <p>
             My journey in technology started at IIT Madras, where I completed an Integrated Dual Degree
@@ -29,8 +28,9 @@ function About() {
         <div className="currently-section">
           <h2>Currently</h2>
           <div className="currently-list">
+            <p>💼 Working at <strong>Purgo AI</strong> (Summer Internship + Co-op)</p>
             <p>📚 Learning <strong>Go (Golang)</strong></p>
-            <p>🔨 Building <strong>This website & Agentic workflows</strong></p>
+            <p>🔨 Building <strong>Agentic workflows</strong></p>
             <p>📖 Reading <strong>Flowers for Algernon</strong> by Daniel Keyes</p>
           </div>
         </div>
