@@ -6,7 +6,7 @@ function Projects({ showTitle = true }) {
     {
       title: "Market Insights Agent",
       tags: ["Python", "FastAPI", "Redis", "Langfuse", "AI/ML"],
-      github: "#",
+      github: "https://github.com/harishm17/market-insights-agent",
       featured: true,
       image: "/projects/market-insights.png", // Add your screenshot here
       points: [
@@ -18,7 +18,7 @@ function Projects({ showTitle = true }) {
     {
       title: "Smart Email Assistant",
       tags: ["Python", "LangChain", "Gemini", "Google APIs", "AI Agents"],
-      github: "#",
+      github: "https://github.com/harishm17/smart_email",
       image: "/projects/email-assistant.png", // Add your screenshot here
       points: [
         "Automated email drafting and calendar management by building multi-agent system with LangChain and Gemini — planner, retriever, and drafting agents synthesize context-aware responses",
@@ -29,7 +29,7 @@ function Projects({ showTitle = true }) {
     {
       title: "Othello Game Bot",
       tags: ["C++", "RL", "Neural Networks", "Game Theory"],
-      github: "#",
+      github: "https://github.com/harishm17/Othello-game-bot",
       image: "/projects/othello-bot.png", // Add your screenshot here
       points: [
         "Reduced search space by 60-70% through minimax with alpha-beta pruning — enabled 8-10 move lookahead for optimal move selection in C++",
@@ -41,7 +41,7 @@ function Projects({ showTitle = true }) {
       title: "Content Similarity Detection",
       subtitle: "Programming Club Project",
       tags: ["Python", "PyTorch", "LSTM", "NLP", "FastAPI"],
-      github: "#",
+      github: "https://github.com/harishm17/Content-Similarity-Detection",
       image: "/projects/similarity-detection.png", // Add your screenshot here
       points: [
         "Achieved 95% F1-score in content similarity detection by implementing Siamese network with LSTM encoders — Python, PyTorch",
