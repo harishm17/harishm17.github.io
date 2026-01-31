@@ -35,7 +35,7 @@ function Sidebar() {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <h2>Harish Manoharan</h2>
-          <p className="tagline">Software Engineer & AI Enthusiast</p>
+          <p className="tagline">AI/ML Engineer | Full-Stack Developer</p>
         </div>
 
         <nav className="sidebar-nav">
