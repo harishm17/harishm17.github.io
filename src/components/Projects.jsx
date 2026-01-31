@@ -4,48 +4,38 @@ import './Projects.css'
 function Projects({ showTitle = true }) {
   const projects = [
     {
-      title: "Market Insights Agent",
-      tags: ["Python", "FastAPI", "Redis", "Langfuse", "AI/ML"],
-      github: "https://github.com/harishm17/market-insights-agent",
+      title: "StudyBuddy - AI Exam Prep Platform",
+      tags: ["Next.js 15", "FastAPI", "PostgreSQL", "pgvector", "OpenAI", "Docker"],
+      github: "https://github.com/harishm17/study_buddy",
       featured: true,
-      image: "/projects/market-insights.png", // Add your screenshot here
+      image: "/projects/studybuddy-quiz.png",
       points: [
-        "Cut API response time 60% for 10K+ daily requests by implementing Redis caching layer — Python, FastAPI multi-agent platform orchestrating Technical, News, and Sentiment analysis",
-        "Enabled real-time financial insights by architecting specialized agent system delivering comprehensive stock analysis and recommendations — reduced data source dependencies",
-        "Improved agent reliability through Langfuse observability integration — detailed performance tracing and evaluation"
+        "Built end-to-end RAG pipeline processing PDF course materials into personalized quizzes and practice exams — 13K+ lines across Next.js frontend and FastAPI microservice",
+        "Reduced LLM costs 85% through hybrid semantic search (15 relevant chunks vs full documents) — pgvector embeddings with keyword filtering",
+        "Implemented AI-powered grading with detailed feedback for MCQ, short answer, and numerical questions — async job processing prevents timeouts"
+      ]
+    },
+    {
+      title: "DivvyDo - Roommate Expense Manager",
+      tags: ["React 19", "TypeScript", "Supabase", "Edge Functions", "Vitest"],
+      github: "https://github.com/harishm17/task-manager",
+      featured: true,
+      image: "/projects/divvydo-split.png",
+      points: [
+        "Shipped production-ready expense splitting with 5 methods (equal/exact/percentage/shares/adjustment) — handles penny-perfect rounding across N participants",
+        "Built comprehensive test suite (25 test files) covering financial calculations, balance computations, and component rendering — Vitest with React Testing Library",
+        "Implemented admin tooling via Supabase Edge Functions — CSV exports, people merging with audit logs, invite system with token-based acceptance"
       ]
     },
     {
       title: "Smart Email Assistant",
-      tags: ["Python", "LangChain", "Gemini", "Google APIs", "AI Agents"],
+      tags: ["Python", "LangChain", "Gemini 1.5", "Google APIs", "Pydantic"],
       github: "https://github.com/harishm17/smart_email",
-      image: "/projects/email-assistant.png", // Add your screenshot here
+      image: "/projects/smart-email-draft.png",
       points: [
-        "Automated email drafting and calendar management by building multi-agent system with LangChain and Gemini — planner, retriever, and drafting agents synthesize context-aware responses",
-        "Ensured 100% PII protection through Guardrails AI safety layer with LLM judge validation — structured outputs and redacted sensitive information",
-        "Enabled seamless workflow integration via Google Workspace APIs — calendar events and contact management directly from email interface"
-      ]
-    },
-    {
-      title: "Othello Game Bot",
-      tags: ["C++", "RL", "Neural Networks", "Game Theory"],
-      github: "https://github.com/harishm17/Othello-game-bot",
-      image: "/projects/othello-bot.png", // Add your screenshot here
-      points: [
-        "Reduced search space by 60-70% through minimax with alpha-beta pruning — enabled 8-10 move lookahead for optimal move selection in C++",
-        "Improved pruning efficiency by developing move ordering heuristics prioritizing high-value moves — significantly reduced nodes evaluated",
-        "Enhanced strategic play by training neural network for board position evaluation — bot anticipates opponent responses accurately"
-      ]
-    },
-    {
-      title: "Content Similarity Detection",
-      subtitle: "Programming Club Project",
-      tags: ["Python", "PyTorch", "LSTM", "NLP", "FastAPI"],
-      github: "https://github.com/harishm17/Content-Similarity-Detection",
-      image: "/projects/similarity-detection.png", // Add your screenshot here
-      points: [
-        "Achieved 95% F1-score in content similarity detection by implementing Siamese network with LSTM encoders — Python, PyTorch",
-        "Showcased live plagiarism detection at annual club open house through FastAPI web service — demonstrated real-time text comparison capabilities"
+        "Architected multi-agent email system with LangChain ReAct pattern — Planner, Retriever, and Drafting agents collaborate for context-aware responses",
+        "Implemented PII detection and redaction pipeline catching SSNs, credit cards, API keys, and phone numbers — pre-LLM scrubbing + post-LLM validation gate",
+        "Integrated Google Workspace APIs with OAuth 2.0 token refresh — Gmail search, Calendar event creation, Contacts directory lookup"
       ]
     }
   ]
