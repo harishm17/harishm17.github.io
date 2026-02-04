@@ -4,7 +4,7 @@ import './Projects.css'
 function Projects({ showTitle = true }) {
   const projects = [
     {
-      title: "StudyBuddy - AI Exam Prep Platform",
+      title: "XYZMARKER_StudyBuddy - AI Exam Prep Platform",
       tags: ["Next.js 15", "FastAPI", "PostgreSQL", "pgvector", "OpenAI", "Docker"],
       github: "https://github.com/harishm17/study_buddy",
       featured: true,
