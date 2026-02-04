@@ -6,23 +6,28 @@ Place your project screenshots in this directory (`public/projects/`) with the f
 
 ### Required Images:
 
-1. **`market-insights.png`** - Market Insights Agent screenshot
-   - Recommended: Dashboard view showing charts/metrics
+1. **`studybuddy-quiz.png`** - StudyBuddy screenshot
+   - Recommended: Quiz interface or topic dashboard
    - Size: 1200x630px (or similar aspect ratio)
    - Format: PNG or JPG
 
-2. **`email-assistant.png`** - Smart Email Assistant screenshot
-   - Recommended: Email interface or agent workflow
+2. **`divvydo-split.png`** - DivvyDo screenshot
+   - Recommended: Expense splitting interface with balance view
    - Size: 1200x630px
    - Format: PNG or JPG
 
-3. **`othello-bot.png`** - Othello Game Bot screenshot
-   - Recommended: Game board with bot playing
+3. **`smart-email-draft.png`** - Smart Email Assistant screenshot
+   - Recommended: Email drafting interface or agent workflow
    - Size: 1200x630px
    - Format: PNG or JPG
 
-4. **`similarity-detection.png`** - Content Similarity Detection screenshot
-   - Recommended: Web interface showing text comparison
+4. **`coffee-check-monitor.png`** - Coffee Check screenshot
+   - Recommended: Dashboard with active monitors and alerts
+   - Size: 1200x630px
+   - Format: PNG or JPG
+
+5. **`fashion-ai-outfit.png`** - Fashion AI screenshot
+   - Recommended: Outfit recommendation view with wardrobe
    - Size: 1200x630px
    - Format: PNG or JPG
 
@@ -72,7 +77,7 @@ convert input.png -resize 1200x630^ -gravity center -extent 1200x630 -quality 85
 
 ### Before Adding Images:
 - Shows a **gradient placeholder** with image icon
-- Displays filename hint ("Add screenshot: /projects/market-insights.png")
+- Displays filename hint ("Add screenshot: /projects/studybuddy-quiz.png")
 - Card still looks professional without images
 
 ### After Adding Images:
@@ -85,11 +90,17 @@ convert input.png -resize 1200x630^ -gravity center -extent 1200x630 -quality 85
 
 ## ✨ Example Screenshots to Capture
 
-### Market Insights Agent:
-- Dashboard with stock charts
-- Agent response interface
-- Technical analysis results
-- News feed integration
+### StudyBuddy:
+- Quiz interface with question types
+- Topic dashboard with progress bars
+- Exam grading results with feedback
+- PDF upload and processing flow
+
+### DivvyDo:
+- Expense splitting with multiple methods
+- Balance dashboard (net + pairwise)
+- Admin tools and CSV export
+- Settlement recording view
 
 ### Smart Email Assistant:
 - Email drafting interface
@@ -97,17 +108,17 @@ convert input.png -resize 1200x630^ -gravity center -extent 1200x630 -quality 85
 - PII redaction demo
 - Agent workflow diagram
 
-### Othello Game Bot:
-- Game board mid-game
-- Bot move visualization
-- Neural network evaluation
-- Performance metrics graph
+### Coffee Check:
+- Monitor dashboard with active checks
+- Stock change alert notification
+- Deal detection results
+- Webhook/notification settings
 
-### Content Similarity Detection:
-- Text comparison interface
-- Similarity score display
-- FastAPI web service
-- Real-time detection demo
+### Fashion AI:
+- Outfit recommendation cards
+- Wardrobe browser by category
+- Profile analysis results
+- Color harmony visualization
 
 ---
 
@@ -139,10 +150,11 @@ convert input.png -resize 1200x630^ -gravity center -extent 1200x630 -quality 85
 public/
 └── projects/
     ├── README.md (this file)
-    ├── market-insights.png (add your screenshot)
-    ├── email-assistant.png (add your screenshot)
-    ├── othello-bot.png (add your screenshot)
-    └── similarity-detection.png (add your screenshot)
+    ├── studybuddy-quiz.png (add your screenshot)
+    ├── divvydo-split.png (add your screenshot)
+    ├── smart-email-draft.png (add your screenshot)
+    ├── coffee-check-monitor.png (add your screenshot)
+    └── fashion-ai-outfit.png (add your screenshot)
 ```
 
 ---
