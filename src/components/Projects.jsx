@@ -37,6 +37,26 @@ function Projects({ showTitle = true }) {
         "Implemented PII detection and redaction pipeline catching SSNs, credit cards, API keys, and phone numbers — pre-LLM scrubbing + post-LLM validation gate",
         "Integrated Google Workspace APIs with OAuth 2.0 token refresh — Gmail search, Calendar event creation, Contacts directory lookup"
       ]
+    },
+    {
+      title: "Coffee Check - AI Product Monitor",
+      tags: ["Claude Vision", "TypeScript", "Node.js", "Docker", "Vitest"],
+      github: "https://github.com/harishm17/coffee_check",
+      points: [
+        "Built an AI-powered product monitoring system using Claude Vision API — automatically detects visual changes, defects, and anomalies in product images",
+        "Implemented multi-channel notification pipeline (email, webhook, dashboard) with configurable alert thresholds and severity levels",
+        "Dockerized the full stack with PM2 process management — includes comprehensive test suite with Vitest covering detection accuracy and notification routing"
+      ]
+    },
+    {
+      title: "Fashion AI - Wardrobe Stylist",
+      tags: ["Gemini", "Python", "Streamlit", "Multimodal AI", "Computer Vision"],
+      github: "https://github.com/harishm17/fashion",
+      points: [
+        "Built a multimodal AI wardrobe manager using Google Gemini — analyzes clothing images to extract attributes like color, style, and occasion suitability",
+        "Implemented skin-tone-aware outfit recommendation engine that generates personalized style suggestions based on wardrobe contents and user preferences",
+        "Architected a modular pipeline with separate analysis and recommendation stages — supports incremental wardrobe updates and cached profile regeneration"
+      ]
     }
   ]
 
