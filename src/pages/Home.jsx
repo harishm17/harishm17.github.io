@@ -39,7 +39,7 @@ function Home() {
 
         <div className="role-tags">
           <span className="role-tag">Software Engineer</span>
-          <span className="role-tag">AI/ML Engineer</span>
+          <span className="role-tag">AI Engineer</span>
           <span className="role-tag">Full-Stack Developer</span>
         </div>
 
@@ -47,7 +47,7 @@ function Home() {
           <p>
             Master's student in Computer Science at UT Dallas with a passion for building
             intelligent systems and scalable applications. I specialize in full-stack development,
-            AI/ML, and creating innovative solutions that make a real impact.
+            AI, and creating innovative solutions that make a real impact.
           </p>
         </div>
 
