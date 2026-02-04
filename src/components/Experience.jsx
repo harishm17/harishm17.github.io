@@ -8,9 +8,13 @@ function Experience({ showTitle = true }) {
       date: "Jun 2025 - Present",
       location: "San Francisco Bay Area",
       points: [
-        "Reduced manual validation checks by 80% by building a full-stack validation module automating IQ/OQ testing for Databricks Clinical Data Repository — TypeScript, NestJS, React",
+        "Architected LLM validation framework (purgo-compliance) with 40+ automated IQ/OQ tests — covers hallucination detection, bias checks, classification accuracy, and clinical summarization traceability for Databricks Clinical Data Repository",
+        "Built multi-agent orchestration layer using LangGraph, coordinating specialized agents for data governance workflows — integrated Azure OpenAI GPT-4o and o1/o3 reasoning models for complex validation logic",
+        "Developed GraphRAG pipeline ingesting Databricks notebooks into a queryable knowledge graph with multi-schema support and incremental updates — powers context-aware LLM responses across the platform",
+        "Built embedding service (purgo-embedding-service) with Databricks vector search for semantic similarity — includes PII masking via Microsoft Presidio and real-time WebSocket progress updates",
         "Automated e-signing via DocuSign integration, managing OAuth 2.0 lifecycle and real-time webhook processing for signing notifications — eliminated manual document routing",
-        "Accelerated deployment cycles by implementing CI/CD pipeline with Docker and GitHub Actions, automating service deployment to GCP Cloud Run"
+        "Implemented sensitive field encryption (JA-479) and PDF compliance report generation for audit trails — end-to-end traceability from raw data to validated output",
+        "Accelerated deployment cycles by implementing CI/CD pipeline with Docker and GitHub Actions across 6 microservices, automating deployment to GCP Cloud Run"
       ]
     },
     {
