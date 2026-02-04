@@ -42,6 +42,7 @@ function Projects({ showTitle = true }) {
       title: "Coffee Check - AI Product Monitor",
       tags: ["Claude Vision", "TypeScript", "Node.js", "Docker", "Vitest"],
       github: "https://github.com/harishm17/coffee_check",
+      image: "/projects/coffee-check-monitor.png",
       points: [
         "Built an AI-powered product monitoring system using Claude Vision API — automatically detects visual changes, defects, and anomalies in product images",
         "Implemented multi-channel notification pipeline (email, webhook, dashboard) with configurable alert thresholds and severity levels",
@@ -52,6 +53,7 @@ function Projects({ showTitle = true }) {
       title: "Fashion AI - Wardrobe Stylist",
       tags: ["Gemini", "Python", "Streamlit", "Multimodal AI", "Computer Vision"],
       github: "https://github.com/harishm17/fashion",
+      image: "/projects/fashion-ai-outfit.png",
       points: [
         "Built a multimodal AI wardrobe manager using Google Gemini — analyzes clothing images to extract attributes like color, style, and occasion suitability",
         "Implemented skin-tone-aware outfit recommendation engine that generates personalized style suggestions based on wardrobe contents and user preferences",
