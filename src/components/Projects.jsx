@@ -40,11 +40,11 @@ function Projects({ showTitle = true }) {
     },
     {
       title: "Coffee Check - AI Product Monitor",
-      tags: ["Claude Vision", "TypeScript", "Node.js", "Docker", "Vitest"],
+      tags: ["Anthropic Vision", "TypeScript", "Node.js", "Docker", "Vitest"],
       github: "https://github.com/harishm17/coffee_check",
       image: "/projects/coffee-check-monitor.png",
       points: [
-        "Built an AI-powered product monitoring system using Claude Vision API — automatically detects visual changes, defects, and anomalies in product images",
+        "Built an AI-powered product monitoring system using Anthropic Vision API — automatically detects visual changes, defects, and anomalies in product images",
         "Implemented multi-channel notification pipeline (email, webhook, dashboard) with configurable alert thresholds and severity levels",
         "Dockerized the full stack with PM2 process management — includes comprehensive test suite with Vitest covering detection accuracy and notification routing"
       ]
