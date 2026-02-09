@@ -90,7 +90,7 @@ function ContactPage() {
   }
 
   const copyEmailToClipboard = async () => {
-    const email = 'harish.manoharan@utdallas.edu'
+    const email = 'harish_manoharan@outlook.com'
     try {
       await navigator.clipboard.writeText(email)
       setShowCopyToast(true)
@@ -102,7 +102,7 @@ function ContactPage() {
 
   return (
     <div className="page contact-page">
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
 
       <ScrollFadeIn>
         <h1 className="page-title">Get In Touch</h1>
@@ -121,8 +121,8 @@ function ContactPage() {
                 <div className="info-icon">📧</div>
                 <h3>Email</h3>
                 <div className="email-container">
-                  <a href="mailto:harish.manoharan@utdallas.edu">
-                    harish.manoharan@utdallas.edu
+                  <a href="mailto:harish_manoharan@outlook.com">
+                    harish_manoharan@outlook.com
                   </a>
                   <button 
                     className="copy-button" 
@@ -169,7 +169,7 @@ function ContactPage() {
 
             {submitStatus === 'error' && (
               <div className="error-message">
-                ❌ Sorry, there was an error sending your message. Please try again or contact me directly at harish.manoharan@utdallas.edu
+                ❌ Sorry, there was an error sending your message. Please try again or contact me directly at harish_manoharan@outlook.com
               </div>
             )}
 

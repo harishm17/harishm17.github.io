@@ -13,7 +13,7 @@ export const EMAILJS_CONFIG = {
   PUBLIC_KEY: 'uqdUlrvdd0CfS9mU8',
   
   // Your email address where you want to receive messages
-  TO_EMAIL: 'harish.manoharan@utdallas.edu'
+  TO_EMAIL: 'harish_manoharan@outlook.com'
 }
 
 // Template variables that will be sent to EmailJS

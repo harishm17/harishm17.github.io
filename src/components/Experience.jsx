@@ -3,40 +3,37 @@ import ScrollFadeIn from './ScrollFadeIn'
 function Experience({ showTitle = true }) {
   const experiences = [
     {
-      title: "Software Engineer Intern",
+      title: "Software Engineer (Core Team)",
       company: "Purgo AI",
       date: "Jun 2025 - Present",
       location: "San Francisco Bay Area",
       points: [
-        "Architected LLM validation framework (purgo-compliance) with 40+ automated IQ/OQ tests — covers hallucination detection, bias checks, classification accuracy, and clinical summarization traceability for Databricks Clinical Data Repository",
-        "Built multi-agent orchestration layer using LangGraph, coordinating specialized agents for data governance workflows — integrated Azure OpenAI GPT-4o and o1/o3 reasoning models for complex validation logic",
-        "Developed GraphRAG pipeline ingesting Databricks notebooks into a queryable knowledge graph with multi-schema support and incremental updates — powers context-aware LLM responses across the platform",
-        "Built embedding service (purgo-embedding-service) with Databricks vector search for semantic similarity — includes PII masking via Microsoft Presidio and real-time WebSocket progress updates",
-        "Automated e-signing via DocuSign integration, managing OAuth 2.0 lifecycle and real-time webhook processing for signing notifications — eliminated manual document routing",
-        "Implemented sensitive field encryption (JA-479) and PDF compliance report generation for audit trails — end-to-end traceability from raw data to validated output",
-        "Accelerated deployment cycles by implementing CI/CD pipeline with Docker and GitHub Actions across 6 microservices, automating deployment to GCP Cloud Run"
+        "Engineered the full-stack Validation Platform for Databricks, automating IQ/OQ validation workflows to reduce validation cycles from days to 20 minutes via orchestrated API testing and audit-ready PDF generation",
+        "Designed and implemented an LLM Evaluation Service, automating 20+ reliability checks (hallucination rate, PII leakage, traceability) to verify model safety and support enterprise audit readiness",
+        "Built a graph-based retrieval layer that indexes Databricks catalog schemas and table lineage, serving semantic context to the code generation agent to boost SQL/PySpark execution accuracy by 12%",
+        "Implemented an agent orchestration state machine (LangGraph Supervisor-Worker) that routes tasks between specialized agents (Research, Design, Coding) to reliably execute end-to-end data engineering workflows",
+        "Architected an embedded eSignature workflow (Docusign API, OAuth2, webhooks), enabling in-platform signing and cutting approval cycle time by 50% through server-side envelope creation and event-driven status updates"
       ]
     },
     {
       title: "Software Engineer Intern",
-      company: "Digitus Business Solutions Pvt. Ltd.",
+      company: "Digitus Business Solutions",
       date: "May 2024 - Jul 2024",
-      location: "Bengaluru, Karnataka, India",
+      location: "Bangalore, India",
       points: [
-        "Enabled natural-language database queries by building a self-correcting text-to-SQL chatbot with iterative refinement — improved data access for non-technical users",
-        "Streamlined legal workflows by developing automated Contract Generation and Comparison tools — reduced contract processing time significantly",
-        "Automated tax compliance by integrating QAD ERP with Malaysia's MyInvois portal, enabling automated invoice submission and real-time status tracking — eliminated manual document filing"
+        "Engineered a text-to-SQL agent with dynamic schema discovery and execution-feedback retries, improving SQL execution accuracy from 52% to 76% on a 500-query evaluation set by automating joins across complex schemas",
+        "Built a multimodal RAG system indexing internal knowledge (PPTs, videos) with layout-aware chunking and citation enforcement, reducing median time-to-resolution (TTR) from 20 min to 6 min",
+        "Delivered a human-in-the-loop contract tool with risk detection, shortening reviews from 5 days to 2 days"
       ]
     },
     {
-      title: "Technology Consultant Intern",
-      company: "PwC India",
+      title: "Technology Consulting Intern - Data Analytics",
+      company: "PricewaterhouseCoopers",
       date: "May 2023 - Jul 2023",
-      location: "Bengaluru, Karnataka, India",
+      location: "Bangalore, India",
       points: [
-        "Improved customer segmentation accuracy by engineering Python solutions for review analysis and churn prediction — enabled data-driven client strategies",
-        "Enhanced decision-making capabilities by designing custom PowerBI dashboards visualizing sales forecasts and customer insights — used by leadership for strategic planning",
-        "Integrated analytics functionalities into existing Django platform via RESTful APIs — enabled real-time access to ML predictions"
+        "Built a sales forecasting pipeline using an XGBoost-SARIMA ensemble with feature engineering for seasonality and promotions, reducing MAPE by 15% over the baseline model for 50+ product SKUs",
+        "Engineered an aspect-based sentiment analysis pipeline on 30k+ reviews to identify key satisfaction drivers"
       ]
     }
   ]
