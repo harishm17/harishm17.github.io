@@ -4,7 +4,7 @@ import './Pages.css'
 function ResearchPage() {
   return (
     <div className="page research-page">
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
       <h1 className="page-title">Research Experience</h1>
       <p className="page-subtitle">
         Academic research in machine learning, bioinformatics, and computational biology

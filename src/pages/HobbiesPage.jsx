@@ -142,7 +142,7 @@ function HobbiesPage() {
 
   return (
     <div className="page hobbies-page">
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
       <h1 className="page-title">Beyond Code</h1>
       <p className="page-subtitle">
         When I'm not building software, you'll find me on the chessboard, solving algorithms, playing sports, or diving into a good book

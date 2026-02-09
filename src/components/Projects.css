@@ -144,7 +144,14 @@
   line-height: 1.4;
 }
 
-.project-card .github-link {
+.project-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.project-card .github-link,
+.project-card .live-link {
   color: #9ca3af !important;
   background: transparent !important;
   transition: all 0.3s ease;
@@ -156,7 +163,8 @@
   border: 1px solid transparent;
 }
 
-.project-card .github-link:hover {
+.project-card .github-link:hover,
+.project-card .live-link:hover {
   color: var(--accent-blue) !important;
   background: var(--accent-blue-subtle) !important;
   border-color: var(--accent-blue-light);
@@ -164,7 +172,8 @@
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
 
-.project-card .github-link:active {
+.project-card .github-link:active,
+.project-card .live-link:active {
   transform: translateY(0) rotate(0deg);
 }
 
@@ -272,7 +281,8 @@
   }
 
   /* Larger touch targets for mobile */
-  .project-card .github-link {
+  .project-card .github-link,
+  .project-card .live-link {
     padding: 12px;
     min-width: 44px;
     min-height: 44px;

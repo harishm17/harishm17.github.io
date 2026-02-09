@@ -27,7 +27,7 @@ function Home() {
   return (
     <div className="page page-hero home-page">
       <AnimatedBackground />
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
       <div className="hero-section">
         <h1 className="hero-title">
           Hi, I'm{' '}
