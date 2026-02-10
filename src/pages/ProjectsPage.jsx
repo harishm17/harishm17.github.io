@@ -4,7 +4,7 @@ import './Pages.css'
 function ProjectsPage() {
   return (
     <div className="page projects-page">
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
       <h1 className="page-title">Projects</h1>
       <p className="page-subtitle">
         Explore my technical projects ranging from AI agents to web applications
