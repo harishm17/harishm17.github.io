@@ -8,9 +8,13 @@ function About() {
       <h1 className="page-title">About Me</h1>
 
       <div className="about-content">
-        <div className="about-intro">
-          <h2>Hello! 👋</h2>
-          <p>
+        <div className="about-intro-with-photo">
+          <div className="about-photo-wrap">
+            <img src="/photo.JPG" alt="Harish Manoharan" className="about-photo" />
+          </div>
+          <div className="about-intro">
+            <h2>Hello! 👋</h2>
+            <p>
             I'm Harish Manoharan, a Master's student in Computer Science at the University of Texas at Dallas,
             graduating in May 2026. I'm currently working as a Software Engineer (Core Team) at Purgo AI,
             where I build AI-powered data engineering platforms and LLM evaluation systems.
@@ -28,6 +32,7 @@ function About() {
             and ensuring reliability through comprehensive testing and monitoring. I thrive on solving challenging problems
             and creating solutions that make a tangible impact.
           </p>
+          </div>
         </div>
 
         <div className="currently-section">
