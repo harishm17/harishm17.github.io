@@ -395,6 +395,10 @@ section::before,
   margin-bottom: 40px;
 }
 
+.about-subtitle .nowrap {
+  white-space: nowrap;
+}
+
 .about-content {
   width: 100%;
   max-width: 100%;
