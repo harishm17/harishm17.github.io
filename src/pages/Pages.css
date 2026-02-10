@@ -100,8 +100,10 @@ section::before,
   margin: 0 auto;
 }
 
+/* Hero text centered in a column; background still full width via .page.home-page */
 .home-page .hero-section {
-  max-width: none;
+  max-width: 720px;
+  margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
 }
