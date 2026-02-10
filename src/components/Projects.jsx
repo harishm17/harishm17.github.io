@@ -7,7 +7,7 @@ function Projects({ showTitle = true }) {
       title: "Realtime Exam Prep Coach",
       tags: ["Next.js", "FastAPI", "PostgreSQL", "OpenAI Realtime API", "WebRTC", "GCP", "Docker"],
       github: "https://github.com/harishm17/study_buddy",
-      live: "https://studybuddy.example.com",
+      live: "https://studybuddy-web-926688152635.us-central1.run.app/",
       featured: true,
       image: "/projects/studybuddy-quiz.png",
       points: [
