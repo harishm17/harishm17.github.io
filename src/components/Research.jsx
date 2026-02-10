@@ -18,7 +18,7 @@ function Research({ showTitle = true }) {
       }
     },
     {
-      title: "Classified Rank-Maximal Matchings and Popular Matchings – Algorithms and Hardness",
+      title: "Classified Rank-Maximal Matchings and Popular Matchings - Algorithms and Hardness",
       subtitle: "CS6130 - Advanced Graph Algorithms",
       institution: "Indian Institute of Technology, Madras",
       date: "Jan 2024 - May 2024",
