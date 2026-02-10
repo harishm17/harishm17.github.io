@@ -64,8 +64,11 @@ function Sidebar() {
 
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <div className="sidebar-avatar">
-            <img src="/photo.JPG" alt="Harish Manoharan" className="sidebar-avatar-img" />
+          <div className="sidebar-header-top">
+            <div className="sidebar-avatar">
+              <img src="/photo.JPG" alt="Harish Manoharan" className="sidebar-avatar-img" />
+            </div>
+            <ThemeToggle />
           </div>
           <h2>Harish Manoharan</h2>
           <p className="tagline">AI Engineer &middot; Full-Stack Developer</p>
@@ -100,9 +103,6 @@ function Sidebar() {
           <span>Download Resume</span>
         </a>
 
-        <div className="theme-toggle-wrapper">
-          <ThemeToggle />
-        </div>
         <div className="social-links">
           <a href="https://linkedin.com/in/harishm17" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

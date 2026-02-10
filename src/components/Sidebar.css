@@ -21,17 +21,31 @@
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 16px;
   text-align: center;
+  position: relative;
+}
+
+.sidebar-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sidebar-header-top .theme-toggle {
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .sidebar-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
   background: var(--gradient-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
+  margin: 0;
   box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
   overflow: hidden;
 }
@@ -160,12 +174,6 @@
 
 .resume-download-btn:active {
   transform: translateY(0);
-}
-
-.theme-toggle-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
 }
 
 .social-links {

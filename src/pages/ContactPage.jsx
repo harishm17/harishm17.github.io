@@ -89,8 +89,7 @@ function ContactPage() {
     }
   }
 
-  const copyEmailToClipboard = async () => {
-    const email = 'harish_manoharan@outlook.com'
+  const copyEmailToClipboard = async (email) => {
     try {
       await navigator.clipboard.writeText(email)
       setShowCopyToast(true)
@@ -128,9 +127,9 @@ function ContactPage() {
                   </a>
                   <button 
                     className="copy-button" 
-                    onClick={copyEmailToClipboard}
-                    aria-label="Copy email to clipboard"
-                    title="Copy email"
+                    onClick={() => copyEmailToClipboard('harish_manoharan@outlook.com')}
+                    aria-label="Copy main email to clipboard"
+                    title="Copy main email"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -138,6 +137,9 @@ function ContactPage() {
                     </svg>
                   </button>
                 </div>
+                <p className="email-also">
+                  Also: <a href="mailto:harishm6250@gmail.com">harishm6250@gmail.com</a>
+                </p>
               </div>
 
               <div className="info-card">
