@@ -2,7 +2,10 @@
 set -e
 # Build and deploy for GitHub Pages (prebuilt files in repo root).
 # Keeps index.html, 404.html, and assets/ in sync with the current build.
+# Use index.source.html (entry: src/main.jsx) so Vite actually rebuilds from source;
+# otherwise root index.html would point at an old bundle and the build would not recompile.
 
+cp index.source.html index.html
 npm run build
 
 cp dist/index.html .
