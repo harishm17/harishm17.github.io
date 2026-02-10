@@ -43,7 +43,8 @@ function About() {
         <div className="interests">
           <h2>Areas of Interest</h2>
           <div className="interest-tags">
-            <span className="tag">AI & Machine Learning</span>
+            <span className="tag">Applied AI</span>
+            <span className="tag">Machine Learning</span>
             <span className="tag">Full-Stack Development</span>
             <span className="tag">Multi-Agent Systems</span>
             <span className="tag">Cloud Computing</span>
