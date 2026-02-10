@@ -1,20 +1,20 @@
 .theme-toggle {
-  background: var(--bg-primary);
-  border: 2px solid var(--border-color);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 50px;
   padding: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  width: 60px;
-  height: 32px;
+  width: 56px;
+  height: 30px;
   position: relative;
 }
 
 .theme-toggle:hover {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
+  border-color: var(--aurora-400);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.2);
 }
 
 .toggle-track {
@@ -27,32 +27,30 @@
 
 .toggle-thumb {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--accent-blue);
+  background: var(--gradient-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   line-height: 1;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(0) translateY(-50%);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateX(2px) translateY(-50%);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
   top: 50%;
   left: 0;
-  padding-top: 1px;
 }
 
 [data-theme='dark'] .toggle-thumb {
-  transform: translateX(32px) translateY(-50%);
-  background: var(--accent-blue-light);
+  transform: translateX(30px) translateY(-50%);
 }
 
 .theme-toggle:active .toggle-thumb {
-  transform: translateX(0) translateY(-50%) scale(0.95);
+  transform: translateX(2px) translateY(-50%) scale(0.9);
 }
 
 [data-theme='dark'] .theme-toggle:active .toggle-thumb {
-  transform: translateX(32px) translateY(-50%) scale(0.95);
+  transform: translateX(30px) translateY(-50%) scale(0.9);
 }

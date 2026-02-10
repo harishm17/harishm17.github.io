@@ -1,7 +1,7 @@
 .hobbies-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 36px;
 }
 
 .hobby-section {
@@ -9,14 +9,8 @@
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hobby-header {
@@ -31,65 +25,72 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .hobby-header p {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  margin-left: 45px;
+  margin-left: 40px;
 }
 
 .profiles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
+  gap: 16px;
 }
 
 .profile-card {
-  background: var(--bg-primary);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 22px 26px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 18px;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--card-border);
 }
 
-[data-theme='dark'] .profile-card {
-  background: #1a1a1a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .profile-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: var(--accent-blue-light);
+  transform: translateY(-4px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--card-hover-border);
 }
 
-[data-theme='dark'] .profile-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: var(--accent-blue-light);
+.profile-card:hover::before {
+  opacity: 1;
 }
 
 .profile-card:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
   transition-duration: 0.1s;
 }
 
 .profile-icon {
-  font-size: 2.8rem;
-  transition: transform 0.2s ease;
+  font-size: 2.4rem;
+  transition: transform 0.3s ease;
 }
 
 .profile-card:hover .profile-icon {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .profile-info {
@@ -97,25 +98,26 @@
 }
 
 .profile-info h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   letter-spacing: -0.01em;
 }
 
 .username {
-  font-size: 1rem;
-  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  color: var(--aurora-400);
   font-weight: 600;
   margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .description {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-tertiary);
-  margin-top: 6px;
-  margin-bottom: 10px;
+  margin-top: 4px;
+  margin-bottom: 8px;
 }
 
 .book-rating {
@@ -128,28 +130,21 @@
 }
 
 .book-rating .star-filled {
-  color: #fbbf24;
-  filter: drop-shadow(0 1px 2px rgba(251, 191, 36, 0.3));
+  color: var(--amber-400);
+  filter: drop-shadow(0 1px 3px rgba(251, 191, 36, 0.4));
 }
 
 .book-rating .star-empty {
-  color: #d1d5db;
-}
-
-.book-rating .rating-text {
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 600;
-  margin-left: 6px;
+  color: var(--text-muted);
 }
 
 .visit-link {
-  font-size: 0.9rem;
-  color: var(--accent-blue);
+  font-size: 0.85rem;
+  color: var(--aurora-400);
   font-weight: 600;
   opacity: 0;
   transform: translateX(-8px);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-block;
 }
 
@@ -158,85 +153,21 @@
   transform: translateX(0);
 }
 
-/* Benefits Section */
-.why-section {
-  background: linear-gradient(135deg, var(--slate-800) 0%, var(--slate-900) 100%);
-  padding: 50px;
-  border-radius: 20px;
-  color: white;
-  margin-top: 20px;
-}
-
-.why-section .hobby-header h2 {
-  color: white;
-}
-
-.why-section .hobby-header p {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
-  margin-top: 30px;
-}
-
-.benefit-card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  padding: 28px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* xkcd Section */
+.xkcd-container {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   transition: all 0.3s ease;
 }
 
-.benefit-card:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-5px);
-}
-
-.benefit-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-}
-
-.benefit-card h4 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: white;
-}
-
-.benefit-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* xkcd Section */
-.xkcd-container {
-  background: var(--bg-primary);
-  padding: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-[data-theme='dark'] .xkcd-container {
-  background: #1a1a1a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
 .xkcd-container:hover {
-  border-color: var(--neutral-300);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-[data-theme='dark'] .xkcd-container:hover {
-  border-color: var(--accent-blue-light);
-  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.1);
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .xkcd-comic {
@@ -247,7 +178,7 @@
 }
 
 .xkcd-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
@@ -257,31 +188,32 @@
 .xkcd-image {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .xkcd-date {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-tertiary);
   font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .xkcd-attribution {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  margin-top: 8px;
+  margin-top: 4px;
   font-style: italic;
 }
 
 .xkcd-attribution a {
-  color: var(--accent-blue);
+  color: var(--aurora-400);
   text-decoration: none;
   font-weight: 500;
 }
 
 .xkcd-attribution a:hover {
-  text-decoration: underline;
+  color: var(--aurora-300);
 }
 
 .xkcd-loading,
@@ -293,25 +225,25 @@
 }
 
 .randomize-button {
-  background: var(--accent-blue);
+  background: var(--gradient-primary);
   color: white;
   padding: 12px 28px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
 .randomize-button:hover:not(:disabled) {
-  background: var(--accent-blue-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+  filter: brightness(1.1);
 }
 
 .randomize-button:active:not(:disabled) {
@@ -323,15 +255,14 @@
   cursor: not-allowed;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
   .hobby-header h2 {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
   }
 
   .hobby-header p {
     margin-left: 0;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .profiles-grid {
@@ -339,15 +270,7 @@
   }
 
   .profile-card {
-    padding: 24px;
-  }
-
-  .why-section {
-    padding: 30px 20px;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
+    padding: 20px;
   }
 
   .xkcd-container {
@@ -355,7 +278,7 @@
   }
 
   .xkcd-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
 
   .randomize-button {

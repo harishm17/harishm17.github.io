@@ -1,44 +1,67 @@
 .skills-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .skill-category-card {
-  background: var(--bg-primary);
-  padding: 24px 28px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-[data-theme='dark'] .skill-category-card {
-  background: #1a1a1a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+.skill-category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .skill-category-card:hover {
-  border-color: var(--accent-blue-light);
-  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.1);
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-hover-shadow);
   transform: translateY(-4px);
+}
+
+.skill-category-card:hover::before {
+  opacity: 1;
 }
 
 .category-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid var(--border-color);
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .category-icon {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
 }
 
 .category-header h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -52,14 +75,14 @@
 }
 
 .skill-badge {
-  background: var(--bg-tertiary);
+  background: var(--glass-bg);
   color: var(--text-secondary);
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
   font-weight: 500;
-  border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   user-select: none;
   display: flex;
@@ -69,25 +92,21 @@
 }
 
 .skill-badge:hover {
-  background: var(--neutral-200);
-  border-color: var(--neutral-300);
-  color: var(--text-primary);
-  transform: translateY(-1px);
+  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--aurora-400);
+  color: var(--aurora-300);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
 }
 
-[data-theme='dark'] .skill-badge {
-  background: #1a1a1a;
-  border-color: #2a2a2a;
-}
-
-[data-theme='dark'] .skill-badge:hover {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-  color: var(--text-primary);
+[data-theme='light'] .skill-badge:hover {
+  color: var(--aurora-600);
 }
 
 .skill-name {
   flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
 }
 
 .skill-level-dots {
@@ -105,25 +124,16 @@
 }
 
 .level-dot.active {
-  background: var(--dot-color, var(--accent-blue));
-  box-shadow: 0 0 6px var(--dot-color, var(--accent-blue));
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  background: var(--dot-color, var(--aurora-400));
+  box-shadow: 0 0 8px var(--dot-color, rgba(139, 92, 246, 0.5));
 }
 
 .skill-badge:hover .level-dot.active {
-  transform: scale(1.2);
+  transform: scale(1.3);
+  box-shadow: 0 0 12px var(--dot-color, rgba(139, 92, 246, 0.6));
 }
 
-/* Responsive Design */
+/* Responsive */
 @media screen and (max-width: 1024px) {
   .skills-container {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -137,10 +147,11 @@
 
   .skill-category-card {
     padding: 24px;
+    border-radius: 12px;
   }
 
   .skill-badge {
-    font-size: 0.88rem;
-    padding: 6px 14px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
   }
 }
