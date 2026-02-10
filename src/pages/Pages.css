@@ -77,6 +77,12 @@ section::before,
 }
 
 /* ============= HOME / HERO ============= */
+/* Homepage only: full width (other pages keep .page max-width) */
+.page.home-page {
+  max-width: none;
+  width: 100%;
+}
+
 .home-page {
   display: flex;
   align-items: center;
@@ -92,6 +98,12 @@ section::before,
   position: relative;
   z-index: 1;
   margin: 0 auto;
+}
+
+.home-page .hero-section {
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-badge {

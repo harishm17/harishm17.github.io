@@ -81,23 +81,6 @@ function Home() {
             <span>Get in Touch</span>
           </Link>
         </div>
-
-        <div className={`hero-stats ${showContent ? 'visible' : ''}`}>
-          <div className="stat-item">
-            <span className="stat-number">3+</span>
-            <span className="stat-label">Years Experience</span>
-          </div>
-          <div className="stat-divider"></div>
-          <div className="stat-item">
-            <span className="stat-number">5+</span>
-            <span className="stat-label">Projects Shipped</span>
-          </div>
-          <div className="stat-divider"></div>
-          <div className="stat-item">
-            <span className="stat-number">MS CS</span>
-            <span className="stat-label">UT Dallas '26</span>
-          </div>
-        </div>
       </div>
     </div>
   )
