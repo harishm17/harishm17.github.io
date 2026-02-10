@@ -65,7 +65,7 @@ function Sidebar() {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-avatar">
-            <span className="avatar-text">HM</span>
+            <img src="/photo.JPG" alt="Harish Manoharan" className="sidebar-avatar-img" />
           </div>
           <h2>Harish Manoharan</h2>
           <p className="tagline">AI Engineer &middot; Full-Stack Developer</p>

@@ -6,8 +6,8 @@ function Education() {
       degree: "M.S. in Computer Science",
       institution: "University of Texas at Dallas - Dean's Graduate Scholar",
       date: "May 2026",
-      gpa: "4.0/4.0",
-      coursework: ["Design and Analysis of Algorithms", "Operating Systems", "Computer Architecture", "Database Design", "Machine Learning", "NLP", "Artificial Intelligence", "Web Programming", "Secure Software Development"]
+      gpa: "3.91/4.0",
+      coursework: ["Design and Analysis of Algorithms", "Operating Systems", "Computer Architecture", "Database Design", "Machine Learning", "NLP", "Artificial Intelligence", "Web Programming", "Secure Software Development", "Big Data Analytics"]
     },
     {
       degree: "Integrated Dual Degree: M.Tech, Data Science & B.S., Biological Sciences",
