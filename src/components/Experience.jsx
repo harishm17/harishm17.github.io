@@ -8,7 +8,7 @@ function Experience({ showTitle = true }) {
       date: "Jun 2025 - Present",
       location: "San Francisco Bay Area",
       points: [
-        "Engineered the full-stack Validation Platform for Databricks, automating IQ/OQ validation workflows to reduce validation cycles from days to 20 minutes via orchestrated API testing and audit-ready PDF generation",
+        "Engineered a full-stack validation platform for Databricks, automating IQ/OQ validation workflows to reduce validation cycles from days to 20 minutes via orchestrated API testing and audit-ready PDF generation",
         "Designed and implemented an LLM Evaluation Service, automating 20+ reliability checks (hallucination rate, PII leakage, traceability) to verify model safety and support enterprise audit readiness",
         "Built a graph-based retrieval layer that indexes Databricks catalog schemas and table lineage, serving semantic context to the code generation agent to boost SQL/PySpark execution accuracy by 12%",
         "Implemented an agent orchestration state machine (LangGraph Supervisor-Worker) that routes tasks between specialized agents (Research, Design, Coding) to reliably execute end-to-end data engineering workflows",
