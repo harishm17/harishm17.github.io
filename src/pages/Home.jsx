@@ -27,6 +27,7 @@ function Home() {
 
   return (
     <div className="page page-hero home-page">
+      <div className="last-updated">Last Updated: February 2026</div>
       <AnimatedBackground />
       <div className="hero-section">
         <div className="hero-badge">

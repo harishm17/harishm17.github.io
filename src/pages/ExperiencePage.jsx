@@ -4,7 +4,7 @@ import './Pages.css'
 function ExperiencePage() {
   return (
     <div className="page experience-page">
-      <div className="last-updated">Last Updated: Mid October, 2025</div>
+      <div className="last-updated">Last Updated: February 2026</div>
       <h1 className="page-title">Professional Experience</h1>
       <p className="page-subtitle">
         My journey through software engineering, research, and innovation
