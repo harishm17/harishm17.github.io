@@ -64,12 +64,6 @@ function Sidebar() {
 
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <div className="sidebar-header-top">
-            <div className="sidebar-avatar">
-              <img src="/photo.JPG" alt="Harish Manoharan" className="sidebar-avatar-img" />
-            </div>
-            <ThemeToggle />
-          </div>
           <h2>Harish Manoharan</h2>
           <p className="tagline">AI Engineer &middot; Full-Stack Developer</p>
         </div>
@@ -103,7 +97,9 @@ function Sidebar() {
           <span>Download Resume</span>
         </a>
 
-        <div className="social-links">
+        <div className="sidebar-footer-actions">
+          <ThemeToggle />
+          <div className="social-links">
           <a href="https://linkedin.com/in/harishm17" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
@@ -120,6 +116,7 @@ function Sidebar() {
               <polyline points="22,6 12,13 2,6"/>
             </svg>
           </a>
+          </div>
         </div>
         </div>
       </aside>
