@@ -9,12 +9,12 @@
 }
 
 .coursework-title {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--text-tertiary);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .coursework-badges {
@@ -24,43 +24,39 @@
 }
 
 .course-badge {
-  background: var(--bg-tertiary);
+  background: var(--glass-bg);
   color: var(--text-secondary);
-  padding: 6px 13px;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   user-select: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--glass-border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
 }
 
 .course-badge:hover {
-  background: var(--neutral-200);
-  border-color: var(--neutral-300);
-  color: var(--text-primary);
+  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--aurora-400);
+  color: var(--aurora-300);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
 }
 
-[data-theme='dark'] .course-badge {
-  background: #1a1a1a;
-  border-color: #2a2a2a;
+[data-theme='light'] .course-badge:hover {
+  color: var(--aurora-600);
 }
 
-[data-theme='dark'] .course-badge:hover {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-  color: var(--text-primary);
-}
-
-/* Responsive Design */
 @media screen and (max-width: 768px) {
   .coursework-badges {
-    gap: 8px;
+    gap: 6px;
   }
 
   .course-badge {
-    font-size: 0.82rem;
-    padding: 6px 12px;
+    font-size: 0.75rem;
+    padding: 5px 12px;
   }
 }

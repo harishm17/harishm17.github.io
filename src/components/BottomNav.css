@@ -12,19 +12,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-primary);
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-top: 1px solid var(--border-color);
-    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    padding: 6px 0 max(6px, env(safe-area-inset-bottom));
     z-index: 1000;
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  [data-theme='dark'] .bottom-nav {
-    background: rgba(26, 26, 26, 0.95);
-    border-top-color: #2a2a2a;
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
   }
 
   .bottom-nav-item {
@@ -32,58 +26,56 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 3px;
     flex: 1;
     padding: 8px 4px;
     text-decoration: none;
     color: var(--text-tertiary);
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    min-width: 60px;
+    min-width: 56px;
     max-width: 80px;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
   .bottom-nav-item:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
 
   .bottom-nav-icon {
-    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.2s ease;
   }
 
   .bottom-nav-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 500;
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
   }
 
   .bottom-nav-item.active {
-    color: var(--accent-blue);
+    color: var(--aurora-400);
   }
 
   .bottom-nav-item.active .bottom-nav-icon {
-    transform: scale(1.15);
+    transform: scale(1.1);
   }
 
-  .bottom-nav-item.active::before {
+  .bottom-nav-item.active::after {
     content: '';
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 32px;
-    height: 3px;
-    background: var(--accent-blue);
-    border-radius: 0 0 3px 3px;
+    width: 24px;
+    height: 2px;
+    background: var(--gradient-primary);
+    border-radius: 0 0 2px 2px;
   }
 
-  /* Add padding to main content to prevent bottom nav overlap */
   .main-content {
     padding-bottom: 80px;
   }
@@ -91,10 +83,6 @@
 
 @media screen and (max-width: 480px) {
   .bottom-nav-label {
-    font-size: 0.65rem;
-  }
-
-  .bottom-nav-icon {
-    font-size: 1.3rem;
+    font-size: 0.6rem;
   }
 }
