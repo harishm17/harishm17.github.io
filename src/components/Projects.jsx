@@ -80,7 +80,12 @@ function Projects({ showTitle = true }) {
             )}
             <div className="project-header">
               <div>
-                <h3>{project.title}</h3>
+                <div className="project-title-row">
+                  <h3>{project.title}</h3>
+                  {project.live && (
+                    <span className="project-live-badge" title="Live demo available">Live</span>
+                  )}
+                </div>
                 {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
               </div>
               <div className="project-links">
@@ -89,11 +94,12 @@ function Projects({ showTitle = true }) {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="live-link"
-                    title="View Live Demo"
-                    aria-label={`View ${project.title} live demo`}
+                    className="live-link project-cta"
+                    title="Open live demo"
+                    aria-label={`Open ${project.title} live demo`}
                   >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <span className="live-link-text">Open app</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                       <polyline points="15 3 21 3 21 9"></polyline>
                       <line x1="10" y1="14" x2="21" y2="3"></line>
