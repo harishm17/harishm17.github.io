@@ -23,9 +23,9 @@ function Projects({ showTitle = true }) {
       featured: true,
       image: "/projects/divvydo-split.png",
       points: [
-        "Shipped production-ready expense splitting with 5 methods (equal/exact/percentage/shares/adjustment) — handles penny-perfect rounding across N participants",
-        "Built comprehensive test suite (25 test files) covering financial calculations, balance computations, and component rendering — Vitest with React Testing Library",
-        "Implemented admin tooling via Supabase Edge Functions — CSV exports, people merging with audit logs, invite system with token-based acceptance"
+        "Shipped production-ready expense splitting with 5 methods (equal/exact/percentage/shares/adjustment) - handles penny-perfect rounding across N participants",
+        "Built comprehensive test suite (25 test files) covering financial calculations, balance computations, and component rendering - Vitest with React Testing Library",
+        "Implemented admin tooling via Supabase Edge Functions - CSV exports, people merging with audit logs, invite system with token-based acceptance"
       ]
     },
     {
@@ -45,9 +45,9 @@ function Projects({ showTitle = true }) {
       github: "https://github.com/harishm17/coffee_check",
       image: "/projects/coffee-check-monitor.png",
       points: [
-        "Built an AI-powered product monitoring system using Anthropic Vision API — automatically detects visual changes, defects, and anomalies in product images",
+        "Built an AI-powered product monitoring system using Anthropic Vision API - automatically detects visual changes, defects, and anomalies in product images",
         "Implemented multi-channel notification pipeline (email, webhook, dashboard) with configurable alert thresholds and severity levels",
-        "Dockerized the full stack with PM2 process management — includes comprehensive test suite with Vitest covering detection accuracy and notification routing"
+        "Dockerized the full stack with PM2 process management - includes comprehensive test suite with Vitest covering detection accuracy and notification routing"
       ]
     },
     {
@@ -56,9 +56,9 @@ function Projects({ showTitle = true }) {
       github: "https://github.com/harishm17/fashion",
       image: "/projects/fashion-ai-outfit.png",
       points: [
-        "Built a multimodal AI wardrobe manager using Google Gemini — analyzes clothing images to extract attributes like color, style, and occasion suitability",
+        "Built a multimodal AI wardrobe manager using Google Gemini - analyzes clothing images to extract attributes like color, style, and occasion suitability",
         "Implemented skin-tone-aware outfit recommendation engine that generates personalized style suggestions based on wardrobe contents and user preferences",
-        "Architected a modular pipeline with separate analysis and recommendation stages — supports incremental wardrobe updates and cached profile regeneration"
+        "Architected a modular pipeline with separate analysis and recommendation stages - supports incremental wardrobe updates and cached profile regeneration"
       ]
     }
   ]

@@ -22,10 +22,10 @@ function About() {
               I work as a Software Engineer (Core Team) at Purgo AI, building AI-powered data engineering platforms and LLM evaluation systems.
             </p>
             <p>
-              My background started at IIT Madras with an Integrated Dual Degree in Data Science and Biological Sciences—a combination that sparked my interest in applying computational techniques at the intersection of AI, data engineering, and intelligent systems.
+              My background started at IIT Madras with an Inter-disciplinary Dual Degree in Data Science and Biological Sciences - a combination that sparked my interest in applying computational techniques at the intersection of AI, data engineering, and intelligent systems.
             </p>
             <p>
-              I specialize in full-stack applications with AI/ML: multi-agent orchestration, RAG pipelines, real-time voice interfaces, and automated evaluation. I work across the stack—architecture, backend, frontend—and focus on reliability through testing and monitoring.
+              I specialize in full-stack applications with AI/ML: multi-agent orchestration, RAG pipelines, real-time voice interfaces, and automated evaluation. I work across the stack - architecture, backend, frontend - and focus on reliability through testing and monitoring.
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@ function About() {
             <h2>Currently</h2>
             <ul className="currently-list">
               <li><span className="currently-icon">💼</span> Software Engineer (Core Team) at <strong>Purgo AI</strong></li>
-              <li><span className="currently-icon">🎓</span> Graduating May 2026 — <strong>F-1 OPT</strong></li>
+              <li><span className="currently-icon">🎓</span> Graduating May 2026 - <strong>F-1 OPT</strong></li>
               <li><span className="currently-icon">🔨</span> Building <strong>Agentic workflows & LLM evaluation systems</strong></li>
               <li><span className="currently-icon">📚</span> Learning <strong>Advanced system design & distributed systems</strong></li>
             </ul>

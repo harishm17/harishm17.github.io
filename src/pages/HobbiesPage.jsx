@@ -70,7 +70,7 @@ function HobbiesPage() {
       color: "#8B4513"
     },
     {
-      title: "Factfulness: Ten Reasons We're Wrong About the World – and Why Things Are Better Than You Think",
+      title: "Factfulness: Ten Reasons We're Wrong About the World - and Why Things Are Better Than You Think",
       author: "Hans Rosling, Ola Rosling, Anna Rosling Rönnlund",
       icon: "✅",
       status: "Just Completed",

@@ -10,11 +10,11 @@ function Education() {
       coursework: ["Design and Analysis of Algorithms", "Operating Systems", "Computer Architecture", "Database Design", "Machine Learning", "NLP", "Artificial Intelligence", "Web Programming", "Secure Software Development", "Big Data Analytics"]
     },
     {
-      degree: "Integrated Dual Degree: M.Tech, Data Science & B.S., Biological Sciences",
+      degree: "Inter-disciplinary Dual Degree: M.Tech, Data Science & B.S., Biological Sciences",
       institution: "Indian Institute of Technology Madras - INSPIRE Scholar, Young Research Fellow",
       date: "May 2024",
       gpa: "8.4/10.0",
-      coursework: ["Linear Algebra", "Statistics", "ML", "Reinforcement Learning", "Advanced Graph Algorithms"]
+      coursework: ["Linear Algebra", "Statistics", "Pattern Recognition and Machine Learning", "Deep Learning", "Artificial Intelligence", "Algorithmic Approaches to Computational Biology", "Reinforcement Learning", "Advanced Graph Algorithms"]
     }
   ]
 
