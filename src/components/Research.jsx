@@ -6,7 +6,7 @@ function Research({ showTitle = true }) {
       institution: "Indian Institute of Technology, Madras & The Jackson Laboratory",
       date: "Jul 2023 - Jun 2024",
       advisors: "Advised by Prof. Balaraman Ravindran (IIT Madras) and Dr. Vivek Kumar (Jackson Laboratory)",
-      technologies: ["Python", "PyTorch", "RNN", "Computer Vision", "ML"],
+      technologies: ["Python", "PyTorch", "RNN", "Computer Vision", "Machine Learning", "Deep Learning"],
       points: [
         "Temporal Video segmentation and Action recognition using key point movement data from large mice video dataset",
         "Trained a bidirectional RNN autoencoder decoder model and performed k-means based clustering to segment videos"
