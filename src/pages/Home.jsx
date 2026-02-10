@@ -21,7 +21,6 @@ function Home() {
         setShowContent(true)
       }
     }, 80)
-
     return () => clearInterval(typingInterval)
   }, [])
 

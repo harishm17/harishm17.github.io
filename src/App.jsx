@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import './App.css'
 import Sidebar from './components/Sidebar'
 import BottomNav from './components/BottomNav'
-import QuickContact from './components/QuickContact'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -14,6 +13,7 @@ import LeadershipPage from './pages/LeadershipPage'
 import SkillsPage from './pages/SkillsPage'
 import HobbiesPage from './pages/HobbiesPage'
 import ContactPage from './pages/ContactPage'
+import NotFound from './pages/NotFound'
 
 function AppContent() {
   const location = useLocation()
@@ -34,11 +34,11 @@ function AppContent() {
           <Route path="/leadership" element={<LeadershipPage />} />
           <Route path="/skills" element={<SkillsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {showFooter && <Footer />}
       </main>
       <BottomNav />
-      <QuickContact />
     </div>
   )
 }

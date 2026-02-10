@@ -167,16 +167,24 @@ function ContactPage() {
           <div className="contact-form-container">
             <h2>Send a Message</h2>
 
+            <div aria-live="polite" aria-atomic="true" role="status" className="sr-only-status">
+              {submitStatus === 'success' && (
+                <span>Thank you! Your message has been sent successfully.</span>
+              )}
+              {submitStatus === 'error' && (
+                <span>Sorry, there was an error sending your message. Please try again or contact me directly.</span>
+              )}
+            </div>
             {submitStatus === 'success' && (
               <div className="success-message">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}}><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}} aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                 Thank you! Your message has been sent successfully.
               </div>
             )}
 
             {submitStatus === 'error' && (
               <div className="error-message">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}}><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}} aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
                 Sorry, there was an error sending your message. Please try again or contact me directly at harish_manoharan@outlook.com
               </div>
             )}
