@@ -7,7 +7,7 @@ function About() {
       <div className="last-updated">Last Updated: February 2026</div>
       <h1 className="page-title">About Me</h1>
       <p className="page-subtitle about-subtitle">
-        Master's in CS at UT Dallas · Software Engineer at Purgo AI · Building AI &\u00A0full-stack systems
+        Master's in CS at UT Dallas · Software Engineer at Purgo AI · Building <span className="nowrap">AI & full-stack systems</span>
       </p>
 
       <div className="about-content">
