@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react'
 import './Navbar.css'
 
 const primaryNav = [
+  { path: '/experience', label: 'Experience' },
   { path: '/projects', label: 'Projects' },
   { path: '/research', label: 'Research' },
   { path: '/skills',   label: 'Skills' },
   { path: '/about',    label: 'About' },
+  { path: '/hobbies',  label: 'Beyond Code' },
   { path: '/contact',  label: 'Contact' },
 ]
 
