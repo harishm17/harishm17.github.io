@@ -164,10 +164,6 @@ export default function Home() {
             <span className="home-name-outline" aria-hidden="true">HARISH<br />MANOHARAN</span>
           </h1>
 
-          <p className="home-tagline">
-            Shipping AI that actually works.
-          </p>
-
           <p className="home-description">
             I engineer the gap between a great AI demo and a system people rely on —
             LLM evaluation pipelines, agentic workflows, and the backends that hold them together.
@@ -188,7 +184,7 @@ export default function Home() {
           </div>
           <div className="home-status-row">
             <div className="home-status-label mono">Role</div>
-            <div className="home-status-val">Software + AI Engineer</div>
+            <div className="home-status-val">Software Engineer · AI Systems</div>
           </div>
           <div className="home-status-divider" />
           <div className="home-status-row">
