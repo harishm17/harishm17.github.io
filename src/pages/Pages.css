@@ -220,25 +220,25 @@
   50%       { box-shadow: 0 0 0 5px rgba(74,222,128,0); }
 }
 
-.home-status-row {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  margin-bottom: 6px;
+.home-status-role {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
 }
 
-.home-status-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
+.home-status-company {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--violet-light);
   text-transform: uppercase;
-  color: var(--text-muted);
-  min-width: 28px;
 }
 
-.home-status-val {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-family: var(--font-body);
+.home-status-edu {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
 .home-status-divider {

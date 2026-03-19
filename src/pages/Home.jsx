@@ -182,19 +182,10 @@ export default function Home() {
             <span className="home-status-dot" />
             Available
           </div>
-          <div className="home-status-row">
-            <div className="home-status-label mono">Role</div>
-            <div className="home-status-val">Software Engineer · AI Systems</div>
-          </div>
+          <div className="home-status-role">Software Engineer</div>
+          <div className="home-status-company mono">Purgo AI</div>
           <div className="home-status-divider" />
-          <div className="home-status-row">
-            <div className="home-status-label mono">At</div>
-            <div className="home-status-val">Purgo AI</div>
-          </div>
-          <div className="home-status-row">
-            <div className="home-status-label mono">MS</div>
-            <div className="home-status-val">CS · UT Dallas</div>
-          </div>
+          <div className="home-status-edu mono">MS CS · UT Dallas</div>
           <div className="home-status-divider" />
           <div className="home-status-open mono">Open to opportunities</div>
         </div>

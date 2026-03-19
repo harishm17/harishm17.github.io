@@ -59,12 +59,13 @@ export default function Navbar() {
         </nav>
 
         <button
-          className={`navbar__hamburger${menuOpen ? ' navbar__hamburger--open' : ''}`}
+          className={`navbar__menu-btn${menuOpen ? ' navbar__menu-btn--open' : ''}`}
           onClick={() => setMenuOpen(v => !v)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <span /><span /><span />
+          <span className="navbar__menu-label mono">{menuOpen ? 'CLOSE' : 'MENU'}</span>
+          <span className="navbar__menu-bars"><span /><span /></span>
         </button>
       </header>
 
