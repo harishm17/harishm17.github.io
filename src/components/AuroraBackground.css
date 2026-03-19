@@ -16,14 +16,14 @@
 
 .aurora-blob-1 {
   width: 650px; height: 450px;
-  background: radial-gradient(ellipse, rgba(124,58,237,0.22) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(12,184,160,0.18) 0%, transparent 70%);
   top: -120px; left: -120px;
   animation-duration: 22s;
 }
 
 .aurora-blob-2 {
   width: 550px; height: 550px;
-  background: radial-gradient(ellipse, rgba(34,211,238,0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(245,158,11,0.12) 0%, transparent 70%);
   bottom: -150px; right: -100px;
   animation-duration: 28s;
   animation-delay: -10s;
@@ -31,7 +31,7 @@
 
 .aurora-blob-3 {
   width: 420px; height: 320px;
-  background: radial-gradient(ellipse, rgba(251,113,133,0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(255,107,107,0.09) 0%, transparent 70%);
   top: 45%; left: 38%;
   animation-duration: 18s;
   animation-delay: -5s;
