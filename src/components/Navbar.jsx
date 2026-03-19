@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import './Navbar.css'
 
 const primaryNav = [
-  { path: '/projects', label: 'Work' },
+  { path: '/projects', label: 'Projects' },
   { path: '/research', label: 'Research' },
   { path: '/skills',   label: 'Skills' },
   { path: '/about',    label: 'About' },
@@ -16,7 +16,7 @@ const allNav = [
   { path: '/about',          label: 'About' },
   { path: '/experience',     label: 'Experience' },
   { path: '/research',       label: 'Research' },
-  { path: '/projects',       label: 'Work' },
+  { path: '/projects',       label: 'Projects' },
   { path: '/skills',         label: 'Skills' },
   { path: '/certifications', label: 'Certifications' },
   { path: '/leadership',     label: 'Leadership' },
@@ -24,7 +24,7 @@ const allNav = [
   { path: '/contact',        label: 'Contact' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onCmdOpen }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -57,6 +57,17 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
+
+        {/* ⌘K trigger — desktop only */}
+        <button
+          className="navbar__cmd-btn mono"
+          onClick={onCmdOpen}
+          aria-label="Open command palette"
+          title="Open command palette (⌘K)"
+        >
+          <span className="navbar__cmd-icon">⌘</span>
+          <span>K</span>
+        </button>
 
         <button
           className={`navbar__menu-btn${menuOpen ? ' navbar__menu-btn--open' : ''}`}

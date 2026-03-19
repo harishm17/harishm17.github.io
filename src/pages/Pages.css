@@ -316,6 +316,22 @@
 
 .home-socials a:hover { color: var(--text-secondary); }
 
+/* Typewriter cursor */
+.home-cursor {
+  color: var(--violet-light);
+  font-weight: 300;
+  margin-left: 1px;
+}
+
+.home-cursor--blink {
+  animation: cursor-blink 0.9s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 /* Shared animation */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(20px); }
@@ -354,7 +370,7 @@
   height: 280px;
   border-radius: 50%;
   padding: 3px;
-  background: linear-gradient(135deg, #7c3aed, #22d3ee, #fb7185);
+  background: linear-gradient(135deg, #38bdf8, #f59e0b, #fb7185);
 }
 
 .about-photo {
@@ -405,6 +421,53 @@
 
 @media (max-width: 768px) {
   .timeline-line { display: none; }
+}
+
+/* ============================================================
+   PROJECT FILTER CHIPS
+   ============================================================ */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.filter-chip {
+  padding: 5px 14px;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.filter-chip:hover {
+  border-color: var(--glass-border-hover);
+  color: var(--text-secondary);
+}
+
+.filter-chip--active {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--violet-light);
+}
+
+.project-dimmed {
+  opacity: 0.25;
+  transform: none !important;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.tech-tag--highlighted {
+  background: rgba(56, 189, 248, 0.2) !important;
+  border-color: var(--violet-light) !important;
+  color: var(--text-primary) !important;
 }
 
 /* ============================================================

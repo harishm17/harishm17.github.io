@@ -22,7 +22,7 @@ body { background: var(--bg-base); }
 }
 
 /* All page content sits above the aurora layer */
-.app > *:not(.aurora-bg):not(.cursor-dot):not(.cursor-ring):not(.nav-overlay) {
+.app > *:not(.aurora-bg):not(.cursor-dot):not(.cursor-ring):not(.nav-overlay):not(.navbar) {
   position: relative;
   z-index: 1;
 }
@@ -90,11 +90,20 @@ body { background: var(--bg-base); }
   text-transform: uppercase;
 }
 
+/* Secondary institution line (GPA, location, etc.) */
+.institution-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 3px;
+}
+
 .entry-date {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.05em;
-  color: var(--text-muted);
+  color: var(--cyan-light);
   text-align: right;
   flex-shrink: 0;
   margin-left: 20px;

@@ -18,10 +18,10 @@ export default function About() {
               I work as a Software Engineer (Core Team) at Purgo AI, building AI-powered data engineering platforms and LLM evaluation systems.
             </p>
             <p className="details" style={{marginTop: '12px'}}>
-              My background started at IIT Madras with an Inter-disciplinary Dual Degree in Data Science and Biological Sciences — a combination that sparked my interest in applying computational techniques at the intersection of AI, data engineering, and intelligent systems.
+              My background started at IIT Madras with an Inter-disciplinary Dual Degree in Data Science and Biological Sciences, a combination that sparked my interest in applying computational techniques at the intersection of AI, data engineering, and intelligent systems.
             </p>
             <p className="details" style={{marginTop: '12px'}}>
-              I specialize in full-stack applications with AI/ML: multi-agent orchestration, RAG pipelines, real-time voice interfaces, and automated evaluation. I work across the stack — architecture, backend, frontend — and focus on reliability through testing and monitoring.
+              I specialize in full-stack applications with AI/ML: multi-agent orchestration, RAG pipelines, real-time voice interfaces, and automated evaluation. I work across architecture, backend, and frontend, focusing on reliability through testing and monitoring.
             </p>
           </div>
 
@@ -29,7 +29,7 @@ export default function About() {
             <div className="section-eyebrow" style={{marginBottom: '16px'}}>Currently</div>
             <ul>
               <li>Software Engineer (Core Team) at <strong>Purgo AI</strong></li>
-              <li>Graduating May 2026 — <strong>F-1 OPT</strong></li>
+              <li>Graduating May 2026 · <strong>F-1 OPT</strong></li>
               <li>Building <strong>Agentic workflows &amp; LLM evaluation systems</strong></li>
               <li>Learning <strong>Advanced system design &amp; distributed systems</strong></li>
             </ul>
@@ -57,7 +57,7 @@ export default function About() {
               <div>
                 <h3>M.S. in Computer Science</h3>
                 <div className="institution">University of Texas at Dallas</div>
-                <div className="institution" style={{color: 'var(--text-muted)', marginTop: 2}}>Dean's Graduate Scholar · GPA: 3.91/4.0</div>
+                <div className="institution-sub">Dean's Graduate Scholar · GPA: 3.91/4.0</div>
               </div>
               <div className="entry-date">May 2026</div>
             </div>
@@ -73,7 +73,7 @@ export default function About() {
               <div>
                 <h3>Inter-disciplinary Dual Degree: M.Tech, Data Science &amp; B.S., Biological Sciences</h3>
                 <div className="institution">Indian Institute of Technology Madras</div>
-                <div className="institution" style={{color: 'var(--text-muted)', marginTop: 2}}>INSPIRE Scholar, Young Research Fellow · GPA: 8.4/10.0</div>
+                <div className="institution-sub">INSPIRE Scholar, Young Research Fellow · GPA: 8.4/10.0</div>
               </div>
               <div className="entry-date">May 2024</div>
             </div>

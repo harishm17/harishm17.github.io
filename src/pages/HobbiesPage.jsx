@@ -25,7 +25,7 @@ const hobbies = [
   {
     emoji: '😄',
     name: 'XKCD',
-    description: 'Randall Munroe\'s webcomic — a staple of engineering humor and clever observations.',
+    description: 'Randall Munroe\'s webcomic, a staple of engineering humor and clever observations.',
   },
 ]
 

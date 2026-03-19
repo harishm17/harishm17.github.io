@@ -37,7 +37,7 @@ export default function ContactPage() {
           <div className="section-eyebrow" style={{justifyContent: 'center'}}>Say Hello</div>
           <h1 className="page-title">LET&apos;S TALK</h1>
           <p className="page-subtitle" style={{maxWidth: 420, margin: '0 auto 48px'}}>
-            Whether it&apos;s a project, opportunity, or just a conversation — I&apos;m always open to connecting.
+            Whether it&apos;s a project, opportunity, or just a conversation, I&apos;m always open to connecting.
           </p>
         </div>
 

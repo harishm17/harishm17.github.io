@@ -1,10 +1,55 @@
 // src/pages/Home.jsx
 import { Link } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Pages.css'
+
+const ROLES = [
+  'Software Engineer',
+  'AI Systems Builder',
+  'Full-Stack Developer',
+  'ML Engineer',
+]
+
+function useTypewriter(strings, typeMs = 75, deleteMs = 38, pauseMs = 2000) {
+  const [display, setDisplay] = useState('')
+  const [phase, setPhase]     = useState('typing')
+  const [strIdx, setStrIdx]   = useState(0)
+  const [charIdx, setCharIdx] = useState(0)
+
+  useEffect(() => {
+    const current = strings[strIdx]
+    let t
+    if (phase === 'typing') {
+      if (charIdx < current.length) {
+        t = setTimeout(() => setCharIdx(c => c + 1), typeMs)
+      } else {
+        t = setTimeout(() => setPhase('deleting'), pauseMs)
+      }
+      setDisplay(current.slice(0, charIdx))
+    } else {
+      if (charIdx > 0) {
+        t = setTimeout(() => setCharIdx(c => c - 1), deleteMs)
+      } else {
+        setStrIdx(i => (i + 1) % strings.length)
+        setPhase('typing')
+      }
+      setDisplay(current.slice(0, charIdx))
+    }
+    return () => clearTimeout(t)
+  }, [phase, charIdx, strIdx, strings, typeMs, deleteMs, pauseMs])
+
+  return { display, typing: phase === 'typing' }
+}
 
 export default function Home() {
   const canvasRef = useRef(null)
+  const { display: roleText, typing } = useTypewriter(ROLES)
+
+  // Lock body scroll on home page
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -34,9 +79,9 @@ export default function Home() {
         this.twinkle = Math.random() * 0.02 + 0.005
         this.twinkleOff = Math.random() * Math.PI * 2
         const rv = Math.random()
-        this.hue = rv < 0.5 ? 265 + Math.random()*20
-                 : rv < 0.8 ? 195 + Math.random()*20
-                 :             325 + Math.random()*15
+        this.hue = rv < 0.5 ? 200 + Math.random()*20   // sky blue
+                 : rv < 0.8 ? 35  + Math.random()*15   // amber
+                 :             340 + Math.random()*15   // rose
         this.sat = 65 + Math.random() * 25
       }
       update(t) {
@@ -100,7 +145,7 @@ export default function Home() {
       if (mouse.x < 0) return
       const r = mouse.down ? 180 : 90
       const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, r)
-      g.addColorStop(0, 'rgba(124,58,237,0.07)')
+      g.addColorStop(0, 'rgba(56,189,248,0.07)')
       g.addColorStop(1, 'rgba(0,0,0,0)')
       ctx.beginPath()
       ctx.fillStyle = g
@@ -156,7 +201,8 @@ export default function Home() {
       <div className="home-ui">
         <div className="home-hero">
           <div className="home-eyebrow section-eyebrow">
-            Software Engineer · AI Systems
+            <span>{roleText}</span>
+            <span className={`home-cursor${typing ? '' : ' home-cursor--blink'}`}>|</span>
           </div>
 
           <h1 className="home-name display">
@@ -165,8 +211,8 @@ export default function Home() {
           </h1>
 
           <p className="home-description">
-            I engineer the gap between a great AI demo and a system people rely on —
-            LLM evaluation pipelines, agentic workflows, and the backends that hold them together.
+            Building full-stack AI systems that ship. LLM evaluation, agentic orchestration,
+            real-time voice, and the infrastructure to keep them reliable.
           </p>
 
           <div className="home-ctas">
@@ -192,10 +238,6 @@ export default function Home() {
 
         {/* Bottom bar */}
         <div className="home-bottom">
-          <div className="home-scroll-hint mono">
-            <span className="home-scroll-line" />
-            Scroll to explore
-          </div>
           <div className="home-socials mono">
             <a href="https://github.com/harishm17" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://linkedin.com/in/harishm17" target="_blank" rel="noopener noreferrer">LinkedIn</a>
