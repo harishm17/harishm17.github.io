@@ -1,0 +1,15 @@
+title: Harish Manoharan
+markdown: kramdown
+exclude:
+  - docs/
+  - .superpowers/
+  - src/
+  - node_modules/
+  - dist/
+  - package.json
+  - package-lock.json
+  - eslint.config.js
+  - vite.config.js
+  - deploy.sh
+  - README.md
+  - index.source.html

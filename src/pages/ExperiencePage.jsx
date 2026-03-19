@@ -57,7 +57,7 @@ export default function ExperiencePage() {
               <div>
                 <h3>{job.company}</h3>
                 <div className="institution">{job.title}</div>
-                {job.location && <div className="institution" style={{color: 'var(--text-muted)', marginTop: 2}}>{job.location}</div>}
+                {job.location && <div className="institution-sub">{job.location}</div>}
               </div>
               <div className="entry-date">{job.dates}</div>
             </div>

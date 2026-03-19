@@ -4,10 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap');
 
 :root {
-  /* Background layers */
-  --bg-base:        #020e09;
-  --bg-surface:     #061409;
-  --bg-elevated:    #0a1e10;
+  /* Background layers — Dark Navy */
+  --bg-base:        #0a192f;
+  --bg-surface:     #112240;
+  --bg-elevated:    #1a3a6b;
 
   /* Glass system */
   --glass-bg:       rgba(255, 255, 255, 0.04);
@@ -16,27 +16,27 @@
   --glass-border-hover: rgba(255, 255, 255, 0.18);
   --glass-blur:     blur(24px);
 
-  /* Accent palette — electric emerald + amber */
-  --violet:         #00c896;
-  --violet-light:   #00e5a8;
-  --violet-glow:    rgba(0, 229, 168, 0.25);
+  /* Accent palette — Sky Blue + Amber */
+  --violet:         #38bdf8;
+  --violet-light:   #7dd3fc;
+  --violet-glow:    rgba(56, 189, 248, 0.25);
   --cyan:           #f59e0b;
   --cyan-light:     #fbbf24;
   --cyan-glow:      rgba(245, 158, 11, 0.2);
-  --rose:           #ff6060;
-  --rose-glow:      rgba(255, 96, 96, 0.2);
-  --green:          #4ade80;
+  --rose:           #fb7185;
+  --rose-glow:      rgba(251, 113, 133, 0.2);
+  --green:          #34d399;
 
   /* Text hierarchy */
   --text-primary:   rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.5);
-  --text-muted:     rgba(255, 255, 255, 0.25);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-muted:     rgba(255, 255, 255, 0.38);
   --text-accent:    var(--violet-light);
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--violet), var(--cyan));
   --gradient-text:    linear-gradient(135deg, #fff 20%, var(--violet-light) 55%, var(--cyan-light) 85%);
-  --gradient-hero:    linear-gradient(135deg, #ffffff 0%, rgba(200,255,235,0.9) 55%, rgba(0,200,150,0.6) 100%);
+  --gradient-hero:    linear-gradient(135deg, #ffffff 0%, rgba(200,235,255,0.9) 55%, rgba(56,189,248,0.6) 100%);
 
   /* Typography */
   --font-display: 'Bebas Neue', sans-serif;
@@ -155,8 +155,8 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: var(--violet-glow);
+  border: 1px solid rgba(56, 189, 248, 0.2);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -167,7 +167,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .tech-tag:hover {
-  background: rgba(124, 58, 237, 0.2);
+  background: rgba(56, 189, 248, 0.2);
   border-color: var(--violet-light);
   transform: translateY(-1px);
 }

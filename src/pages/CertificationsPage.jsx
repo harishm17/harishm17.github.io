@@ -42,7 +42,7 @@ export default function CertificationsPage() {
             <div className="cert-shimmer" />
             <h3 style={{fontFamily: 'var(--font-display)', fontSize: '1.4rem', letterSpacing: '0.05em', marginBottom: 8}}>{c.name}</h3>
             <div className="institution">{c.issuer}</div>
-            <div className="entry-date" style={{textAlign: 'left', marginLeft: 0, marginTop: 8}}>{c.date}</div>
+            {c.date && <div className="entry-date" style={{textAlign: 'left', marginLeft: 0, marginTop: 8}}>{c.date}</div>}
             {c.url && (
               <a href={c.url} target="_blank" rel="noopener noreferrer"
                 className="btn-ghost"

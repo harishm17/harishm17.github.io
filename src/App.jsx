@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import AuroraBackground from './components/AuroraBackground'
 import CursorEffect from './components/CursorEffect'
 import Footer from './components/Footer'
+import CommandPalette from './components/CommandPalette'
+import ScrollProgress from './components/ScrollProgress'
 import Home from './pages/Home'
 import About from './pages/About'
 import ExperiencePage from './pages/ExperiencePage'
@@ -20,6 +22,7 @@ import NotFound from './pages/NotFound'
 function AppContent() {
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const [cmdOpen, setCmdOpen] = useState(false)
 
   // Global scroll reveal — runs after every page change
   useEffect(() => {
@@ -35,11 +38,24 @@ function AppContent() {
     return () => observer.disconnect()
   }, [location.pathname])
 
+  // Global Cmd+K listener
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setCmdOpen(v => !v)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   return (
     <div className="app">
       <AuroraBackground />
       <CursorEffect />
-      <Navbar />
+      <Navbar onCmdOpen={() => setCmdOpen(true)} />
+      {!isHome && <ScrollProgress />}
       <main className="main-content">
         <Routes>
           <Route path="/"               element={<Home />} />
@@ -56,6 +72,7 @@ function AppContent() {
         </Routes>
         {!isHome && <Footer />}
       </main>
+      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
     </div>
   )
 }
