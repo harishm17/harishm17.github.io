@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import AuroraBackground from './components/AuroraBackground'
@@ -16,30 +16,39 @@ import HobbiesPage from './pages/HobbiesPage'
 import ContactPage from './pages/ContactPage'
 import NotFound from './pages/NotFound'
 
+function AppContent() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
+  return (
+    <div className="app">
+      <AuroraBackground />
+      <CursorEffect />
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/"               element={<Home />} />
+          <Route path="/about"          element={<About />} />
+          <Route path="/experience"     element={<ExperiencePage />} />
+          <Route path="/research"       element={<ResearchPage />} />
+          <Route path="/projects"       element={<ProjectsPage />} />
+          <Route path="/hobbies"        element={<HobbiesPage />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/leadership"     element={<LeadershipPage />} />
+          <Route path="/skills"         element={<SkillsPage />} />
+          <Route path="/contact"        element={<ContactPage />} />
+          <Route path="*"              element={<NotFound />} />
+        </Routes>
+        {!isHome && <Footer />}
+      </main>
+    </div>
+  )
+}
+
 function App() {
   return (
     <Router>
-      <div className="app">
-        <AuroraBackground />
-        <CursorEffect />
-        <Navbar />
-        <main className="main-content">
-          <Routes>
-            <Route path="/"               element={<Home />} />
-            <Route path="/about"          element={<About />} />
-            <Route path="/experience"     element={<ExperiencePage />} />
-            <Route path="/research"       element={<ResearchPage />} />
-            <Route path="/projects"       element={<ProjectsPage />} />
-            <Route path="/hobbies"        element={<HobbiesPage />} />
-            <Route path="/certifications" element={<CertificationsPage />} />
-            <Route path="/leadership"     element={<LeadershipPage />} />
-            <Route path="/skills"         element={<SkillsPage />} />
-            <Route path="/contact"        element={<ContactPage />} />
-            <Route path="*"              element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </main>
-      </div>
+      <AppContent />
     </Router>
   )
 }
