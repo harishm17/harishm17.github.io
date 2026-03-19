@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom'
 import './Pages.css'
 
-function NotFound() {
+export default function NotFound() {
   return (
-    <div className="page">
-      <h1 className="page-title">Page not found</h1>
-      <p className="page-subtitle">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
-      <Link to="/" className="cta-button primary" style={{ display: 'inline-flex', marginTop: 16 }}>
-        <span>Back to Home</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </Link>
+    <div className="page notfound-page">
+      <div className="notfound-inner">
+        <div className="section-eyebrow" style={{justifyContent: 'center'}}>Error</div>
+        <h1 className="notfound-code display">404</h1>
+        <p className="mono" style={{fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--text-muted)', marginBottom: 32}}>
+          PAGE_NOT_FOUND
+        </p>
+        <p className="details" style={{maxWidth: 360, textAlign: 'center', marginBottom: 32}}>
+          This page drifted off into the void. Let&apos;s get you back on track.
+        </p>
+        <Link to="/" className="btn-primary">← Back Home</Link>
+      </div>
     </div>
   )
 }
-
-export default NotFound

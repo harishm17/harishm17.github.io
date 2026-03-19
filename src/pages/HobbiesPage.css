@@ -1,288 +1,34 @@
-.hobbies-container {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-}
-
-.hobby-section {
-  animation: fadeInUp 0.5s ease-out;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hobby-header {
-  margin-bottom: 20px;
-}
-
-.hobby-header h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  letter-spacing: -0.02em;
-}
-
-.hobby-header p {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  margin-left: 40px;
-}
-
-.profiles-grid {
+/* src/pages/HobbiesPage.css */
+.hobbies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.profile-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 22px 26px;
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--card-border);
-}
-
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--gradient-primary);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.profile-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--card-hover-shadow);
-  border-color: var(--card-hover-border);
-}
-
-.profile-card:hover::before {
-  opacity: 1;
-}
-
-.profile-card:active {
-  transform: translateY(-1px);
-  transition-duration: 0.1s;
-}
-
-.profile-icon {
-  font-size: 2.4rem;
-  transition: transform 0.3s ease;
-}
-
-.profile-card:hover .profile-icon {
-  transform: scale(1.1);
-}
-
-.profile-info {
-  flex: 1;
-}
-
-.profile-info h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-  letter-spacing: -0.01em;
-}
-
-.username {
-  font-size: 0.9rem;
-  color: var(--aurora-400);
-  font-weight: 600;
-  margin-bottom: 4px;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.description {
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-
-.book-rating {
-  font-size: 1rem;
-  margin-top: 6px;
-  letter-spacing: 1.5px;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.book-rating .star-filled {
-  color: var(--amber-400);
-  filter: drop-shadow(0 1px 3px rgba(251, 191, 36, 0.4));
-}
-
-.book-rating .star-empty {
-  color: var(--text-muted);
-}
-
-.visit-link {
-  font-size: 0.85rem;
-  color: var(--aurora-400);
-  font-weight: 600;
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-block;
-}
-
-.profile-card:hover .visit-link {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* xkcd Section */
-.xkcd-container {
-  background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 32px;
-  border-radius: 16px;
-  border: 1px solid var(--card-border);
-  box-shadow: var(--card-shadow);
-  transition: all 0.3s ease;
-}
-
-.xkcd-container:hover {
-  border-color: var(--card-hover-border);
-  box-shadow: var(--card-hover-shadow);
-}
-
-.xkcd-comic {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.xkcd-title {
-  font-size: 1.2rem;
-  font-weight: 700;
+.hobby-tile {
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: default;
+}
+
+.hobby-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.hobby-name {
+  font-size: clamp(22px, 2.5vw, 32px);
+  letter-spacing: 1px;
   color: var(--text-primary);
-  text-align: center;
-  letter-spacing: -0.01em;
 }
 
-.xkcd-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+@media (max-width: 900px) {
+  .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-.xkcd-date {
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-  font-weight: 500;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.xkcd-attribution {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  font-style: italic;
-}
-
-.xkcd-attribution a {
-  color: var(--aurora-400);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.xkcd-attribution a:hover {
-  color: var(--aurora-300);
-}
-
-.xkcd-loading,
-.xkcd-error {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-tertiary);
-  font-size: 1rem;
-}
-
-.randomize-button {
-  background: var(--gradient-primary);
-  color: white;
-  padding: 12px 28px;
-  border-radius: 12px;
-  border: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.randomize-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
-  filter: brightness(1.1);
-}
-
-.randomize-button:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.randomize-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-@media screen and (max-width: 768px) {
-  .hobby-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .hobby-header p {
-    margin-left: 0;
-    margin-top: 6px;
-  }
-
-  .profiles-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-card {
-    padding: 20px;
-  }
-
-  .xkcd-container {
-    padding: 24px;
-  }
-
-  .xkcd-title {
-    font-size: 1.05rem;
-  }
-
-  .randomize-button {
-    width: 100%;
-    justify-content: center;
-  }
+@media (max-width: 540px) {
+  .hobbies-grid { grid-template-columns: 1fr; }
 }
