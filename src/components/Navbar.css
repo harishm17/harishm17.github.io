@@ -117,7 +117,7 @@
 .nav-overlay {
   position: fixed;
   inset: 0;
-  z-index: 150;
+  z-index: 9998;
   background: rgba(2, 14, 9, 0.97);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
@@ -207,6 +207,11 @@
   transition: color var(--duration-fast);
 }
 .nav-overlay__socials a:hover { color: var(--text-primary); }
+
+/* Desktop: hide menu button (nav links are already visible) */
+@media (min-width: 769px) {
+  .navbar__menu-btn { display: none; }
+}
 
 /* Mobile */
 @media (max-width: 768px) {

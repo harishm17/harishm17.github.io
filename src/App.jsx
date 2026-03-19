@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import AuroraBackground from './components/AuroraBackground'
@@ -19,6 +20,20 @@ import NotFound from './pages/NotFound'
 function AppContent() {
   const location = useLocation()
   const isHome = location.pathname === '/'
+
+  // Global scroll reveal — runs after every page change
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    if (!els.length) return
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    )
+    els.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [location.pathname])
 
   return (
     <div className="app">
