@@ -22,7 +22,7 @@ body { background: var(--bg-base); }
 }
 
 /* All page content sits above the aurora layer */
-.app > *:not(.aurora-bg):not(.cursor-dot):not(.cursor-ring) {
+.app > *:not(.aurora-bg):not(.cursor-dot):not(.cursor-ring):not(.nav-overlay) {
   position: relative;
   z-index: 1;
 }
