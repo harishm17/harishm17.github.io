@@ -323,3 +323,139 @@
   .home-bottom { padding: 16px 24px; }
   .home-name { font-size: clamp(56px, 15vw, 100px); }
 }
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-split {
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-photo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.about-photo-ring {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #7c3aed, #22d3ee, #fb7185);
+}
+
+.about-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-surface);
+}
+
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .about-split {
+    grid-template-columns: 1fr;
+  }
+  .about-photo-wrap {
+    position: static;
+    order: -1;
+  }
+  .about-photo-ring {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ============================================================
+   EXPERIENCE / TIMELINE
+   ============================================================ */
+.timeline {
+  position: relative;
+}
+
+.timeline-line {
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--violet), var(--cyan), transparent);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .timeline-line { display: none; }
+}
+
+/* ============================================================
+   PROJECTS / BENTO GRID
+   ============================================================ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.bento-card {
+  margin-bottom: 0;
+}
+
+.bento-card--featured {
+  grid-column: span 2;
+}
+
+.bento-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bento-card-title {
+  font-size: clamp(22px, 2.5vw, 32px);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.bento-card-links {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card--featured { grid-column: span 1; }
+}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.skills-card {
+  padding: 28px 32px;
+}
+
+@media (max-width: 768px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
