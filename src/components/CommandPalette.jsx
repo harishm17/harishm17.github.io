@@ -93,12 +93,11 @@ export default function CommandPalette({ open, onClose }) {
   return (
     <div className="cmd-backdrop" onMouseDown={() => onClose()}>
       <div className="cmd-panel" onMouseDown={e => e.stopPropagation()}>
-        {/* Search input */}
         <div className="cmd-search-row">
-          <svg className="cmd-search-icon" viewBox="0 0 20 20" fill="none">
-            <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
+          <div className="cmd-search-meta">
+            <div className="cmd-search-title display">COMMAND</div>
+            <div className="cmd-search-subtitle mono">Jump anywhere</div>
+          </div>
           <input
             ref={inputRef}
             className="cmd-input mono"
@@ -108,12 +107,14 @@ export default function CommandPalette({ open, onClose }) {
             autoComplete="off"
             spellCheck={false}
           />
-          <kbd className="cmd-esc-key mono" onClick={onClose}>ESC</kbd>
+          <div className="cmd-search-actions">
+            <kbd className="cmd-keycap mono">ENTER</kbd>
+            <kbd className="cmd-keycap mono" onClick={onClose}>ESC</kbd>
+          </div>
         </div>
 
         <div className="cmd-divider" />
 
-        {/* Results */}
         <div className="cmd-results" ref={listRef}>
           {filtered.length === 0 ? (
             <div className="cmd-empty mono">No results for &ldquo;{query}&rdquo;</div>
@@ -122,11 +123,15 @@ export default function CommandPalette({ open, onClose }) {
               <div key={group} className="cmd-group">
                 <div className="cmd-group-label mono">{group}</div>
                 {items.map((action) => (
-                  <div
+                  <button
                     key={action.label}
+                    type="button"
                     className={`cmd-item${action.flatIdx === activeIdx ? ' cmd-item--active' : ''}`}
                     onMouseEnter={() => setActiveIdx(action.flatIdx)}
-                    onMouseDown={() => execute(action)}
+                    onMouseDown={e => {
+                      e.preventDefault()
+                      execute(action)
+                    }}
                   >
                     <span className="cmd-item-icon">
                       {action.type === 'nav' ? (
@@ -152,18 +157,11 @@ export default function CommandPalette({ open, onClose }) {
                     {action.type === 'nav' && (
                       <span className="cmd-item-path mono">{action.path}</span>
                     )}
-                  </div>
+                  </button>
                 ))}
               </div>
             ))
           )}
-        </div>
-
-        {/* Footer */}
-        <div className="cmd-footer mono">
-          <span className="cmd-footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
-          <span className="cmd-footer-hint"><kbd>↵</kbd> open</span>
-          <span className="cmd-footer-hint"><kbd>esc</kbd> close</span>
         </div>
       </div>
     </div>
