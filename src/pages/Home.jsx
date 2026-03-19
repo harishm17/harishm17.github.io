@@ -156,7 +156,7 @@ export default function Home() {
       <div className="home-ui">
         <div className="home-hero">
           <div className="home-eyebrow section-eyebrow">
-            Software &amp; AI Engineer
+            Software Engineer · AI Systems
           </div>
 
           <h1 className="home-name display">
@@ -165,12 +165,12 @@ export default function Home() {
           </h1>
 
           <p className="home-tagline">
-            I build things that think.
+            Shipping AI that actually works.
           </p>
 
           <p className="home-description">
-            Building intelligent systems at the intersection of AI and full-stack engineering.
-            LLM evaluation, agentic workflows, and scalable backends.
+            I engineer the gap between a great AI demo and a system people rely on —
+            LLM evaluation pipelines, agentic workflows, and the backends that hold them together.
           </p>
 
           <div className="home-ctas">
