@@ -51,6 +51,7 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
+  height: 100dvh;
 }
 
 .home-canvas {
