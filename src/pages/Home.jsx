@@ -1,88 +1,221 @@
+// src/pages/Home.jsx
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import AnimatedBackground from '../components/AnimatedBackground'
+import { useEffect, useRef } from 'react'
 import './Pages.css'
 
-function Home() {
-  const [typedText, setTypedText] = useState('')
-  const fullText = "Harish Manoharan"
-  const [showCursor, setShowCursor] = useState(true)
-  const [showContent, setShowContent] = useState(false)
+export default function Home() {
+  const canvasRef = useRef(null)
 
   useEffect(() => {
-    let currentIndex = 0
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setTypedText(fullText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typingInterval)
-        setShowCursor(false)
-        setShowContent(true)
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let W, H, particles, animId
+    let mouse = { x: -1000, y: -1000, down: false }
+    const N = 140
+
+    const resize = () => {
+      W = canvas.width  = canvas.offsetWidth
+      H = canvas.height = canvas.offsetHeight
+    }
+
+    class Particle {
+      constructor() { this.reset(true) }
+      reset(initial = false) {
+        this.x  = Math.random() * W
+        this.y  = initial ? Math.random() * H : (Math.random() < 0.5 ? -10 : H + 10)
+        this.ox = this.x; this.oy = this.y
+        this.vx = (Math.random() - 0.5) * 0.4
+        this.vy = (Math.random() - 0.5) * 0.4
+        this.r  = Math.random() * 1.8 + 0.4
+        this.baseAlpha = Math.random() * 0.5 + 0.15
+        this.alpha = this.baseAlpha
+        this.depth = Math.random()
+        this.twinkle = Math.random() * 0.02 + 0.005
+        this.twinkleOff = Math.random() * Math.PI * 2
+        const rv = Math.random()
+        this.hue = rv < 0.5 ? 265 + Math.random()*20
+                 : rv < 0.8 ? 195 + Math.random()*20
+                 :             325 + Math.random()*15
+        this.sat = 65 + Math.random() * 25
       }
-    }, 80)
-    return () => clearInterval(typingInterval)
+      update(t) {
+        const dx = this.x - mouse.x, dy = this.y - mouse.y
+        const dist = Math.sqrt(dx*dx + dy*dy)
+        const inf = mouse.down ? 220 : 130
+        if (dist < inf) {
+          const f = 1 - dist / inf
+          const push = mouse.down ? -1.0 : 0.7
+          this.vx += (dx / dist) * f * push
+          this.vy += (dy / dist) * f * push
+          this.alpha = Math.min(1, this.baseAlpha + f * 0.5)
+        } else {
+          this.vx += (this.ox - this.x) * 0.0003
+          this.vy += (this.oy - this.y) * 0.0003
+          this.alpha += (this.baseAlpha - this.alpha) * 0.05
+        }
+        const damp = 0.94 + this.depth * 0.04
+        this.vx *= damp; this.vy *= damp
+        const speed = (1 - this.depth * 0.5) * 0.6
+        this.x += this.vx * speed; this.y += this.vy * speed
+        this.alpha *= 0.85 + Math.sin(t * this.twinkle + this.twinkleOff) * 0.15
+        if (this.x < -50) this.x = W + 50
+        if (this.x > W+50) this.x = -50
+        if (this.y < -50) this.y = H + 50
+        if (this.y > H+50) this.y = -50
+      }
+      draw() {
+        const s = this.r * (1 - this.depth * 0.45)
+        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, s * 5)
+        g.addColorStop(0,   `hsla(${this.hue},${this.sat}%,75%,${this.alpha})`)
+        g.addColorStop(0.4, `hsla(${this.hue},${this.sat}%,60%,${this.alpha * 0.3})`)
+        g.addColorStop(1,   `hsla(${this.hue},${this.sat}%,50%,0)`)
+        ctx.beginPath()
+        ctx.fillStyle = g
+        ctx.arc(this.x, this.y, s * 5, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    }
+
+    const drawConnections = () => {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const pi = particles[i], pj = particles[j]
+          const dx = pi.x - pj.x, dy = pi.y - pj.y
+          const d = Math.sqrt(dx*dx + dy*dy)
+          if (d < 110) {
+            const a = (1 - d/110) * 0.1
+            ctx.beginPath()
+            ctx.strokeStyle = `hsla(${(pi.hue+pj.hue)/2},60%,70%,${a})`
+            ctx.lineWidth = (1 - d/110) * 0.7
+            ctx.moveTo(pi.x, pi.y)
+            ctx.lineTo(pj.x, pj.y)
+            ctx.stroke()
+          }
+        }
+      }
+    }
+
+    const drawHalo = () => {
+      if (mouse.x < 0) return
+      const r = mouse.down ? 180 : 90
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, r)
+      g.addColorStop(0, 'rgba(124,58,237,0.07)')
+      g.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.beginPath()
+      ctx.fillStyle = g
+      ctx.arc(mouse.x, mouse.y, r, 0, Math.PI * 2)
+      ctx.fill()
+    }
+
+    const init = () => { resize(); particles = Array.from({length: N}, () => new Particle()) }
+
+    let t = 0
+    const loop = () => {
+      t++
+      ctx.clearRect(0, 0, W, H)
+      drawHalo()
+      drawConnections()
+      particles.forEach(p => { p.update(t); p.draw() })
+      animId = requestAnimationFrame(loop)
+    }
+
+    const onMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY }
+    const onDown = () => { mouse.down = true }
+    const onUp   = () => { mouse.down = false }
+
+    canvas.addEventListener('mousemove', onMove)
+    canvas.addEventListener('mousedown', onDown)
+    canvas.addEventListener('mouseup', onUp)
+    canvas.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000 })
+    window.addEventListener('resize', resize)
+
+    init()
+    loop()
+
+    return () => {
+      cancelAnimationFrame(animId)
+      canvas.removeEventListener('mousemove', onMove)
+      canvas.removeEventListener('mousedown', onDown)
+      canvas.removeEventListener('mouseup', onUp)
+      window.removeEventListener('resize', resize)
+    }
   }, [])
 
   return (
-    <div className="page page-hero home-page">
-      <div className="last-updated">Last Updated: February 2026</div>
-      <AnimatedBackground />
-      <div className="hero-section">
-        <div className="hero-badge">
-          <span className="badge-dot"></span>
-          <span>Available for opportunities</span>
+    <div className="home-page">
+      {/* Intro overlay */}
+      <div className="home-intro-overlay" aria-hidden="true">
+        <span className="home-intro-text mono">harishm17.github.io</span>
+      </div>
+
+      {/* Particle canvas */}
+      <canvas ref={canvasRef} className="home-canvas" aria-hidden="true" />
+
+      {/* UI layer */}
+      <div className="home-ui">
+        <div className="home-hero">
+          <div className="home-eyebrow section-eyebrow">
+            Software &amp; AI Engineer
+          </div>
+
+          <h1 className="home-name display">
+            <span className="home-name-fill">HARISH<br />MANOHARAN</span>
+            <span className="home-name-outline" aria-hidden="true">HARISH<br />MANOHARAN</span>
+          </h1>
+
+          <p className="home-tagline">
+            I build things that think.
+          </p>
+
+          <p className="home-description">
+            Building intelligent systems at the intersection of AI and full-stack engineering.
+            LLM evaluation, agentic workflows, and scalable backends.
+          </p>
+
+          <div className="home-ctas">
+            <Link to="/projects" className="btn-primary">View My Work</Link>
+            <a href="/HarishManoharan.pdf" className="btn-ghost" download>Resume ↓</a>
+            <Link to="/contact" className="btn-ghost">Get in Touch</Link>
+          </div>
         </div>
 
-        <h1 className="hero-title">
-          <span className="hero-greeting">Hi, I'm</span>
-          <span className="hero-name">
-            <span className="highlight typed-text">
-              {typedText}
-              {showCursor && <span className="cursor">|</span>}
-            </span>
-          </span>
-        </h1>
-
-        <div className={`hero-roles ${showContent ? 'visible' : ''}`}>
-          <span className="role-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Software Engineer
-          </span>
-          <span className="role-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
-            AI Engineer
-          </span>
-          <span className="role-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            Full-Stack Developer
-          </span>
+        {/* Floating status card */}
+        <div className="home-status-card glass-card">
+          <div className="home-status-header mono">
+            <span className="home-status-dot" />
+            Available
+          </div>
+          <div className="home-status-row">
+            <div className="home-status-label mono">Role</div>
+            <div className="home-status-val">Software + AI Engineer</div>
+          </div>
+          <div className="home-status-divider" />
+          <div className="home-status-row">
+            <div className="home-status-label mono">At</div>
+            <div className="home-status-val">Purgo AI</div>
+          </div>
+          <div className="home-status-row">
+            <div className="home-status-label mono">MS</div>
+            <div className="home-status-val">CS · UT Dallas</div>
+          </div>
+          <div className="home-status-divider" />
+          <div className="home-status-open mono">Open to opportunities</div>
         </div>
 
-        <p className={`hero-description ${showContent ? 'visible' : ''}`}>
-          Building intelligent systems and scalable applications at the intersection of
-          AI, data engineering, and full-stack development. Currently crafting LLM evaluation
-          frameworks and agentic workflows at Purgo AI.
-        </p>
-
-        <div className={`cta-buttons ${showContent ? 'visible' : ''}`}>
-          <Link to="/projects" className="cta-button primary">
-            <span>View Projects</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </Link>
-          <a href="/HarishManoharan.pdf" className="cta-button secondary" download aria-label="Download resume">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            <span>Resume</span>
-          </a>
-          <Link to="/contact" className="cta-button ghost">
-            <span>Get in Touch</span>
-          </Link>
+        {/* Bottom bar */}
+        <div className="home-bottom">
+          <div className="home-scroll-hint mono">
+            <span className="home-scroll-line" />
+            Scroll to explore
+          </div>
+          <div className="home-socials mono">
+            <a href="https://github.com/harishm17" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/harishm17" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:harish_manoharan@outlook.com">Email</a>
+          </div>
         </div>
       </div>
     </div>
   )
 }
-
-export default Home
