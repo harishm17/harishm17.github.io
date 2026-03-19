@@ -36,7 +36,7 @@
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--violet), var(--cyan));
   --gradient-text:    linear-gradient(135deg, #fff 20%, var(--violet-light) 55%, var(--cyan-light) 85%);
-  --gradient-hero:    linear-gradient(135deg, #fff 0%, rgba(159,106,255,0.95) 40%, rgba(78,201,255,0.9) 70%, rgba(251,113,133,0.8) 100%);
+  --gradient-hero:    linear-gradient(135deg, #ffffff 0%, rgba(220,215,255,0.95) 50%, rgba(159,106,255,0.7) 100%);
 
   /* Typography */
   --font-display: 'Bebas Neue', sans-serif;
