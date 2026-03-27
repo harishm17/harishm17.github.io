@@ -12,7 +12,6 @@ const ACTIONS = [
   { group: 'Pages', label: 'Skills',         path: '/skills',         type: 'nav' },
   { group: 'Pages', label: 'Certifications', path: '/certifications', type: 'nav' },
   { group: 'Pages', label: 'Leadership',     path: '/leadership',     type: 'nav' },
-  { group: 'Pages', label: 'Beyond Code',    path: '/hobbies',        type: 'nav' },
   { group: 'Pages', label: 'Contact',        path: '/contact',        type: 'nav' },
   { group: 'Links', label: 'GitHub',         url: 'https://github.com/harishm17',           type: 'link', hint: '↗' },
   { group: 'Links', label: 'LinkedIn',       url: 'https://linkedin.com/in/harishm17',      type: 'link', hint: '↗' },
