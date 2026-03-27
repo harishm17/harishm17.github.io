@@ -9,7 +9,6 @@ const primaryNav = [
   { path: '/research', label: 'Research' },
   { path: '/skills',   label: 'Skills' },
   { path: '/about',    label: 'About' },
-  { path: '/hobbies',  label: 'Beyond Code' },
   { path: '/contact',  label: 'Contact' },
 ]
 
@@ -22,7 +21,6 @@ const allNav = [
   { path: '/skills',         label: 'Skills' },
   { path: '/certifications', label: 'Certifications' },
   { path: '/leadership',     label: 'Leadership' },
-  { path: '/hobbies',        label: 'Beyond Code' },
   { path: '/contact',        label: 'Contact' },
 ]
 
