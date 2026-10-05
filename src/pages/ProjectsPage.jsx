@@ -11,14 +11,6 @@ const projects = [
     demo: '',
   },
   {
-    title: 'Databricks IQ/OQ Test Library (Purgo AI)',
-    description: 'Public library of the qualification tests behind Purgo\'s Databricks validation engine: 59 versioned test definitions in 17 suites, chaining 133 API calls across Azure and AWS, each with a manual procedure for auditors and a Gherkin scenario. I wrote every commit in this repo.',
-    tech: ['Databricks', 'Unity Catalog', 'Azure', 'AWS', 'Gherkin', 'JSON'],
-    categories: ['cloud'],
-    github: 'https://github.com/PurgoAI/iqoq-testcases',
-    demo: '',
-  },
-  {
     title: 'DivvyDo – Roommate Expense Manager',
     description: 'Expense splitting with five methods (equal, exact, percentage, shares, adjustment). Amounts are stored in integer cents and split with a largest-remainder method, so every split adds up exactly. Built on Supabase Postgres with row-level security, with edge functions for invites, CSV exports and merging duplicate people. 74 tests (Vitest).',
     tech: ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Row-Level Security', 'Edge Functions', 'Tailwind CSS', 'Vitest'],
