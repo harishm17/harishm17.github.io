@@ -14,8 +14,8 @@ export default function About() {
         <div className="about-content">
           <div className="entry reveal">
             <p className="details">
-              I'm a Master's student in Computer Science at the University of Texas at Dallas, graduating in May 2026.
-              I work as a Software Engineer (Core Team) at Purgo AI, building AI-powered data engineering platforms and LLM evaluation systems.
+              I'm a Software Engineer at Purgo AI, where I work on the core LLM agent that turns data engineering tickets into Databricks and dbt code, mostly on retrieval quality, the agent's self-review loop, and model cost.
+              Before that I built Purgo's LLM validation product and the engine that validates Databricks platforms for regulated customers. I joined as an intern in 2025 and moved to full time after finishing my MS in Computer Science at UT Dallas in 2026.
             </p>
             <p className="details" style={{marginTop: '12px'}}>
               My background started at IIT Madras with an Inter-disciplinary Dual Degree in Data Science and Biological Sciences, a combination that sparked my interest in applying computational techniques at the intersection of AI, data engineering, and intelligent systems.
@@ -28,9 +28,8 @@ export default function About() {
           <div className="entry reveal" style={{marginTop: '24px'}}>
             <div className="section-eyebrow" style={{marginBottom: '16px'}}>Currently</div>
             <ul>
-              <li>Software Engineer (Core Team) at <strong>Purgo AI</strong></li>
-              <li>Graduating May 2026 · <strong>F-1 OPT</strong></li>
-              <li>Building <strong>Agentic workflows &amp; LLM evaluation systems</strong></li>
+              <li>Software Engineer at <strong>Purgo AI</strong></li>
+              <li>Building <strong>retrieval and evaluation for LLM agents</strong></li>
               <li>Learning <strong>Advanced system design &amp; distributed systems</strong></li>
             </ul>
           </div>
@@ -57,7 +56,7 @@ export default function About() {
               <div>
                 <h3>M.S. in Computer Science</h3>
                 <div className="institution">University of Texas at Dallas</div>
-                <div className="institution-sub">Dean's Graduate Scholar · GPA: 3.91/4.0</div>
+                <div className="institution-sub">Dean's Graduate Scholar · GPA: 3.92/4.0</div>
               </div>
               <div className="entry-date">May 2026</div>
             </div>
@@ -91,7 +90,7 @@ export default function About() {
             <img src="/photo.JPG" alt="Harish Manoharan" className="about-photo" />
           </div>
           <div className="about-chips">
-            <span className="tech-tag">📍 Dallas, TX</span>
+            <span className="tech-tag">📍 San Francisco Bay Area</span>
             <span className="tech-tag">MS Computer Science</span>
             <span className="tech-tag">UT Dallas</span>
           </div>

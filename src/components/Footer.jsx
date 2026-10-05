@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <Link to="/contact" className="footer-cta">
-          Let&apos;s work together <span className="footer-arrow">→</span>
+          Get in touch <span className="footer-arrow">→</span>
         </Link>
         <div className="footer-bottom">
           <span className="footer-copy mono">© {new Date().getFullYear()} Harish Manoharan</span>

@@ -211,8 +211,8 @@ export default function Home() {
           </h1>
 
           <p className="home-description">
-            Building full-stack AI systems that ship. LLM evaluation, agentic orchestration,
-            real-time voice, and the infrastructure to keep them reliable.
+            I make LLM agents more accurate and cheaper to run, with benchmarks
+            on real tickets to back it up.
           </p>
 
           <div className="home-ctas">
@@ -226,14 +226,14 @@ export default function Home() {
         <div className="home-status-card glass-card">
           <div className="home-status-header mono">
             <span className="home-status-dot" />
-            Available
+            Currently
           </div>
           <div className="home-status-role">Software Engineer</div>
           <div className="home-status-company mono">Purgo AI</div>
           <div className="home-status-divider" />
           <div className="home-status-edu mono">MS CS · UT Dallas</div>
           <div className="home-status-divider" />
-          <div className="home-status-open mono">Open to opportunities</div>
+          <div className="home-status-open mono">San Francisco Bay Area</div>
         </div>
 
         {/* Bottom bar */}

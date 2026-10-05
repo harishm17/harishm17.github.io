@@ -22,8 +22,8 @@ const skillCategories = [
     skills: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Terraform', 'Linux'],
   },
   {
-    category: 'Data Science & Analytics',
-    skills: ['pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Power BI', 'Jupyter', 'Data Visualization', 'Statistical Analysis'],
+    category: 'Data Platforms & Analytics',
+    skills: ['Databricks', 'dbt', 'PySpark', 'Apache Iceberg', 'pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Power BI', 'Jupyter', 'Data Visualization', 'Statistical Analysis'],
   },
 ]
 
@@ -33,7 +33,7 @@ export default function SkillsPage() {
       <div className="page-header">
         <div className="section-eyebrow">Capabilities</div>
         <h1 className="page-title">SKILLS</h1>
-        <p className="page-subtitle">Technologies, frameworks, and tools I work with daily.</p>
+        <p className="page-subtitle">Technologies, frameworks, and tools I've used at work and in projects.</p>
       </div>
 
       <div className="skills-grid">

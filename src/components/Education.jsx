@@ -7,7 +7,7 @@ function Education() {
       institution: "University of Texas at Dallas",
       awards: "Dean's Graduate Scholar",
       date: "May 2026",
-      gpa: "3.91/4.0",
+      gpa: "3.92/4.0",
       coursework: ["Design and Analysis of Algorithms", "Operating Systems", "Computer Architecture", "Database Design", "Machine Learning", "NLP", "Artificial Intelligence", "Web Programming", "Secure Software Development", "Big Data Analytics"]
     },
     {
