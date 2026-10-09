@@ -25,8 +25,8 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
     </header>
     <div class="writeup-body">
       <div class="side meta muted">
-        <p>{d.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.years}</p>
-        <p>{d.readMinutes} min read<span class="vh">,</span> <span aria-hidden="true">·</span> Updated <time datetime={updatedIso}>{updatedLabel}</time></p>
+        <p>{d.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.years}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.readMinutes} min read</p>
+        <p>Updated <time datetime={updatedIso}>{updatedLabel}</time></p>
         <p class="scope">{d.scope}</p>
         <p><span class="side-label">My part.</span> {d.myPart}</p>
         <p><span class="side-label">Built with.</span> {d.builtWith.join(', ')}</p>
@@ -57,6 +57,9 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
   }
   .side p + p {
     margin-top: 0.5rem;
+  }
+  .side time {
+    white-space: nowrap;
   }
   .side-label {
     color: var(--ink);

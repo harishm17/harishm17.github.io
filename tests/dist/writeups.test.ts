@@ -40,6 +40,19 @@ describe('/work/agent-retrieval/', () => {
     // Other never-public terms are checked against the private list in private-terms.test.ts.
     expect(readDist('work/agent-retrieval/index.html')).not.toContain('PR #');
   });
+
+  it('ends on the limits list, with the author credit only in the side block', () => {
+    expect([...doc.querySelectorAll('.prose h2')].map((h) => text(h)).at(-1)).toBe('What this doesn’t show');
+    expect(text(doc.querySelector('.side'))).toContain('catalog search benchmark');
+  });
+
+  it('keeps the side block short: spoken meta line, a one-line date and a one-sentence scope', () => {
+    const meta = doc.querySelector('.side p')!.cloneNode(true) as Element;
+    meta.querySelectorAll('[aria-hidden]').forEach((n) => n.remove());
+    expect(text(meta)).toMatch(/^Purgo AI, 2026, \d+ min read$/);
+    expect(text(doc.querySelector('.side time')?.parentElement)).toMatch(/^Updated \w+ \d+, \d{4}$/);
+    expect(text(doc.querySelector('.side .scope'))).toBe('Numbers from Purgo’s internal benchmarks. No code, prompts or customer details.');
+  });
 });
 
 describe('/work/llm-evaluation/', () => {
