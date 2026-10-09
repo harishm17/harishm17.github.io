@@ -20,6 +20,8 @@ describe('/work/agent-retrieval/', () => {
     expect(text(doc.querySelector('#results-caption'))).toBe('Results');
     expect(doc.querySelector('h2#catalog-search')).not.toBeNull();
     expect(doc.querySelector('h2#cost')).not.toBeNull();
+    // Long row headers here must wrap on phones.
+    expect(doc.querySelector('table.nowrap-labels')).toBeNull();
   });
 
   it('states every caveat spec §9 requires', () => {
@@ -57,7 +59,8 @@ describe('/work/agent-retrieval/', () => {
   it('ends with one plain link to the next write-up', () => {
     const next = doc.querySelector('.writeup-body > .writeup-next');
     expect([...next!.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/llm-evaluation/']);
-    expect(text(next)).toBe('Next: Testing LLMs and Databricks for regulated use');
+    // The full title, as its h1 reads; shortTitle is only for the title tag.
+    expect(text(next)).toBe('Next: Testing LLMs and Databricks platforms for regulated use');
     expect(next!.querySelector('a')?.classList.contains('hit')).toBe(true);
   });
 });
@@ -87,11 +90,20 @@ describe('/work/llm-evaluation/', () => {
     ]);
   });
 
+  it('keeps the section anchors the /work/ rows link to', () => {
+    expect(doc.querySelector('h2#platform')).not.toBeNull();
+    expect(doc.querySelector('h2#report')).not.toBeNull();
+  });
+
   it('keeps each multi-word tool name in Built with on one line', () => {
     const built = [...doc.querySelectorAll('.side p')].find((p) => text(p).startsWith('Built with.'));
     expect(text(built)).toBe('Built with. TypeScript, NestJS, Python, Azure OpenAI, Databricks, AWS, GCP Cloud Run');
     const unbroken = [...built!.querySelectorAll('.nowrap')].map((s) => text(s));
     for (const name of ['Azure OpenAI', 'GCP Cloud Run']) expect(unbroken).toContain(name);
+  });
+
+  it('keeps short test names in the operational-tests table on one line', () => {
+    expect(doc.querySelector('table#oq-tests')?.classList.contains('nowrap-labels')).toBe(true);
   });
 
   it('opens with a dek that names what the engine runs', () => {

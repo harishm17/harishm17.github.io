@@ -95,6 +95,7 @@ export const work: WorkItem[] = [
     summary:
       'Runs 59 versioned installation and operational qualification tests in 17 suites against a customer’s Databricks workspace on Azure or AWS, with live progress and an evidence report. Pass/fail logic runs in a sandbox. I wrote most of its current code; a colleague built the first scaffold.',
     page: 'llm-evaluation',
+    anchor: 'platform',
   },
   {
     id: 'self-review',
@@ -130,6 +131,8 @@ export const work: WorkItem[] = [
     context: 'Purgo AI',
     years: '2025',
     summary: 'Embedded DocuSign signing for validation reports, with per-project credentials.',
+    page: 'llm-evaluation',
+    anchor: 'report',
   },
   {
     id: 'digitus-sql',

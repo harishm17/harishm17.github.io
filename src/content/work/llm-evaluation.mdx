@@ -22,9 +22,9 @@ Companies in regulated (GxP) work, like pharma, can’t just start using a model
 
 The engine qualifies a customer’s model, on Azure OpenAI or served from Databricks. There are 19 built-in tests. The installation ones check how the deployment is set up: region, authentication, access control, private networking, and whether calls are logged for audit. The operational ones run the model on fixed datasets and compare the results with thresholds the customer sets.
 
-<DataTable id="oq-tests" caption="Operational tests and what each one catches" columns={[{ label: 'Test' }, { label: 'What it catches' }]} rows={[{ header: 'Hallucination', cells: ['Inventing a value the source doesn’t contain, on 40 cases with missing fields'] }, { header: 'Extraction accuracy', cells: ['Wrong values in extracted fields, scored per field with F1'] }, { header: 'Classification', cells: ['Misclassified complaints and triage levels, against labeled cases'] }, { header: 'Determinism', cells: ['Different answers to the same input over 20 repeated runs'] }, { header: 'Latency under load', cells: ['Failed or slow calls with 20 concurrent workers'] }, { header: 'Demographic bias', cells: ['Different outputs when only the demographics in a case change'] }, { header: 'Traceability', cells: ['A response that can’t be traced back to the model and the request that produced it'] }]} />
+<DataTable id="oq-tests" nowrapLabels caption="Operational tests and what each one catches" columns={[{ label: 'Test' }, { label: 'What it catches' }]} rows={[{ header: 'Hallucination', cells: ['Inventing a value the source doesn’t contain, on 40 cases with missing fields'] }, { header: 'Extraction accuracy', cells: ['Wrong values in extracted fields, scored per field with F1'] }, { header: 'Classification', cells: ['Misclassified complaints and triage levels, against labeled cases'] }, { header: 'Determinism', cells: ['Different answers to the same input over 20 repeated runs'] }, { header: 'Latency under load', cells: ['Failed or slow calls with 20 concurrent workers'] }, { header: 'Demographic bias', cells: ['Different outputs when only the demographics in a case change'] }, { header: 'Traceability', cells: ['A response that can’t be traced back to the model and the request that produced it'] }]} />
 
-## Qualifying a Databricks platform
+<h2 id="platform">Qualifying a Databricks platform</h2>
 
 The platform tests are 59 versioned definitions in 17 suites. They cover things like catalog setup, access control and audit logging, cluster behavior, network and security-group settings, lineage and data sharing. Each definition is a chain of API calls against the customer’s own workspace on Azure or AWS, plus a small piece of logic that decides pass or fail and records the expected and actual values.
 
@@ -35,7 +35,7 @@ The main design choices:
 - A run is a job: it returns at once, reports progress test by test and can be stopped. The finished result includes each step’s request and response, with credentials removed.
 - Requirements can become tests. A customer can upload a requirements document (PDF, DOCX or text), and an LLM pipeline then pulls out the testable statements, writes test definitions in the same format and checks them before they run. If a reviewer rejects one, it’s regenerated with their feedback.
 
-## What a run produces
+<h2 id="report">What a run produces</h2>
 
 A threshold turns each measurement into a pass or a fail, and the report keeps the numbers behind every result, so a reviewer can disagree with a threshold without rerunning anything. A finished report can be signed in the app through embedded DocuSign signing, and the signed PDF is stored for download.
 

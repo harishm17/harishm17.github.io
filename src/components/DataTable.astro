@@ -15,11 +15,13 @@ interface Props {
   rows: Row[];
   /** Tabular figures for integer-only numeric columns (spec §7). */
   integer?: boolean;
+  /** Keep short row labels on one line from 37.5em up; leave off for long labels that must wrap on phones. */
+  nowrapLabels?: boolean;
 }
-const { id, caption, columns, rows, integer = false } = Astro.props;
+const { id, caption, columns, rows, integer = false, nowrapLabels = false } = Astro.props;
 ---
 <section class="table-wrap" aria-labelledby={`${id}-caption`} tabindex="0">
-  <table id={id}>
+  <table id={id} class:list={{ 'nowrap-labels': nowrapLabels }}>
     <caption id={`${id}-caption`}>{caption}</caption>
     <thead>
       <tr>{columns.map((c) => <th scope="col" class:list={{ num: c.numeric }}>{c.label}</th>)}</tr>
@@ -75,6 +77,11 @@ const { id, caption, columns, rows, integer = false } = Astro.props;
   tbody tr:last-child td {
     border-bottom: 0;
   }
+  /* The last column ends flush with the rules, so right-aligned figures line up with their edge. */
+  thead th:last-child,
+  tbody td:last-child {
+    padding-right: 0;
+  }
   /* Selectors carry thead/tbody so they outrank the left-aligned header and cell rules above. */
   thead th.num,
   tbody td.num {
@@ -93,5 +100,10 @@ const { id, caption, columns, rows, integer = false } = Astro.props;
     display: block;
     font-size: var(--fs-meta);
     color: var(--muted);
+  }
+  @media (min-width: 37.5em) {
+    .nowrap-labels tbody th {
+      white-space: nowrap;
+    }
   }
 </style>

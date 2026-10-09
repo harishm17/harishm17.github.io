@@ -52,6 +52,18 @@ describe('DataTable', () => {
     expect(doc.querySelector('tbody th .sub')?.textContent).toBe('separate run');
     expect(doc.querySelector('tbody td')?.className).toContain('num');
     expect(doc.querySelector('tbody td')?.className).toContain('int');
+    expect(doc.querySelector('table')?.classList.contains('nowrap-labels')).toBe(false);
+  });
+
+  it('keeps short row labels on one line only when asked', async () => {
+    const { doc } = await render(DataTable, {
+      id: 'oq-tests',
+      caption: 'Tests',
+      nowrapLabels: true,
+      columns: [{ label: 'Test' }, { label: 'What it catches' }],
+      rows: [{ header: 'Latency under load', cells: ['Slow calls'] }],
+    });
+    expect(doc.querySelector('table#oq-tests')?.classList.contains('nowrap-labels')).toBe(true);
   });
 });
 

@@ -156,6 +156,10 @@ p, li, h3, td, th, caption, figcaption {
   text-wrap: pretty;
 }
 
+h2[id] {
+  scroll-margin-top: 1.5rem;
+}
+
 .plain-list {
   list-style: none;
   padding: 0;

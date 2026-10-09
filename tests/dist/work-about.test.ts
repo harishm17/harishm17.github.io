@@ -24,6 +24,14 @@ describe('/work/', () => {
     expect(earlier).toContain('Digitus');
   });
 
+  it('links the validation engine and signing rows to their sections of the LLM testing write-up', () => {
+    const href = (title: string) =>
+      [...doc.querySelectorAll('.row-title a')].find((a) => text(a) === title)?.getAttribute('href');
+    expect(href('Validation engine for Databricks platforms')).toBe('/work/llm-evaluation/#platform');
+    expect(href('Signing validation reports in the app')).toBe('/work/llm-evaluation/#report');
+    for (const a of doc.querySelectorAll('.row-title a')) expect(a.classList.contains('hit')).toBe(true);
+  });
+
   it('marks coursework as coursework and never as research', () => {
     const research = text(doc.querySelector('section[aria-labelledby="research"]'));
     expect(research).not.toContain('CS6130');
