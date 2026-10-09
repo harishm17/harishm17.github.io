@@ -9,7 +9,7 @@ describe('home: head', () => {
   it('uses the positioning title and description', () => {
     expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer, LLM agents');
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Software engineer at Purgo AI, building an LLM agent that turns data-engineering tickets into Databricks and dbt code. M.S. CS, UT Dallas; IIT Madras.',
+      'Software engineer at Purgo AI, building LLM agents for data engineering. M.S. CS, UT Dallas; IIT Madras.',
     );
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeLessThanOrEqual(160);
   });
@@ -35,13 +35,10 @@ describe('home: intro', () => {
     expect(doc.querySelectorAll('.site-head nav a').length).toBe(3);
   });
 
-  it('names the employer and the agent in a short lede, not one narrow sub-area', () => {
+  it('names the employer and what he builds in a short lede, not one narrow sub-area', () => {
     const lede = text(doc.querySelector('.lede'));
-    expect(lede).toContain('Software engineer at Purgo AI');
-    expect(lede).toContain('LLM agent');
-    expect(lede).toContain('Databricks and dbt code');
+    expect(lede).toBe('Software engineer at Purgo AI, building LLM agents.');
     expect(lede).not.toContain('retrieval and evaluation');
-    expect(lede.length).toBeLessThanOrEqual(125);
   });
 
   it('puts both schools and years in the ID line, without a GPA', () => {
@@ -57,16 +54,17 @@ describe('home: intro', () => {
     for (const s of ['June 2025', 'intern', 'June 2026', 'Digitus', 'PwC']) expect(bio).toContain(s);
   });
 
-  it('describes the whole pipeline and says the work spans it', () => {
+  it('opens with what he did, not with a description of the agent, and says the work spans the pipeline', () => {
     const bio = text(doc.querySelector('.bio'));
-    expect(bio).toContain('LangGraph pipeline');
-    expect(bio).toContain('I work across that pipeline: the nodes themselves, their prompts, and the evals and benchmarks');
+    expect(bio.startsWith('I joined Purgo as an intern in June 2025')).toBe(true);
+    expect(bio).toContain('I work across our LangGraph agent for data engineering');
+    expect(bio).toContain('I also build the evals and benchmarks we use to decide whether a change helped.');
   });
 
   it('keeps the spaces around the inline case-study link in the bio', () => {
     // Guards against whitespace dropped next to the link ("a ticket,finds the tables it needs, drafts").
     expect(text(doc.querySelector('.bio'))).toContain(
-      'it analyzes a ticket, finds the tables it needs, drafts a design, then writes and reviews the code.',
+      'how it analyzes a ticket, finds the tables it needs, drafts a design, and writes and reviews Databricks and dbt code.',
     );
     const link = doc.querySelector('.bio a');
     expect(text(link)).toBe('finds the tables it needs');

@@ -31,16 +31,16 @@ const jsonLd = {
 <BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
   <section class="intro" aria-labelledby="intro-title">
     <h1 id="intro-title" class="intro-name">{site.name}</h1>
-    <p class="lede">Software engineer at Purgo AI, building an LLM agent that turns <span class="nowrap">data-engineering</span> tickets into Databricks and dbt code.</p>
+    <p class="lede">Software engineer at Purgo AI, building LLM agents.</p>
     <ul class="plain-list dot-list id-line meta" role="list">
       <li>M.S. Computer Science, UT Dallas, 2026</li>
       <li>M.Tech Data Science, IIT Madras, 2024</li>
     </ul>
     <p class="bio">
-      The agent is a LangGraph pipeline: it analyzes a ticket, {caseStudy ? <a href="/work/agent-retrieval/">finds the tables it needs</a> : 'finds the tables it needs'}, drafts a design, then writes and reviews the code.
-      I work across that pipeline: the nodes themselves, their prompts, and the evals and benchmarks we use to decide
-      whether a change helped. I joined as an intern in June 2025 and went full-time in June 2026. Before that I
-      interned at Digitus, building a <span class="nowrap">text-to-SQL</span> agent, and at PwC, on demand forecasting.
+      I joined Purgo as an intern in June 2025 and went full-time in June 2026. I work across our LangGraph agent for
+      data engineering: how it analyzes a ticket, {caseStudy ? <a href="/work/agent-retrieval/">finds the tables it needs</a> : 'finds the tables it needs'}, drafts a design, and writes
+      and reviews Databricks and dbt code. I also build the evals and benchmarks we use to decide whether a change
+      helped. Before Purgo, I built a <span class="nowrap">text-to-SQL</span> agent at Digitus and forecasting models at PwC.
     </p>
     <ul class="plain-list dot-list link-row" role="list">
       <li><a class="hit" href={site.resume}>Resume (PDF)</a></li>
