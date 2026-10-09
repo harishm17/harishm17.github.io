@@ -73,7 +73,7 @@ export const results: readonly Result[] = [
     id: 'stage-cost',
     short: 'Cost of two agent stages, relative',
     before: { value: 1, text: '1.00' },
-    after: { value: 0.13, text: '0.13' },
+    after: { value: 0.132, text: '0.132' },
     direction: 'lower',
     max: 1,
     scaleLabel: '1.0',

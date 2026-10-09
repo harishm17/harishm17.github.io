@@ -93,7 +93,7 @@ describe('ResultsTable', () => {
       [...tr.children].map((c) => c.textContent?.replace(/\s+/g, ' ').trim()),
     );
     expect(rows[0]).toEqual(['Missed source tables 103-ticket benchmark', '79', '24']);
-    expect(rows[1]?.[2]).toBe('0.13 (7.6× lower)');
+    expect(rows[1]?.[2]).toBe('0.132 (7.6× lower)');
   });
 
   it('uses the write-up sample for the recall row, not the band caveat that repeats the latency pair', async () => {
