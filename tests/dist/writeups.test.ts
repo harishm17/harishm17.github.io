@@ -53,6 +53,12 @@ describe('/work/agent-retrieval/', () => {
     expect(text(doc.querySelector('.side time')?.parentElement)).toMatch(/^Updated \w+ \d+, \d{4}$/);
     expect(text(doc.querySelector('.side .scope'))).toBe('Numbers from Purgo’s internal benchmarks. No code, prompts or customer details.');
   });
+
+  it('ends with one plain link to the next write-up', () => {
+    const next = doc.querySelector('.writeup-body > .writeup-next');
+    expect([...next!.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/llm-evaluation/']);
+    expect(text(next)).toBe('Next: Testing LLMs and Databricks for regulated use');
+  });
 });
 
 describe('/work/llm-evaluation/', () => {
@@ -85,6 +91,12 @@ describe('/work/llm-evaluation/', () => {
     expect(dek).toContain('19 tests');
     expect(dek).toContain('59');
     expect(dek).not.toContain('I wrote');
+  });
+
+  it('ends with one plain link back to the other published write-up', () => {
+    const next = doc.querySelector('.writeup-body > .writeup-next');
+    expect([...next!.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/agent-retrieval/']);
+    expect(text(next)).toBe('Next: Finding the tables an LLM agent misses');
   });
 
   it('credits the colleague who built the first scaffold', () => {

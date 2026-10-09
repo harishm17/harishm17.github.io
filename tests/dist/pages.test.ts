@@ -28,6 +28,7 @@ describe('every content page', () => {
     expect(doc.querySelector('meta[name="twitter:card"]')?.getAttribute('content')).toBe('summary_large_image');
     expect(doc.querySelector('link[rel="icon"]')?.getAttribute('href')).toBe('/favicon.svg');
     expect(text(doc.querySelector('footer'))).toContain('Updated October 2026');
+    expect(doc.querySelector('footer a[href="/HarishManoharan.pdf"]')).not.toBeNull();
   });
 
   it.each(contentPagePaths().filter((path) => path !== 'index.html'))('%s shows the name link in the header', (path) => {

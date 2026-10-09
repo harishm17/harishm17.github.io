@@ -5,11 +5,14 @@ import { getPublished } from '../../lib/collection';
 
 export async function getStaticPaths() {
   const entries = await getPublished();
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return entries.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: entries.length > 1 ? entries[(i + 1) % entries.length] : undefined },
+  }));
 }
-const { entry } = Astro.props;
+const { entry, next } = Astro.props;
 const { Content } = await render(entry);
 ---
-<WriteupLayout entry={entry}>
+<WriteupLayout entry={entry} next={next}>
   <Content />
 </WriteupLayout>
