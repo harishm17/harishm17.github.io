@@ -25,6 +25,8 @@ describe('home: head', () => {
       'Indian Institute of Technology Madras',
     ]);
     expect(ld.sameAs).toEqual(['https://github.com/harishm17', 'https://www.linkedin.com/in/harishm17/']);
+    // Says what kind of agent, like the byline.
+    expect(ld.knowsAbout).toEqual(['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt']);
   });
 });
 
@@ -154,7 +156,7 @@ describe('home: more work', () => {
     const titles = [...doc.querySelectorAll('.more-work .row-title')].map((h) => text(h));
     expect(titles).toEqual(['Text-to-SQL agent', 'Finding behaviors in mouse videos without labels']);
     expect(doc.querySelector('.more-work .more a')?.getAttribute('href')).toBe('/work/');
-    expect(text(doc.querySelector('.more-work .more a'))).toBe('All work, research and coursework');
+    expect(text(doc.querySelector('.more-work .more a'))).toBe('All work');
   });
 
   it('gives the links into write-ups and the Work page larger tap areas', () => {

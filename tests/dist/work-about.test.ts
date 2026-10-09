@@ -16,12 +16,21 @@ describe('/work/', () => {
     }
   });
 
-  it('does not repeat the company name on rows under the Purgo AI heading', () => {
-    const contexts = [...doc.querySelectorAll('section[aria-labelledby="purgo"] .row-context')].map((p) => text(p));
-    expect(contexts.length).toBe(byGroup('purgo').length);
+  it.each(['purgo', 'projects'] as const)('does not repeat what the %s heading already says on its rows', (group) => {
+    const contexts = [...doc.querySelectorAll(`section[aria-labelledby="${group}"] .row-context`)].map((p) => text(p));
+    expect(contexts.length).toBe(byGroup(group).length);
     for (const c of contexts) expect(c).toMatch(/^\d{4}(–\d{2})?$/);
+  });
+
+  it('keeps the context on rows from other groups', () => {
     const earlier = text(doc.querySelector('section[aria-labelledby="earlier"] .row-context'));
     expect(earlier).toContain('Digitus');
+  });
+
+  it('keeps the project status notes in the summaries', () => {
+    const summaries = [...doc.querySelectorAll('section[aria-labelledby="projects"] .row-summary')].map((p) => text(p));
+    expect(summaries.some((s) => s.endsWith(' In progress.'))).toBe(true);
+    expect(summaries.some((s) => s.endsWith(' A prototype with no users.'))).toBe(true);
   });
 
   it('links the validation engine and signing rows to their sections of the LLM testing write-up', () => {
@@ -36,6 +45,9 @@ describe('/work/', () => {
     const research = text(doc.querySelector('section[aria-labelledby="research"]'));
     expect(research).not.toContain('CS6130');
     expect(text(doc.querySelector('section[aria-labelledby="coursework"]'))).toContain('Paper presentation');
+    // Names the course, not its code.
+    expect(text(doc.querySelector('section[aria-labelledby="coursework"]'))).toContain('Paper presentation, Advanced Graph Algorithms');
+    expect(text(doc.querySelector('section[aria-labelledby="coursework"]'))).not.toContain('CS6130');
   });
 
   it('links only to pages that exist', () => {

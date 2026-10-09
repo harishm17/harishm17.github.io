@@ -25,7 +25,7 @@ const jsonLd = {
   ],
   homeLocation: { '@type': 'Place', name: site.location },
   sameAs: [site.github, site.linkedin],
-  knowsAbout: ['LLM agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt'],
+  knowsAbout: ['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt'],
 };
 ---
 <BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
@@ -62,7 +62,7 @@ const jsonLd = {
     <ul class="plain-list rows" role="list">
       {homeItems().map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} />)}
     </ul>
-    <p class="more"><a class="hit" href="/work/">All work, research and coursework</a></p>
+    <p class="more"><a class="hit" href="/work/">All work</a></p>
   </section>
 </BaseLayout>
 

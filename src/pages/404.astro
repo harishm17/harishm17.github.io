@@ -6,13 +6,13 @@ import { site } from '../data/site';
 <BaseLayout title={`Page not found: ${site.name}`} description="This page doesn’t exist." ogImage={site.og.home}>
   <h1 class="display page-title">This page doesn’t exist.</h1>
   <p class="nf-body">
-    It may have moved when the site was rebuilt in October 2026. Try the <a href="/">home page</a> or the <a href="/work/">work index</a>.
+    It may have moved when the site was rebuilt in October 2026. Try the <a href="/">home page</a> or the <a href="/work/">Work page</a>.
   </p>
 </BaseLayout>
 
 <style>
   .nf-body {
     margin-top: 1.5rem;
-    max-width: 40em;
+    max-width: var(--measure);
   }
 </style>

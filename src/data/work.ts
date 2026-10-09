@@ -36,7 +36,7 @@ export interface Featured {
   page?: Slug;
 }
 
-export const GROUPS: { id: Group; title: string; intro?: string }[] = [
+export const GROUPS: { id: Group; title: string }[] = [
   { id: 'purgo', title: 'Purgo AI' },
   { id: 'earlier', title: 'Earlier internships' },
   { id: 'research', title: 'Research' },
@@ -196,7 +196,7 @@ export const work: WorkItem[] = [
     id: 'cs6130',
     group: 'coursework',
     title: 'Classified rank-maximal matchings',
-    context: 'Paper presentation, CS6130 Advanced Graph Algorithms, IIT Madras',
+    context: 'Paper presentation, Advanced Graph Algorithms, IIT Madras',
     years: '2024',
     summary:
       'Presented a paper’s algorithm for rank-maximal matchings under laminar classifications and its hardness result for the general case.',
@@ -220,7 +220,7 @@ export const work: WorkItem[] = [
     title: 'a11y-stem',
     context: 'Personal project, in progress',
     years: '2026',
-    summary: 'Turns STEM lecture PDFs into accessible HTML, with equations as MathML a screen reader can speak.',
+    summary: 'Turns STEM lecture PDFs into accessible HTML, with equations as MathML a screen reader can speak. In progress.',
     page: 'a11y-stem',
   },
   {
@@ -230,7 +230,7 @@ export const work: WorkItem[] = [
     context: 'Personal project, prototype with no users',
     years: '2025',
     summary:
-      'Turns course materials into notes, quizzes and practice exams, with a voice coach on the OpenAI Realtime API.',
+      'Turns course materials into notes, quizzes and practice exams, with a voice coach on the OpenAI Realtime API. A prototype with no users.',
   },
   {
     id: 'divvydo',

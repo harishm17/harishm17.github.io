@@ -19,7 +19,7 @@ const slugs = await publishedSlugs();
     <section class="section" aria-labelledby={g.id}>
       <h2 id={g.id} class="section-title">{g.title}</h2>
       <ul class="plain-list rows" role="list">
-        {byGroup(g.id).map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} hideContext={g.id === 'purgo'} />)}
+        {byGroup(g.id).map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} hideContext={g.id === 'purgo' || g.id === 'projects'} />)}
       </ul>
     </section>
   ))}

@@ -46,6 +46,7 @@ for (const [path, selectors] of [
   ['/', ['.bio', '.card-summary']],
   ['/work/', ['.row-summary']],
   ['/work/agent-retrieval/', ['.side', '.prose']],
+  ['/404.html', ['.nf-body']],
 ] as const) {
   test(`body text stays within one measure at 768px: ${path}`, async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 900 });

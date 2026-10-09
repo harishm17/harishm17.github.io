@@ -59,7 +59,9 @@ describe('every content page', () => {
     // Banned words are matched against visible text, not raw HTML, so asset hashes and CSS cannot trip them.
     const doc = loadPage(path);
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
-    const copy = [doc.title, description, text(doc.body)].join(' ');
+    // Machine-read copy (JSON-LD) follows the same rules.
+    const ld = doc.querySelector('script[type="application/ld+json"]')?.textContent ?? '';
+    const copy = [doc.title, description, ld, text(doc.body)].join(' ');
     for (const re of BANNED) expect(copy).not.toMatch(re);
   });
 
@@ -76,6 +78,6 @@ describe('every content page', () => {
     const hrefs = [...doc.querySelectorAll('main a')].map((a) => a.getAttribute('href'));
     expect(hrefs).toEqual(['/', '/work/']);
     // Guards against whitespace dropped next to the inline links ("home pageor").
-    expect(text(doc.querySelector('main p'))).toContain('Try the home page or the work index.');
+    expect(text(doc.querySelector('main p'))).toContain('Try the home page or the Work page.');
   });
 });
