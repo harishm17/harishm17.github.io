@@ -61,6 +61,11 @@ describe('/about/', () => {
     expect(main).not.toMatch(/These days[^.]*Codeforces/);
   });
 
+  it('links Contact once (the footer already carries GitHub and LinkedIn)', () => {
+    expect(doc.querySelectorAll('section[aria-labelledby="contact"] a').length).toBe(1);
+    expect(doc.querySelector('section[aria-labelledby="contact"] a')?.getAttribute('href')).toBe('mailto:harish_manoharan@outlook.com');
+  });
+
   it('qualifies the 6,000+ participants figure as self-reported, and only that way', () => {
     // Spec section 9: the figure is Harish's own claim from the old site, so it never appears bare.
     const mentions = main.match(/6,000\+/g) ?? [];
@@ -79,7 +84,7 @@ describe('/about/', () => {
 
   it('keeps the spaces next to inline links', () => {
     // Guards against whitespace dropped at a line break beside an inline tag ("contests onCodeforces").
-    for (const s of ['chess on Lichess,', 'contests on Codeforces.', 'also on GitHub and LinkedIn. I live in the San Francisco Bay Area.']) {
+    for (const s of ['chess on Lichess,', 'contests on Codeforces.', 'Email is best: harish_manoharan@outlook.com. I live in the San Francisco Bay Area.']) {
       expect(main).toContain(s);
     }
   });
