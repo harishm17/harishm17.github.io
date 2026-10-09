@@ -48,7 +48,7 @@ export const work: WorkItem[] = [
   {
     id: 'agent-retrieval',
     group: 'purgo',
-    title: 'Finding the tables an LLM agent misses',
+    title: 'Finding the tables an agent misses',
     context: 'Purgo AI',
     years: '2026',
     summary:

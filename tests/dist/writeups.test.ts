@@ -5,7 +5,7 @@ describe('/work/agent-retrieval/', () => {
   const doc = loadPage('work/agent-retrieval/index.html');
 
   it('has the title, dek, meta, scope note and Work marked current', () => {
-    expect(text(doc.querySelector('h1'))).toBe('Finding the tables an LLM agent misses');
+    expect(text(doc.querySelector('h1'))).toBe('Finding the tables an agent misses');
     expect(text(doc.querySelector('.dek'))).toContain('from 79 to 24');
     const side = text(doc.querySelector('.side'));
     for (const s of ['Purgo AI', 'min read', 'Updated', 'My part.', 'Built with.']) expect(side).toContain(s);
@@ -96,7 +96,7 @@ describe('/work/llm-evaluation/', () => {
   it('ends with one plain link back to the other published write-up', () => {
     const next = doc.querySelector('.writeup-body > .writeup-next');
     expect([...next!.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/agent-retrieval/']);
-    expect(text(next)).toBe('Next: Finding the tables an LLM agent misses');
+    expect(text(next)).toBe('Next: Finding the tables an agent misses');
   });
 
   it('credits the colleague who built the first scaffold', () => {

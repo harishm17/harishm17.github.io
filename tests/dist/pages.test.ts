@@ -20,6 +20,8 @@ const BANNED = [
   /\bclick\b/i,
   /this page (covers|lists|shows|has)/i,
   /in one place/i,
+  // Say "agents", not "LLM agents": the context is already AI (Harish, 2026-10-09).
+  /\bLLM agents?\b/i,
 ];
 
 describe('every content page', () => {

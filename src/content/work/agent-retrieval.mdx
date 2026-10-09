@@ -1,7 +1,7 @@
 ---
-title: Finding the tables an LLM agent misses
+title: Finding the tables an agent misses
 dek: How following dbt lineage cut missed source tables from 79 to 24 on a 103-ticket benchmark, and what I tried that didn’t work.
-description: How dbt lineage expansion cut missed source tables from 79 to 24 on a 103-ticket benchmark for an LLM agent that writes Databricks and dbt code.
+description: How dbt lineage expansion cut missed source tables from 79 to 24 on a 103-ticket benchmark for an agent that writes Databricks and dbt code.
 context: Purgo AI
 years: "2026"
 updated: 2026-10-08
@@ -20,9 +20,9 @@ import Steps from '../../components/Steps.astro';
 
 <ResultsTable id="results" caption="Results" ids={['missed-tables', 'wrong-tables', 'catalog-recall', 'catalog-latency', 'stage-cost']} />
 
-Purgo’s agent reads a data-engineering ticket and writes the Databricks or dbt code for it. Before it writes anything, a retrieval step decides which tables go into its context, and everything after depends on that choice. If a table the ticket needs never arrives, the model either guesses a name, which later checks may or may not catch, or quietly leaves out a join, which nothing catches.
+Purgo’s agent is a LangGraph pipeline: it analyzes a data-engineering ticket, finds the tables it needs, drafts a design, then writes and reviews the Databricks or dbt code. Everything after the retrieval step depends on which tables it puts into the agent’s context. If a table the ticket needs never arrives, the model either guesses a name, which later checks may or may not catch, or quietly leaves out a join, which nothing catches.
 
-<Steps caption="Where my changes sit in the agent’s retrieval. I also built the catalog search path, one of the ways candidates are found." steps={[{ label: 'Read the ticket' }, { label: 'Find candidate tables' }, { label: 'Follow dbt lineage', mine: true }, { label: 'Check candidates against the warehouse schema', mine: true }, { label: 'Rank candidates with an LLM' }, { label: 'Write the code' }]} />
+<Steps caption="Where my changes sit in the agent’s retrieval. I also built the catalog search path, one of the ways candidates are found." steps={[{ label: 'Analyze the ticket' }, { label: 'Find candidate tables' }, { label: 'Follow dbt lineage', mine: true }, { label: 'Check candidates against the warehouse schema', mine: true }, { label: 'Rank candidates with an LLM' }, { label: 'Draft a design' }, { label: 'Write and review the code' }]} />
 
 ## How I measured it
 

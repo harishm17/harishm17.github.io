@@ -7,9 +7,9 @@ const main = () => text(doc.querySelector('main'));
 
 describe('home: head', () => {
   it('uses the positioning title and description', () => {
-    expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer, LLM agents');
+    expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer building agents');
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Software engineer at Purgo AI, building LLM agents for data engineering. M.S. CS, UT Dallas; IIT Madras.',
+      'Software engineer at Purgo AI, building agents for data engineering. M.S. CS, UT Dallas; IIT Madras.',
     );
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeLessThanOrEqual(160);
   });
@@ -37,7 +37,7 @@ describe('home: intro', () => {
 
   it('names the employer and what he builds in a short lede, not one narrow sub-area', () => {
     const lede = text(doc.querySelector('.lede'));
-    expect(lede).toBe('Software engineer at Purgo AI, building LLM agents.');
+    expect(lede).toBe('Software engineer at Purgo AI, building agents.');
     expect(lede).not.toContain('retrieval and evaluation');
   });
 
