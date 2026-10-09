@@ -1,17 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ResultsBand from '../components/ResultsBand.astro';
+import FeaturedCard from '../components/FeaturedCard.astro';
 import WorkRow from '../components/WorkRow.astro';
 import { site } from '../data/site';
-import { bandResults } from '../data/results';
-import { homeItems } from '../data/work';
+import { featured, homeItems } from '../data/work';
 import { getPublished } from '../lib/collection';
 import { workHref } from '../lib/published';
 
 const published = await getPublished();
 const slugs = new Set(published.map((e) => e.id));
 const caseStudy = published.find((e) => e.id === 'agent-retrieval');
-const a11yHref = workHref(slugs, 'a11y-stem');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -52,30 +50,15 @@ const jsonLd = {
     </ul>
   </section>
 
-  <div class="band-wrap">
-    <ResultsBand results={bandResults()} />
-    {caseStudy && (
-      <p class="case-link">
-        <a class="hit" href="/work/agent-retrieval/">Read the case study: {caseStudy.data.title}</a><span class="muted"> <span aria-hidden="true">·</span> {caseStudy.data.readMinutes} min</span>
-      </p>
-    )}
-  </div>
-
-  <section class="now section" aria-labelledby="now-title">
-    <h2 id="now-title" class="section-title">Now</h2>
-    <p class="meta muted">Updated <time datetime="2026-10-08">October 8, 2026</time></p>
-    <p class="now-body">
-      I’m building a11y-stem, a tool that turns STEM lecture PDFs into accessible HTML, with equations as MathML a
-      screen reader can speak. On a 30-equation development sample from one OpenStax physics chapter, the model
-      rated its own transcriptions 0.88 or higher whether they were right or wrong, so I added a check that compares
-      their bold and plain letters with the PDF’s text layer. On the same 30 equations I built it on, that check cut
-      wrong transcriptions accepted without review from 7 to 1. It’s private until the beta.
-    </p>
-    {a11yHref && <p><a href={a11yHref}>About a11y-stem</a></p>}
+  <section class="featured section" aria-labelledby="featured-title">
+    <h2 id="featured-title" class="section-title">Featured</h2>
+    <ul class="plain-list cards" role="list">
+      {featured.map((item) => <FeaturedCard item={item} href={workHref(slugs, item.page)} />)}
+    </ul>
   </section>
 
-  <section class="selected section" aria-labelledby="selected-title">
-    <h2 id="selected-title" class="section-title">Selected work</h2>
+  <section class="more-work section" aria-labelledby="more-title">
+    <h2 id="more-title" class="section-title">More work</h2>
     <ul class="plain-list rows" role="list">
       {homeItems().map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} />)}
     </ul>
@@ -109,19 +92,11 @@ const jsonLd = {
     margin-top: 1.25rem;
     font-weight: 500;
   }
-  .band-wrap {
-    margin-top: 2rem;
-  }
-  .case-link {
+  .cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
     margin-top: 1rem;
-    font-weight: 500;
-  }
-  .now-body {
-    margin-top: 0.75rem;
-    max-width: 640px;
-  }
-  .now p + p {
-    margin-top: 0.75rem;
   }
   .rows {
     margin-top: 1rem;
@@ -140,10 +115,10 @@ const jsonLd = {
       content: none;
     }
   }
-  /* On a short desktop viewport (1280x720 is 45em tall) the extra top space pushes the case link below the fold. */
-  @media (max-height: 47em) {
-    .intro-name {
-      margin-top: 1.5rem;
+  @media (min-width: 56.25em) {
+    .cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--gap);
     }
   }
   @media (max-width: 37.5em) {
@@ -155,12 +130,6 @@ const jsonLd = {
     }
     .link-row {
       margin-top: 0.75rem;
-    }
-    .band-wrap {
-      margin-top: 1.5rem;
-    }
-    .band-wrap :global(.cells) {
-      gap: 1rem;
     }
   }
 </style>

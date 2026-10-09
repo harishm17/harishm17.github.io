@@ -12,7 +12,7 @@ const rows = ids.map((rid) => {
   const r = getResult(rid);
   return {
     header: r.short,
-    sub: r.tableSample ?? r.sample,
+    sub: r.sample,
     cells: [r.before.text, r.display ? `${r.after.text} (${r.display})` : r.after.text],
   };
 });

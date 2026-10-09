@@ -1,14 +1,12 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { parseHTML } from 'linkedom';
 import { describe, expect, it } from 'vitest';
-import Bars from '../../src/components/Bars.astro';
 import DataTable from '../../src/components/DataTable.astro';
-import Figure from '../../src/components/Figure.astro';
+import FeaturedCard from '../../src/components/FeaturedCard.astro';
 import Note from '../../src/components/Note.astro';
-import ResultsBand from '../../src/components/ResultsBand.astro';
 import ResultsTable from '../../src/components/ResultsTable.astro';
 import Steps from '../../src/components/Steps.astro';
-import { bandResults, getResult } from '../../src/data/results';
+import { featured } from '../../src/data/work';
 
 async function render(component: unknown, props: Record<string, unknown>) {
   const container = await AstroContainer.create();
@@ -17,51 +15,19 @@ async function render(component: unknown, props: Record<string, unknown>) {
   return { html, doc: parseHTML(`<body>${html}</body>`).document };
 }
 
-describe('Figure', () => {
-  it('gives screen readers one string and hides the visual pair', async () => {
-    const r = getResult('missed-tables');
-    const { doc, html } = await render(Figure, { before: r.before, after: r.after });
-    expect(doc.querySelector('.figure .vh')?.textContent).toBe('cut from 79 to 24');
-    const visual = doc.querySelector('.figure [aria-hidden="true"]');
-    expect(visual?.textContent?.replace(/\s+/g, '')).toBe('7924');
-    expect(visual?.querySelector('svg')).not.toBeNull();
-    expect(html).not.toContain('→');
+describe('FeaturedCard', () => {
+  it('links the title and adds a link line when the write-up is published', async () => {
+    const { doc } = await render(FeaturedCard, { item: featured[0], href: '/work/agent-retrieval/' });
+    expect(doc.querySelector('h3 a')?.getAttribute('href')).toBe('/work/agent-retrieval/');
+    expect(doc.querySelector('.card-link a')?.textContent).toBe('Read the case study');
+    expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI · 2026');
   });
 
-  it('uses display and spoken text for ratio results', async () => {
-    const r = getResult('stage-cost');
-    const { doc } = await render(Figure, { before: r.before, after: r.after, display: r.display, spoken: r.spoken });
-    expect(doc.querySelector('.vh')?.textContent).toBe('7.6 times lower');
-    expect(doc.querySelector('[aria-hidden="true"]')?.textContent?.trim()).toBe('7.6× lower');
-  });
-});
-
-describe('Bars', () => {
-  it('draws zero-based widths and is hidden from assistive tech', async () => {
-    const { doc } = await render(Bars, { before: 79, after: 24, max: 80, scaleLabel: '80' });
-    const bars = doc.querySelector('.bars');
-    expect(bars?.getAttribute('aria-hidden')).toBe('true');
-    expect(doc.querySelector('.bar-before')?.getAttribute('style')).toBe('width: max(2px, 98.8%)');
-    expect(doc.querySelector('.bar-after')?.getAttribute('style')).toBe('width: max(2px, 30%)');
-    expect([...doc.querySelectorAll('.scale span')].map((s) => s.textContent)).toEqual(['0', '80']);
-  });
-});
-
-describe('ResultsBand', () => {
-  it('renders a hidden heading and one cell per result, label first in the DOM', async () => {
-    const { doc } = await render(ResultsBand, { results: bandResults() });
-    expect(doc.querySelector('h2.vh')?.textContent).toBe('Results');
-    const cells = [...doc.querySelectorAll('li.cell')];
-    expect(cells.length).toBe(3);
-    for (const cell of cells) {
-      const order = [...cell.children].map((c) => [...c.classList][0]);
-      expect(order).toEqual(['label', 'figure', 'bars', 'sample']);
-    }
-    expect(cells.map((c) => c.querySelector('.vh')?.textContent)).toEqual([
-      'cut from 79 to 24',
-      'cut from 8.6% to 5.3%',
-      'up from 0.54 to 0.68',
-    ]);
+  it('shows plain text and no link line without an href (the write-up is a draft)', async () => {
+    const { doc } = await render(FeaturedCard, { item: featured[2] });
+    expect(doc.querySelector('h3')?.textContent).toBe('a11y-stem');
+    expect(doc.querySelector('a')).toBeNull();
+    expect(doc.querySelector('.card-link')).toBeNull();
   });
 });
 
@@ -96,7 +62,7 @@ describe('ResultsTable', () => {
     expect(rows[1]?.[2]).toBe('0.132 (7.6× lower)');
   });
 
-  it('uses the write-up sample for the recall row, not the band caveat that repeats the latency pair', async () => {
+  it('shows the recall row with its own sample and without the latency pair', async () => {
     const { doc } = await render(ResultsTable, { id: 'results', caption: 'Results', ids: ['catalog-recall', 'catalog-latency'] });
     const first = doc.querySelector('tbody tr');
     expect(first?.querySelector('.sub')?.textContent).toBe('188 real queries, expected tables from real tickets');

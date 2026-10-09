@@ -69,58 +69,73 @@ describe('home: intro', () => {
   });
 });
 
-describe('home: results band', () => {
-  it('shows exactly the three Purgo results with their samples', () => {
-    const cells = [...doc.querySelectorAll('.band li.cell')];
-    expect(cells.map((c) => text(c.querySelector('.vh')))).toEqual([
-      'cut from 79 to 24',
-      'cut from 8.6% to 5.3%',
-      'up from 0.54 to 0.68',
-    ]);
-    expect(cells.map((c) => text(c.querySelector('.sample')))).toEqual([
-      '103-ticket benchmark',
-      '95 tickets, one run; recall unchanged',
-      '4.0 s to 0.18 s per query; 188 real queries, expected tables from real tickets',
+describe('home: featured', () => {
+  const cards = () => [...doc.querySelectorAll('.featured .cards > li')];
+  const published = (slug: string) => existsSync(`dist/work/${slug}/index.html`);
+
+  it('has a Featured heading and three cards with plain-language titles, in order', () => {
+    expect(text(doc.querySelector('.featured h2.section-title'))).toBe('Featured');
+    expect(cards().map((c) => text(c.querySelector('h3')))).toEqual([
+      'Retrieval for an LLM coding agent',
+      'Testing LLMs for regulated use',
+      'a11y-stem',
     ]);
   });
 
-  it('links the case study under the band only when it is published', () => {
-    const link = doc.querySelector('.case-link a');
-    if (existsSync('dist/work/agent-retrieval/index.html')) {
-      expect(link?.getAttribute('href')).toBe('/work/agent-retrieval/');
-      expect(text(doc.querySelector('.case-link'))).toMatch(/^Read the case study: Finding the tables an LLM agent misses · \d+ min$/);
-    } else {
-      expect(link).toBeNull();
+  it('gives each card a context line, a short paragraph and no result numbers', () => {
+    expect(cards().map((c) => text(c.querySelector('.card-context')))).toEqual([
+      'Purgo AI · 2026',
+      'Purgo AI · 2025–26',
+      'Personal project · in progress',
+    ]);
+    for (const c of cards()) expect(text(c.querySelector('.card-summary')).length).toBeGreaterThan(40);
+    expect(text(cards()[0].querySelector('.card-summary'))).toContain('about 70%');
+  });
+
+  it('links the first two cards to their write-ups', () => {
+    for (const [i, slug, label] of [
+      [0, 'agent-retrieval', 'Read the case study'],
+      [1, 'llm-evaluation', 'Read the write-up'],
+    ] as const) {
+      expect(published(slug)).toBe(true);
+      const hrefs = [...cards()[i].querySelectorAll('a')].map((a) => a.getAttribute('href'));
+      expect(hrefs).toEqual([`/work/${slug}/`, `/work/${slug}/`]);
+      expect(text(cards()[i].querySelector('.card-link'))).toBe(label);
     }
   });
 
-  it('keeps the write-up-only cost result off the home page', () => {
-    expect(main()).not.toContain('7.6');
+  it('links the a11y-stem card only once that write-up is published', () => {
+    const card = cards()[2];
+    if (published('a11y-stem')) {
+      expect([...card.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/a11y-stem/', '/work/a11y-stem/']);
+      expect(text(card.querySelector('.card-link'))).toBe('About a11y-stem');
+    } else {
+      expect(card.querySelector('a')).toBeNull();
+      expect(card.querySelector('.card-link')).toBeNull();
+    }
+  });
+
+  it('keeps the benchmark numbers in the write-ups, off the home page', () => {
+    const body = main();
+    for (const n of ['79', '8.6%', '5.3%', '0.54', '0.68', 'recall@10', '7.6']) expect(body, n).not.toContain(n);
+    expect(doc.querySelector('.band, .figure, .bars')).toBeNull();
   });
 });
 
-describe('home: now, work, research', () => {
-  it('features a11y-stem as a dated Now block without promises it cannot keep yet', () => {
-    // `section.now`: Figure also uses a `.now` span for the "after" value inside the band.
-    const now = text(doc.querySelector('section.now'));
-    expect(now).toContain('a11y-stem');
-    expect(now).toMatch(/Updated October \d+, 2026/);
-    expect(now).toContain('7 to 1');
-    // Spec §9: the 7-to-1 result must say the fix was built on the same sample it was measured on.
-    expect(now).toMatch(/same (30 equations|sample)/);
-    expect(now).toContain('development sample');
-    for (const s of ['open-source', 'open source', '2027', 'November', 'compliant']) expect(now.toLowerCase()).not.toContain(s.toLowerCase());
+describe('home: more work', () => {
+  it('has no Now block and no a11y-stem finding on the page', () => {
+    expect(doc.querySelector('section.now')).toBeNull();
+    expect(main()).not.toContain('Updated');
+    expect(main()).not.toContain('7 to 1');
   });
 
-  it('lists four selected rows in order, then links to all work', () => {
-    const titles = [...doc.querySelectorAll('.selected .row-title')].map((h) => text(h));
-    expect(titles).toEqual([
-      'Finding the tables an LLM agent misses',
-      'Testing LLMs and Databricks platforms for regulated use',
-      'Text-to-SQL agent',
-      'Finding behaviors in mouse videos without labels',
-    ]);
-    expect(doc.querySelector('.selected .more a')?.getAttribute('href')).toBe('/work/');
+  it('lists exactly two rows after Featured, then links to all work', () => {
+    const headings = [...doc.querySelectorAll('main h2')].map((h) => text(h));
+    expect(headings).toEqual(['Featured', 'More work']);
+    const titles = [...doc.querySelectorAll('.more-work .row-title')].map((h) => text(h));
+    expect(titles).toEqual(['Text-to-SQL agent', 'Finding behaviors in mouse videos without labels']);
+    expect(doc.querySelector('.more-work .more a')?.getAttribute('href')).toBe('/work/');
+    expect(text(doc.querySelector('.more-work .more a'))).toBe('All work, research and coursework');
   });
 
   it('never links a page that was not built', () => {

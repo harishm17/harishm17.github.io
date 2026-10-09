@@ -11,7 +11,7 @@ for (const vp of [{ width: 1440, height: 800 }, { width: 1280, height: 720 }]) {
     await page.setViewportSize(vp);
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-    for (const sel of ['.lede', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(3) .sample', '.case-link']) {
+    for (const sel of ['.lede', 'h1', '.id-line', '.link-row', '.featured .section-title', '.featured .card:first-child .card-title']) {
       const b = await box(page, sel);
       expect(b.y + b.height, sel).toBeLessThanOrEqual(vp.height);
     }
@@ -30,21 +30,10 @@ test('mobile first screen at 390x844', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  for (const sel of ['.lede', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(1) .sample']) {
+  for (const sel of ['.lede', 'h1', '.id-line', '.link-row']) {
     const b = await box(page, sel);
     expect(b.y + b.height, sel).toBeLessThanOrEqual(844);
   }
-  const second = await box(page, '.band li.cell:nth-child(2)');
-  expect(second.y).toBeLessThan(844);
-});
-
-test('each band cell reads as one phrase in the accessibility tree', async ({ page }) => {
-  await page.goto('/');
-  const snap = await page.locator('.band').ariaSnapshot();
-  expect(snap).toContain('Missed source tables');
-  expect(snap).toContain('cut from 79 to 24');
-  expect(snap).toContain('up from 0.54 to 0.68');
-  expect(snap).not.toMatch(/text: "?79"?\s*$/m);
 });
 
 // A wrapped flex item would put its "·" separator at the start of a line. Either the whole ID line fits on

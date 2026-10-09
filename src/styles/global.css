@@ -2,7 +2,6 @@
   --ink: #121212;
   --muted: #5c5c5c;
   --rule: #e4e4e4;
-  --bar-before: #8a8a8a;
   --accent: #b93a0e;
   --bg: #ffffff;
   --gap: 2rem;
@@ -12,7 +11,6 @@
   --fs-h2: 1.375rem;
   --fs-body: 1.125rem;
   --fs-meta: 0.9375rem;
-  --fs-tick: 0.8125rem;
   --section: 4rem;
   color-scheme: light;
 }

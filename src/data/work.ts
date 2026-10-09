@@ -20,8 +20,22 @@ export interface WorkItem {
   /** Section id inside the write-up. */
   anchor?: string;
   links?: ExtLink[];
-  /** Position on the home page; rows without it appear only on /work/. */
+  /** Position under "More work" on the home page; rows without it appear only on /work/. */
   home?: number;
+}
+
+/** One of the three areas featured at the top of the home page, in plain language. */
+export interface Featured {
+  id: string;
+  context: string;
+  /** Year range or status shown after the context, e.g. "2026" or "in progress". */
+  years: string;
+  title: string;
+  summary: string;
+  /** Write-up the title and link line go to; both are hidden while that write-up is a draft. */
+  page?: Slug;
+  /** Text of the link line under the summary. */
+  linkLabel: string;
 }
 
 export const GROUPS: { id: Group; title: string; intro?: string }[] = [
@@ -42,7 +56,6 @@ export const work: WorkItem[] = [
     summary:
       'Changes to which tables reach the agent: following dbt lineage, a schema check and a faster catalog search, each measured on benchmarks built from real tickets.',
     page: 'agent-retrieval',
-    home: 1,
   },
   {
     id: 'catalog-search',
@@ -74,7 +87,6 @@ export const work: WorkItem[] = [
     summary:
       'Qualification tests for Azure OpenAI and Databricks-served models (hallucination, bias, determinism, latency, traceability) and for Databricks platforms on Azure and AWS, with evidence an auditor can read.',
     page: 'llm-evaluation',
-    home: 2,
   },
   {
     id: 'iqoq',
@@ -129,7 +141,7 @@ export const work: WorkItem[] = [
     years: '2024',
     summary: 'Schema discovery plus retries driven by execution errors.',
     result: 'Execution accuracy 52% to 76% on an internal 500-query set',
-    home: 3,
+    home: 1,
   },
   {
     id: 'digitus-rag',
@@ -158,7 +170,7 @@ export const work: WorkItem[] = [
     summary:
       'Segmented pose-tracking video of mice into behaviors with a bidirectional RNN autoencoder and clustering, for genetic analysis. Advised by Balaraman Ravindran and Vivek Kumar.',
     links: [{ label: 'Thesis (PDF)', href: '/Harish___DDP_Report.pdf' }],
-    home: 4,
+    home: 2,
   },
   {
     id: 'microbiome',
@@ -234,6 +246,38 @@ export const work: WorkItem[] = [
     context: 'Personal project',
     years: '2026',
     summary: 'Drafts an email from a plain-language request, using past Gmail messages for context.',
+  },
+];
+
+export const featured: Featured[] = [
+  {
+    id: 'agent-retrieval',
+    context: 'Purgo AI',
+    years: '2026',
+    title: 'Retrieval for an LLM coding agent',
+    summary:
+      'How Purgo’s agent finds the tables a ticket depends on. Following dbt lineage cut missed tables by about 70% on a benchmark built from real tickets.',
+    page: 'agent-retrieval',
+    linkLabel: 'Read the case study',
+  },
+  {
+    id: 'llm-evaluation',
+    context: 'Purgo AI',
+    years: '2025–26',
+    title: 'Testing LLMs for regulated use',
+    summary: 'Qualification tests for models and Databricks platforms, with evidence an auditor can read.',
+    page: 'llm-evaluation',
+    linkLabel: 'Read the write-up',
+  },
+  {
+    id: 'a11y-stem',
+    context: 'Personal project',
+    years: 'in progress',
+    title: 'a11y-stem',
+    summary:
+      'Turning equations in STEM lecture PDFs into MathML a screen reader can speak. Private until the beta.',
+    page: 'a11y-stem',
+    linkLabel: 'About a11y-stem',
   },
 ];
 

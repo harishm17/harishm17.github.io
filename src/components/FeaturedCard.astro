@@ -1,0 +1,36 @@
+---
+import type { Featured } from '../data/work';
+
+interface Props {
+  item: Featured;
+  /** Set only when the write-up is published; without it the title is plain text and the link line is omitted. */
+  href?: string;
+}
+const { item, href } = Astro.props;
+---
+<li class="card">
+  <p class="card-context meta muted">{item.context} <span aria-hidden="true">·</span> {item.years}</p>
+  <h3 class="card-title">{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+  <p class="card-summary">{item.summary}</p>
+  {href && <p class="card-link meta"><a class="hit" href={href}>{item.linkLabel}</a></p>}
+</li>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+    min-width: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 0.75rem;
+  }
+  .card-title {
+    font-size: var(--fs-body);
+    line-height: 1.4;
+    font-weight: 650;
+  }
+  .card-link {
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+</style>
