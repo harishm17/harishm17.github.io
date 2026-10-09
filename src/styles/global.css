@@ -175,7 +175,7 @@ p, li, h3, td, th, caption, figcaption {
   color: var(--muted);
 }
 
-@media (max-width: 37.5em) {
+@media (max-width: 37.5em), (pointer: coarse) {
   .hit {
     position: relative;
   }

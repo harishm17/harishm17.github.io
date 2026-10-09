@@ -12,7 +12,7 @@ const { item, href, hideContext = false } = Astro.props;
 const context = item.context.replaceAll('IIT Madras', 'IIT\u00a0Madras');
 ---
 <li class="row">
-  <h3 class="row-title">{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+  <h3 class="row-title">{href ? <a class="hit" href={href}>{item.title}</a> : item.title}</h3>
   {hideContext ? (
     <p class="row-context meta muted">{item.years}</p>
   ) : (

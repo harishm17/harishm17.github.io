@@ -58,6 +58,7 @@ describe('/work/agent-retrieval/', () => {
     const next = doc.querySelector('.writeup-body > .writeup-next');
     expect([...next!.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/llm-evaluation/']);
     expect(text(next)).toBe('Next: Testing LLMs and Databricks for regulated use');
+    expect(next!.querySelector('a')?.classList.contains('hit')).toBe(true);
   });
 });
 

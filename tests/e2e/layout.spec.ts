@@ -93,6 +93,19 @@ test('About photo ends on the nav line at 1440 and sits beside the story at 768'
   expect(story.x + story.width).toBeLessThanOrEqual(tablet.x);
 });
 
+// On phones the footer links wrap in a row: Resume, GitHub and LinkedIn on one line, the address on the next.
+for (const width of [320, 390]) {
+  test(`footer links wrap in a row at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const tops = await page.locator('.foot-links > li').evaluateAll((lis) => lis.map((li) => Math.round(li.getBoundingClientRect().top)));
+    expect(tops).toHaveLength(4);
+    expect(new Set(tops.slice(0, 3)).size).toBe(1);
+    expect(tops[3]).toBeGreaterThan(tops[0]);
+  });
+}
+
 /** Number of words on the element's last rendered line. */
 async function wordsOnLastLine(page: import('@playwright/test').Page, selector: string) {
   return page.locator(selector).first().evaluate((el) => {

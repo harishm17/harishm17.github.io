@@ -62,7 +62,7 @@ const jsonLd = {
     <ul class="plain-list rows" role="list">
       {homeItems().map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} />)}
     </ul>
-    <p class="more"><a href="/work/">All work, research and coursework</a></p>
+    <p class="more"><a class="hit" href="/work/">All work, research and coursework</a></p>
   </section>
 </BaseLayout>
 
@@ -120,6 +120,7 @@ const jsonLd = {
     }
     .link-row {
       margin-top: 0.75rem;
+      row-gap: 1.25rem;
     }
   }
 </style>

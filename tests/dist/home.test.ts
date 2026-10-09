@@ -157,6 +157,14 @@ describe('home: more work', () => {
     expect(text(doc.querySelector('.more-work .more a'))).toBe('All work, research and coursework');
   });
 
+  it('gives the links into write-ups and the Work page larger tap areas', () => {
+    const links = [...doc.querySelectorAll('.card-title a, .more-work .row-title a, .more-work .more a')];
+    expect(links.length).toBeGreaterThanOrEqual(3);
+    for (const a of links) expect(a.classList.contains('hit'), a.getAttribute('href') ?? '').toBe(true);
+    // Inline sentence links stay plain.
+    expect(doc.querySelector('.bio a')?.classList.contains('hit')).toBe(false);
+  });
+
   it('never links a page that was not built', () => {
     for (const a of doc.querySelectorAll('main a[href^="/work/"]')) {
       const path = (a.getAttribute('href') ?? '').split('#')[0];

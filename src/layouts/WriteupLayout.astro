@@ -36,7 +36,7 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
       <div class="prose">
         <slot />
       </div>
-      {next && <p class="writeup-next">Next: <a href={`/work/${next.id}/`}>{next.data.shortTitle ?? next.data.title}</a></p>}
+      {next && <p class="writeup-next">Next: <a class="hit" href={`/work/${next.id}/`}>{next.data.shortTitle ?? next.data.title}</a></p>}
     </div>
   </article>
 </BaseLayout>
