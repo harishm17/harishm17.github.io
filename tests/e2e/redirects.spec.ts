@@ -6,9 +6,9 @@ const CASES: [string, RegExp][] = [
   ['/research/', /\/work\/#research$/],
   ['/skills/', /\/about\/$/],
   ['/certifications/', /\/about\/$/],
-  ['/leadership/', /\/about\/$/],
-  ['/hobbies/', /\/about\/$/],
-  ['/contact/', /\/about\/$/],
+  ['/leadership/', /\/about\/#outside$/],
+  ['/hobbies/', /\/about\/#outside$/],
+  ['/contact/', /\/about\/#contact$/],
 ];
 
 for (const [from, to] of CASES) {

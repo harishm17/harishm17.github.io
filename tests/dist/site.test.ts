@@ -31,9 +31,9 @@ describe('redirects from the old SPA routes', () => {
     ['research', '/work/#research'],
     ['skills', '/about/'],
     ['certifications', '/about/'],
-    ['leadership', '/about/'],
-    ['hobbies', '/about/'],
-    ['contact', '/about/'],
+    ['leadership', '/about/#outside'],
+    ['hobbies', '/about/#outside'],
+    ['contact', '/about/#contact'],
   ])('/%s redirects to %s with a canonical link', (from, to) => {
     const html = readDist(`${from}/index.html`);
     expect(html).toContain(`content="0;url=${to}"`);

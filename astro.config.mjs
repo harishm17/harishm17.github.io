@@ -12,9 +12,9 @@ export const REDIRECTS = {
   '/research': '/work/#research',
   '/skills': '/about/',
   '/certifications': '/about/',
-  '/leadership': '/about/',
-  '/hobbies': '/about/',
-  '/contact': '/about/',
+  '/leadership': '/about/#outside',
+  '/hobbies': '/about/#outside',
+  '/contact': '/about/#contact',
 };
 
 const redirectPages = new Set(Object.keys(REDIRECTS).map((from) => `${SITE}${from}/`));
