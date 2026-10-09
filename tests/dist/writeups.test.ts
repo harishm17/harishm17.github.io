@@ -71,6 +71,22 @@ describe('/work/llm-evaluation/', () => {
     expect(text(doc.querySelector('h1'))).toBe('Testing LLMs and Databricks platforms for regulated use');
   });
 
+  it('leads with the LLM part, then the platform, the run output and the reflection', () => {
+    expect([...doc.querySelectorAll('.prose h2')].map((h) => text(h))).toEqual([
+      'Qualifying an LLM',
+      'Qualifying a Databricks platform',
+      'What a run produces',
+      'What I’d do differently',
+    ]);
+  });
+
+  it('opens with a dek that names what the engine runs', () => {
+    const dek = text(doc.querySelector('.dek'));
+    expect(dek).toContain('19 tests');
+    expect(dek).toContain('59');
+    expect(dek).not.toContain('I wrote');
+  });
+
   it('credits the colleague who built the first scaffold', () => {
     expect(text(doc.querySelector('.side'))).toContain('scaffold');
   });
