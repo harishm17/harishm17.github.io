@@ -8,6 +8,6 @@ export function contentPages(): string[] {
 }
 
 export const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
-export const WIDTHS = [320, 360, 375, 390, 640, 720, 899, 900, 1024, 1100, 1148, 1280, 1440];
+export const WIDTHS = [320, 360, 375, 390, 412, 640, 720, 899, 900, 1024, 1100, 1148, 1280, 1440];
 export const TEXT_SPACING =
   '*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}';

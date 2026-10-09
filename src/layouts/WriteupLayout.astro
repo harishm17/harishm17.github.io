@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
+import NoBreak from '../components/NoBreak.astro';
 import { site } from '../data/site';
 
 interface Props {
@@ -20,7 +21,7 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
   <article class="writeup">
     <header class="writeup-head">
       <h1 class="display">{d.title}</h1>
-      <p class="dek">{d.dek}</p>
+      <p class="dek"><NoBreak text={d.dek} /></p>
     </header>
     <div class="writeup-body">
       <div class="side meta muted">
@@ -51,6 +52,7 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
     margin-top: 2.5rem;
   }
   .side {
+    max-width: var(--measure);
     margin-bottom: 2rem;
   }
   .side p + p {
@@ -61,7 +63,7 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
     font-weight: 500;
   }
   .prose {
-    max-width: 640px;
+    max-width: var(--measure);
   }
   .prose > :global(* + *) {
     margin-top: 1.25rem;

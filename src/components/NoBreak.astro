@@ -1,0 +1,8 @@
+---
+interface Props {
+  text: string;
+}
+// A hyphenated compound stays on one line, so a heading or lede never ends a line in "data-".
+const parts = Astro.props.text.split(/(\S+-\S+)/);
+---
+{parts.map((part, i) => (i % 2 ? <span class="nowrap">{part}</span> : part))}

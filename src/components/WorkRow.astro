@@ -38,6 +38,10 @@ const { item, href, hideContext = false } = Astro.props;
     line-height: 1.4;
     font-weight: 650;
   }
+  .row-summary,
+  .row-result {
+    max-width: var(--measure);
+  }
   .row-result {
     font-weight: 500;
   }
@@ -46,7 +50,7 @@ const { item, href, hideContext = false } = Astro.props;
   }
   @media (min-width: 56.25em) {
     .row {
-      grid-template-columns: calc((100% - 3 * var(--gap)) / 4) minmax(0, 640px);
+      grid-template-columns: calc((100% - 3 * var(--gap)) / 4) minmax(0, var(--measure));
       grid-template-areas:
         "ctx title"
         "ctx summary"

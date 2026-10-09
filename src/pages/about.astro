@@ -29,7 +29,7 @@ import { byGroup } from '../data/work';
       </p>
       <p>
         Most of the work I like best started with a benchmark I could trust. At Purgo that means sets of real
-        tickets with known answers. I’m also building a11y-stem, a personal project that turns STEM lecture PDFs into
+        tickets with known answers. I’m also building <span class="nowrap">a11y-stem</span>, a personal project that turns STEM lecture PDFs into
         accessible HTML, with equations as MathML a screen reader can speak. There the benchmark is OpenStax
         textbooks: their expert-written MathML makes a ready-made answer key.
       </p>
@@ -93,12 +93,12 @@ import { byGroup } from '../data/work';
   }
   .story {
     margin-top: 2rem;
-    max-width: 640px;
+    max-width: var(--measure);
   }
   @media (min-width: 56.25em) {
     .intro {
       display: grid;
-      grid-template-columns: minmax(0, 640px) 240px;
+      grid-template-columns: minmax(0, var(--measure)) 240px;
       grid-template-areas:
         'title photo'
         'story photo';
@@ -135,6 +135,6 @@ import { byGroup } from '../data/work';
   }
   .outside-body {
     margin-top: 0.75rem;
-    max-width: 640px;
+    max-width: var(--measure);
   }
 </style>

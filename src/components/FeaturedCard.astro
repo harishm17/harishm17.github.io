@@ -1,4 +1,5 @@
 ---
+import NoBreak from './NoBreak.astro';
 import type { Featured } from '../data/work';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { item, href } = Astro.props;
 ---
 <li class="card">
-  <h3 class="card-title">{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+  <h3 class="card-title">{href ? <a href={href}><NoBreak text={item.title} /></a> : <NoBreak text={item.title} />}</h3>
   <p class="card-context meta muted">{item.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</p>
   <p class="card-summary">{item.summary}</p>
 </li>
@@ -31,5 +32,8 @@ const { item, href } = Astro.props;
   /* The h3 comes first in the DOM, but the context line still shows above it. */
   .card-context {
     order: -1;
+  }
+  .card-summary {
+    max-width: var(--measure);
   }
 </style>

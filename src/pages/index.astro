@@ -31,7 +31,7 @@ const jsonLd = {
 <BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
   <section class="intro" aria-labelledby="intro-title">
     <h1 id="intro-title" class="intro-name">{site.name}</h1>
-    <p class="lede">Software engineer at Purgo AI, building an LLM agent that turns data-engineering tickets into Databricks and dbt code.</p>
+    <p class="lede">Software engineer at Purgo AI, building an LLM agent that turns <span class="nowrap">data-engineering</span> tickets into Databricks and dbt code.</p>
     <ul class="plain-list dot-list id-line meta" role="list">
       <li>M.S. Computer Science, UT Dallas, 2026 (GPA 3.92)</li>
       <li>M.Tech Data Science, IIT Madras, 2024</li>
@@ -40,7 +40,7 @@ const jsonLd = {
       The agent is a LangGraph pipeline: it analyzes a ticket, {caseStudy ? <a href="/work/agent-retrieval/">finds the tables it needs</a> : 'finds the tables it needs'}, drafts a design, then writes and reviews the code.
       I work across that pipeline: the nodes themselves, their prompts, and the evals and benchmarks we use to decide
       whether a change helped. I joined as an intern in June 2025 and went full-time in June 2026. Before that I
-      interned at Digitus, building a text-to-SQL agent, and at PwC, on demand forecasting.
+      interned at Digitus, building a <span class="nowrap">text-to-SQL</span> agent, and at PwC, on demand forecasting.
     </p>
     <ul class="plain-list dot-list link-row" role="list">
       <li><a class="hit" href={site.resume}>Resume (PDF)</a></li>
@@ -86,7 +86,7 @@ const jsonLd = {
   }
   .bio {
     margin-top: 1.25rem;
-    max-width: 640px;
+    max-width: var(--measure);
   }
   .link-row {
     margin-top: 1.25rem;

@@ -28,3 +28,33 @@ for (const path of contentPages()) {
     expect(await page.evaluate(() => document.body.innerText)).not.toContain('→');
   });
 }
+
+// UX-12: the compact header keeps the name and nav on one line at every common phone width.
+for (const width of [360, 375, 390, 412, 414, 428, 601]) {
+  test(`header stays on one line at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/work/');
+    await page.evaluate(() => document.fonts.ready);
+    const name = (await page.locator('.site-head .name').boundingBox())!;
+    const nav = (await page.locator('.site-head nav').boundingBox())!;
+    expect(nav.y).toBeLessThan(name.y + name.height);
+  });
+}
+
+// UX-15: all body text shares one measure (40rem = 640px at the default size).
+for (const [path, selectors] of [
+  ['/', ['.bio', '.card-summary']],
+  ['/work/', ['.row-summary']],
+  ['/work/agent-retrieval/', ['.side', '.prose']],
+] as const) {
+  test(`body text stays within one measure at 768px: ${path}`, async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 900 });
+    await page.goto(path);
+    await page.evaluate(() => document.fonts.ready);
+    for (const selector of selectors) {
+      const boxes = await page.locator(selector).evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
+      expect(boxes.length, selector).toBeGreaterThan(0);
+      for (const width of boxes) expect(width, selector).toBeLessThanOrEqual(640);
+    }
+  });
+}
