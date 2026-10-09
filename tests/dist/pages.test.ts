@@ -30,6 +30,13 @@ describe('every content page', () => {
     expect(text(doc.querySelector('footer'))).toContain('Updated October 2026');
   });
 
+  it.each(contentPagePaths().filter((path) => path !== 'index.html'))('%s shows the name link in the header', (path) => {
+    const doc = loadPage(path);
+    const name = doc.querySelector('.site-head a.name');
+    expect(name?.getAttribute('href')).toBe('/');
+    expect(text(name)).toBe('Harish Manoharan');
+  });
+
   it.each(contentPagePaths())('%s follows the copy rules', (path) => {
     expect(readDist(path)).not.toContain('\u2014');
     // Banned words are matched against visible text, not raw HTML, so asset hashes and CSS cannot trip them.

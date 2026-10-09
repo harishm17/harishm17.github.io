@@ -28,15 +28,22 @@ describe('home: head', () => {
 });
 
 describe('home: intro', () => {
-  it('has a short h1 with the niche nouns', () => {
-    const h1 = text(doc.querySelector('h1'));
-    expect(h1).toMatch(/retrieval and evaluation/);
-    expect(h1.length).toBeLessThanOrEqual(60);
+  it('leads with the name as the h1 and no header name link', () => {
+    expect(text(doc.querySelector('h1'))).toBe('Harish Manoharan');
+    expect(doc.querySelector('.site-head .name')).toBeNull();
+    expect(doc.querySelectorAll('.site-head nav a').length).toBe(3);
   });
 
-  it('puts role, employer and both schools in the ID line', () => {
+  it('states role, employer and niche in a short lede', () => {
+    const lede = text(doc.querySelector('.lede'));
+    expect(lede).toContain('Software engineer at Purgo AI');
+    expect(lede).toContain('retrieval and evaluation');
+    expect(lede.length).toBeLessThanOrEqual(100);
+  });
+
+  it('puts both schools, years and GPA in the ID line', () => {
     const id = text(doc.querySelector('.id-line'));
-    for (const s of ['Software engineer at Purgo AI', 'UT Dallas', '2026', 'GPA 3.92', 'IIT Madras', '2024']) {
+    for (const s of ['UT Dallas', '2026', 'GPA 3.92', 'IIT Madras', '2024']) {
       expect(id).toContain(s);
     }
   });

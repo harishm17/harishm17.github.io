@@ -11,7 +11,7 @@ for (const vp of [{ width: 1440, height: 800 }, { width: 1280, height: 720 }]) {
     await page.setViewportSize(vp);
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-    for (const sel of ['.site-head .name', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(3) .sample', '.case-link']) {
+    for (const sel of ['.lede', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(3) .sample', '.case-link']) {
       const b = await box(page, sel);
       expect(b.y + b.height, sel).toBeLessThanOrEqual(vp.height);
     }
@@ -30,7 +30,7 @@ test('mobile first screen at 390x844', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  for (const sel of ['.site-head .name', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(1) .sample']) {
+  for (const sel of ['.lede', 'h1', '.id-line', '.link-row', '.band li.cell:nth-child(1) .sample']) {
     const b = await box(page, sel);
     expect(b.y + b.height, sel).toBeLessThanOrEqual(844);
   }
@@ -63,7 +63,7 @@ for (const width of [360, 390, 601, 640, 720, 768, 899, 900, 959, 960, 1024, 128
         };
       }),
     );
-    expect(items).toHaveLength(3);
+    expect(items).toHaveLength(2);
     items.forEach((item, i) => {
       if (i === 0 || !item.dotShown) return;
       expect(item.top, `item ${i + 1} starts a new line while its dot is shown`).toBe(items[i - 1].top);

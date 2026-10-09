@@ -21,6 +21,14 @@ describe('SiteHeader', () => {
     ]);
   });
 
+  it('drops the name link but keeps the nav when showName is false', async () => {
+    const doc = await render({ showName: false });
+    expect(doc.querySelector('a.name')).toBeNull();
+    expect(doc.querySelector('header')?.classList.contains('site-head--no-name')).toBe(true);
+    const labels = [...doc.querySelectorAll('nav a')].map((a) => a.textContent?.trim());
+    expect(labels).toEqual(['Work', 'About', 'Resume']);
+  });
+
   it('marks the current page with aria-current="page"', async () => {
     const doc = await render({ current: 'about' });
     expect(doc.querySelector('nav a[href="/about/"]')?.getAttribute('aria-current')).toBe('page');

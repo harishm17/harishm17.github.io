@@ -30,11 +30,11 @@ const jsonLd = {
   knowsAbout: ['LLM agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt'],
 };
 ---
-<BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd}>
+<BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
   <section class="intro" aria-labelledby="intro-title">
-    <h1 id="intro-title" class="display">I work on retrieval and evaluation for an LLM coding agent.</h1>
+    <h1 id="intro-title" class="intro-name">{site.name}</h1>
+    <p class="lede">Software engineer at Purgo AI, working on retrieval and evaluation for an LLM coding agent.</p>
     <ul class="plain-list dot-list id-line meta" role="list">
-      <li>Software engineer at Purgo AI</li>
       <li>M.S. Computer Science, UT Dallas, 2026 (GPA 3.92)</li>
       <li>M.Tech Data Science, IIT Madras, 2024</li>
     </ul>
@@ -85,8 +85,18 @@ const jsonLd = {
 
 <style>
   /* Spacing is tuned so the first-screen tests pass at 1280x720 and 390x844 (spec §1). */
-  .intro h1 {
-    margin-top: 1.5rem;
+  .intro-name {
+    margin-top: 2.5rem;
+    font-size: clamp(2rem, 1.6rem + 1.2vw, 2.5rem);
+    line-height: 1.1;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    margin-top: 0.75rem;
+    font-size: var(--fs-dek);
+    line-height: 1.45;
+    max-width: 34em;
   }
   .id-line {
     margin-top: 0.75rem;
@@ -130,7 +140,16 @@ const jsonLd = {
       content: none;
     }
   }
+  /* On a short desktop viewport (1280x720 is 45em tall) the extra top space pushes the case link below the fold. */
+  @media (max-height: 47em) {
+    .intro-name {
+      margin-top: 1.5rem;
+    }
+  }
   @media (max-width: 37.5em) {
+    .intro-name {
+      margin-top: 1.5rem;
+    }
     .bio {
       margin-top: 1rem;
     }

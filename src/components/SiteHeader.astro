@@ -4,16 +4,17 @@ import { site } from '../data/site';
 interface Props {
   current?: 'work' | 'about' | null;
   inWriteup?: boolean;
+  showName?: boolean;
 }
-const { current = null, inWriteup = false } = Astro.props;
+const { current = null, inWriteup = false, showName = true } = Astro.props;
 const items = [
   { key: 'work', label: 'Work', href: '/work/' },
   { key: 'about', label: 'About', href: '/about/' },
   { key: 'resume', label: 'Resume', href: site.resume },
 ] as const;
 ---
-<header class="site-head container">
-  <a class="name hit" href="/">{site.name}</a>
+<header class:list={['site-head', 'container', { 'site-head--no-name': !showName }]}>
+  {showName && <a class="name hit" href="/">{site.name}</a>}
   <nav aria-label="Main">
     <ul class="plain-list nav" role="list">
       {items.map((item) => (
@@ -37,6 +38,9 @@ const items = [
     align-items: baseline;
     gap: 0.5rem 1.5rem;
     padding-top: 1.5rem;
+  }
+  .site-head--no-name {
+    justify-content: flex-end;
   }
   .name {
     font-weight: 650;

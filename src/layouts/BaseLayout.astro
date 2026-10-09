@@ -12,9 +12,10 @@ interface Props {
   ogType?: 'website' | 'article';
   current?: 'work' | 'about' | null;
   inWriteup?: boolean;
+  showName?: boolean;
   jsonLd?: Record<string, unknown>;
 }
-const { title, description, ogImage, ogType = 'website', current = null, inWriteup = false, jsonLd } = Astro.props;
+const { title, description, ogImage, ogType = 'website', current = null, inWriteup = false, showName = true, jsonLd } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImageUrl = new URL(ogImage, site.url).href;
 ---
@@ -46,7 +47,7 @@ const ogImageUrl = new URL(ogImage, site.url).href;
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <SiteHeader current={current} inWriteup={inWriteup} />
+    <SiteHeader current={current} inWriteup={inWriteup} showName={showName} />
     <main id="main" class="container" tabindex="-1">
       <slot />
     </main>
