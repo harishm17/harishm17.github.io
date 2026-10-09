@@ -254,7 +254,7 @@ export const featured: Featured[] = [
     years: '2025–26',
     title: 'An agent that writes data-engineering code',
     summary:
-      'I work across Purgo’s LangGraph agent: ticket analysis, retrieval, design, code generation and the checks that review its output. One retrieval change, following dbt lineage, cut missed tables by about 70%.',
+      'How it finds tables, drafts code and checks its own output, each change measured on benchmarks built from real tickets. Following dbt lineage cut the tables it missed by about 70%.',
     page: 'agent-retrieval',
   },
   {

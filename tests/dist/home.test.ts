@@ -111,7 +111,9 @@ describe('home: featured', () => {
     for (const c of cards()) expect(text(c.querySelector('.card-summary')).length).toBeGreaterThan(40);
     const first = text(cards()[0].querySelector('.card-summary'));
     expect(first).toContain('about 70%');
-    expect(first).toContain('I work across Purgo’s LangGraph agent');
+    // Results-led, and it must not repeat the bio's "I work across our LangGraph agent" (Harish, 2026-10-09).
+    expect(first).toContain('each change measured on benchmarks built from real tickets');
+    expect(first).not.toContain('I work across');
   });
 
   it('links each published card once, from its title', () => {
