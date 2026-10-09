@@ -10,12 +10,11 @@ const slugs = await publishedSlugs();
 ---
 <BaseLayout
   title={`Work: ${site.name}`}
-  description="Work at Purgo AI and before, research, coursework and side projects by Harish Manoharan, with write-ups where they exist."
+  description="Work at Purgo AI and before, research, coursework and side projects by Harish Manoharan."
   ogImage={site.og.home}
   current="work"
 >
   <h1 class="display page-title">Work</h1>
-  <p class="lede">My work at Purgo and before it, plus research, coursework and side projects. Linked titles open the write-up that covers them.</p>
   {GROUPS.map((g) => (
     <section class="section" aria-labelledby={g.id}>
       <h2 id={g.id} class="section-title">{g.title}</h2>
@@ -29,10 +28,6 @@ const slugs = await publishedSlugs();
 <style>
   .page-title {
     margin-top: 3rem;
-  }
-  .lede {
-    margin-top: 1rem;
-    max-width: var(--measure);
   }
   .rows {
     margin-top: 1rem;

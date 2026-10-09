@@ -14,6 +14,12 @@ const BANNED = [
   /at the intersection of/i,
   /every change/i,
   /I like building things/i,
+  // Copy that explains the site to the reader instead of saying something (Harish, 2026-10-09).
+  /linked titles/i,
+  /write-ups are linked/i,
+  /\bclick\b/i,
+  /this page (covers|lists|shows|has)/i,
+  /in one place/i,
 ];
 
 describe('every content page', () => {
