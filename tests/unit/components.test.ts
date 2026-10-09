@@ -60,7 +60,8 @@ describe('ResultsTable', () => {
       [...tr.children].map((c) => c.textContent?.replace(/\s+/g, ' ').trim()),
     );
     expect(rows[0]).toEqual(['Missed source tables, 103-ticket benchmark', '79', '24']);
-    expect(rows[1]?.[2]).toBe('0.132 (7.6× lower)');
+    expect(rows[1]?.[2]).toBe('0.132');
+    expect(rows[1]?.[0]).toContain('7.6× lower');
   });
 
   it('shows the recall row with its own sample and without the latency pair', async () => {

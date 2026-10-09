@@ -12,8 +12,8 @@ const rows = ids.map((rid) => {
   const r = getResult(rid);
   return {
     header: r.short,
-    sub: r.sample,
-    cells: [r.before.text, r.display ? `${r.after.text} (${r.display})` : r.after.text],
+    sub: r.display ? `${r.display}; ${r.sample}` : r.sample,
+    cells: [r.before.text, r.after.text],
   };
 });
 ---

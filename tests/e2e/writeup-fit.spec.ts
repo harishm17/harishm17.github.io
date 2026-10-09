@@ -43,3 +43,11 @@ test('side block and note sit in the left column on desktop and inline on mobile
   expect(mNote!.x).toBeGreaterThanOrEqual(mProse!.x - 1);
   await mobile.close();
 });
+
+test('first results row is on the first phone screen at 390x844', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/work/agent-retrieval/');
+  await page.evaluate(() => document.fonts.ready);
+  const row = (await page.locator('#results tbody tr').first().boundingBox())!;
+  expect(row.y + row.height).toBeLessThanOrEqual(844);
+});
