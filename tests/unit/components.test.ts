@@ -19,8 +19,8 @@ describe('FeaturedCard', () => {
   it('links the title and adds a link line when the write-up is published', async () => {
     const { doc } = await render(FeaturedCard, { item: featured[0], href: '/work/agent-retrieval/' });
     expect(doc.querySelector('h3 a')?.getAttribute('href')).toBe('/work/agent-retrieval/');
-    expect(doc.querySelector('.card-link a')?.textContent).toBe('Read the case study');
-    expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI · 2026');
+    expect(doc.querySelector('.card-link a')?.textContent).toBe('Read the retrieval case study');
+    expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI · 2025–26');
   });
 
   it('shows plain text and no link line without an href (the write-up is a draft)', async () => {

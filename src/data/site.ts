@@ -6,9 +6,9 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/harishm17/',
   resume: '/HarishManoharan.pdf',
   location: 'San Francisco Bay Area',
-  title: 'Harish Manoharan: LLM retrieval and evaluation',
+  title: 'Harish Manoharan: software engineer, LLM agents',
   description:
-    'Software engineer at Purgo AI working on retrieval and evaluation for an LLM coding agent. MS CS, UT Dallas; IIT Madras.',
+    'Software engineer at Purgo AI, building an LLM agent that turns data-engineering tickets into Databricks and dbt code. M.S. CS, UT Dallas; IIT Madras.',
   updated: { iso: '2026-10', label: 'October 2026' },
   og: { home: '/og/home-2026-10.png' },
 } as const;

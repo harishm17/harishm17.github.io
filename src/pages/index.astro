@@ -31,16 +31,16 @@ const jsonLd = {
 <BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
   <section class="intro" aria-labelledby="intro-title">
     <h1 id="intro-title" class="intro-name">{site.name}</h1>
-    <p class="lede">Software engineer at Purgo AI, working on retrieval and evaluation for an LLM coding agent.</p>
+    <p class="lede">Software engineer at Purgo AI, building an LLM agent that turns data-engineering tickets into Databricks and dbt code.</p>
     <ul class="plain-list dot-list id-line meta" role="list">
       <li>M.S. Computer Science, UT Dallas, 2026 (GPA 3.92)</li>
       <li>M.Tech Data Science, IIT Madras, 2024</li>
     </ul>
     <p class="bio">
-      Purgo’s agent turns data-engineering tickets into Databricks and dbt code. I work on {caseStudy ? <a href="/work/agent-retrieval/">what it retrieves before it writes</a> : 'what it retrieves before it writes'},
-      and on the benchmarks that tell us whether a change helped. I joined as an intern in June 2025 and went
-      full-time in June 2026. Before that I interned at Digitus, building a text-to-SQL agent, and at PwC, on demand
-      forecasting.
+      The agent is a LangGraph pipeline: it analyzes a ticket, {caseStudy ? <a href="/work/agent-retrieval/">finds the tables it needs</a> : 'finds the tables it needs'}, drafts a design, then writes and reviews the code.
+      I work across that pipeline: the nodes themselves, their prompts, and the evals and benchmarks we use to decide
+      whether a change helped. I joined as an intern in June 2025 and went full-time in June 2026. Before that I
+      interned at Digitus, building a text-to-SQL agent, and at PwC, on demand forecasting.
     </p>
     <ul class="plain-list dot-list link-row" role="list">
       <li><a class="hit" href={site.resume}>Resume (PDF)</a></li>

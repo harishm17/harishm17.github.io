@@ -253,12 +253,12 @@ export const featured: Featured[] = [
   {
     id: 'agent-retrieval',
     context: 'Purgo AI',
-    years: '2026',
-    title: 'Retrieval for an LLM coding agent',
+    years: '2025–26',
+    title: 'An agent that writes data-engineering code',
     summary:
-      'How Purgo’s agent finds the tables a ticket depends on. Following dbt lineage cut missed tables by about 70% on a benchmark built from real tickets.',
+      'I work across Purgo’s LangGraph agent: ticket analysis, retrieval, design, code generation and the checks that review its output. One retrieval change, following dbt lineage, cut missed tables by about 70%.',
     page: 'agent-retrieval',
-    linkLabel: 'Read the case study',
+    linkLabel: 'Read the retrieval case study',
   },
   {
     id: 'llm-evaluation',

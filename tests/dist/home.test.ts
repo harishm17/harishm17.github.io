@@ -7,10 +7,11 @@ const main = () => text(doc.querySelector('main'));
 
 describe('home: head', () => {
   it('uses the positioning title and description', () => {
-    expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: LLM retrieval and evaluation');
+    expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer, LLM agents');
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Software engineer at Purgo AI working on retrieval and evaluation for an LLM coding agent. MS CS, UT Dallas; IIT Madras.',
+      'Software engineer at Purgo AI, building an LLM agent that turns data-engineering tickets into Databricks and dbt code. M.S. CS, UT Dallas; IIT Madras.',
     );
+    expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeLessThanOrEqual(160);
   });
 
   it('has Person JSON-LD with employer, schools and profiles', () => {
@@ -34,11 +35,13 @@ describe('home: intro', () => {
     expect(doc.querySelectorAll('.site-head nav a').length).toBe(3);
   });
 
-  it('states role, employer and niche in a short lede', () => {
+  it('names the employer and the agent in a short lede, not one narrow sub-area', () => {
     const lede = text(doc.querySelector('.lede'));
     expect(lede).toContain('Software engineer at Purgo AI');
-    expect(lede).toContain('retrieval and evaluation');
-    expect(lede.length).toBeLessThanOrEqual(100);
+    expect(lede).toContain('LLM agent');
+    expect(lede).toContain('Databricks and dbt code');
+    expect(lede).not.toContain('retrieval and evaluation');
+    expect(lede.length).toBeLessThanOrEqual(125);
   });
 
   it('puts both schools, years and GPA in the ID line', () => {
@@ -53,9 +56,20 @@ describe('home: intro', () => {
     for (const s of ['June 2025', 'intern', 'June 2026', 'Digitus', 'PwC']) expect(bio).toContain(s);
   });
 
+  it('describes the whole pipeline and says the work spans it', () => {
+    const bio = text(doc.querySelector('.bio'));
+    expect(bio).toContain('LangGraph pipeline');
+    expect(bio).toContain('I work across that pipeline: the nodes themselves, their prompts, and the evals and benchmarks');
+  });
+
   it('keeps the spaces around the inline case-study link in the bio', () => {
-    // Guards against whitespace dropped next to the link ("I work onwhat it retrieves").
-    expect(text(doc.querySelector('.bio'))).toContain('I work on what it retrieves before it writes, and on the benchmarks');
+    // Guards against whitespace dropped next to the link ("a ticket,finds the tables it needs, drafts").
+    expect(text(doc.querySelector('.bio'))).toContain(
+      'it analyzes a ticket, finds the tables it needs, drafts a design, then writes and reviews the code.',
+    );
+    const link = doc.querySelector('.bio a');
+    expect(text(link)).toBe('finds the tables it needs');
+    expect(link?.getAttribute('href')).toBe('/work/agent-retrieval/');
   });
 
   it('links resume, GitHub, LinkedIn and email', () => {
@@ -76,7 +90,7 @@ describe('home: featured', () => {
   it('has a Featured heading and three cards with plain-language titles, in order', () => {
     expect(text(doc.querySelector('.featured h2.section-title'))).toBe('Featured');
     expect(cards().map((c) => text(c.querySelector('h3')))).toEqual([
-      'Retrieval for an LLM coding agent',
+      'An agent that writes data-engineering code',
       'Testing LLMs for regulated use',
       'a11y-stem',
     ]);
@@ -84,17 +98,19 @@ describe('home: featured', () => {
 
   it('gives each card a context line, a short paragraph and no result numbers', () => {
     expect(cards().map((c) => text(c.querySelector('.card-context')))).toEqual([
-      'Purgo AI · 2026',
+      'Purgo AI · 2025–26',
       'Purgo AI · 2025–26',
       'Personal project · in progress',
     ]);
     for (const c of cards()) expect(text(c.querySelector('.card-summary')).length).toBeGreaterThan(40);
-    expect(text(cards()[0].querySelector('.card-summary'))).toContain('about 70%');
+    const first = text(cards()[0].querySelector('.card-summary'));
+    expect(first).toContain('about 70%');
+    expect(first).toContain('I work across Purgo’s LangGraph agent');
   });
 
   it('links the first two cards to their write-ups', () => {
     for (const [i, slug, label] of [
-      [0, 'agent-retrieval', 'Read the case study'],
+      [0, 'agent-retrieval', 'Read the retrieval case study'],
       [1, 'llm-evaluation', 'Read the write-up'],
     ] as const) {
       expect(published(slug)).toBe(true);
