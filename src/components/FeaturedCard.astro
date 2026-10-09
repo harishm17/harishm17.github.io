@@ -3,16 +3,15 @@ import type { Featured } from '../data/work';
 
 interface Props {
   item: Featured;
-  /** Set only when the write-up is published; without it the title is plain text and the link line is omitted. */
+  /** Set only when the write-up is published; without it the title is plain text. */
   href?: string;
 }
 const { item, href } = Astro.props;
 ---
 <li class="card">
-  <p class="card-context meta muted">{item.context} <span aria-hidden="true">·</span> {item.years}</p>
   <h3 class="card-title">{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+  <p class="card-context meta muted">{item.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</p>
   <p class="card-summary">{item.summary}</p>
-  {href && <p class="card-link meta"><a class="hit" href={href}>{item.linkLabel}</a></p>}
 </li>
 
 <style>
@@ -29,8 +28,8 @@ const { item, href } = Astro.props;
     line-height: 1.4;
     font-weight: 650;
   }
-  .card-link {
-    margin-top: 0.25rem;
-    font-weight: 500;
+  /* The h3 comes first in the DOM, but the context line still shows above it. */
+  .card-context {
+    order: -1;
   }
 </style>

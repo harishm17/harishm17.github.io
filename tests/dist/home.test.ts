@@ -98,36 +98,38 @@ describe('home: featured', () => {
 
   it('gives each card a context line, a short paragraph and no result numbers', () => {
     expect(cards().map((c) => text(c.querySelector('.card-context')))).toEqual([
-      'Purgo AI · 2025–26',
-      'Purgo AI · 2025–26',
-      'Personal project · in progress',
+      'Purgo AI, · 2025–26',
+      'Purgo AI, · 2025–26',
+      'Personal project, · in progress',
     ]);
+    // Assistive tech skips the aria-hidden dot, so the hidden comma carries the pause.
+    const spoken = (el: Element | null) => {
+      const c = el!.cloneNode(true) as Element;
+      c.querySelectorAll('[aria-hidden]').forEach((n) => n.remove());
+      return text(c);
+    };
+    expect(spoken(cards()[0].querySelector('.card-context'))).toBe('Purgo AI, 2025–26');
     for (const c of cards()) expect(text(c.querySelector('.card-summary')).length).toBeGreaterThan(40);
     const first = text(cards()[0].querySelector('.card-summary'));
     expect(first).toContain('about 70%');
     expect(first).toContain('I work across Purgo’s LangGraph agent');
   });
 
-  it('links the first two cards to their write-ups', () => {
-    for (const [i, slug, label] of [
-      [0, 'agent-retrieval', 'Read the retrieval case study'],
-      [1, 'llm-evaluation', 'Read the write-up'],
-    ] as const) {
+  it('links each published card once, from its title', () => {
+    for (const [i, slug] of [[0, 'agent-retrieval'], [1, 'llm-evaluation']] as const) {
       expect(published(slug)).toBe(true);
-      const hrefs = [...cards()[i].querySelectorAll('a')].map((a) => a.getAttribute('href'));
-      expect(hrefs).toEqual([`/work/${slug}/`, `/work/${slug}/`]);
-      expect(text(cards()[i].querySelector('.card-link'))).toBe(label);
+      expect([...cards()[i].querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual([`/work/${slug}/`]);
+      expect(cards()[i].querySelector('h3 a')?.getAttribute('href')).toBe(`/work/${slug}/`);
     }
+    expect(doc.querySelector('.card-link')).toBeNull();
   });
 
   it('links the a11y-stem card only once that write-up is published', () => {
     const card = cards()[2];
     if (published('a11y-stem')) {
-      expect([...card.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/a11y-stem/', '/work/a11y-stem/']);
-      expect(text(card.querySelector('.card-link'))).toBe('About a11y-stem');
+      expect([...card.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/a11y-stem/']);
     } else {
       expect(card.querySelector('a')).toBeNull();
-      expect(card.querySelector('.card-link')).toBeNull();
     }
   });
 

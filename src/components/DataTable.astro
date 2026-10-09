@@ -27,7 +27,7 @@ const { id, caption, columns, rows, integer = false } = Astro.props;
     <tbody>
       {rows.map((r) => (
         <tr>
-          <th scope="row">{r.header}{r.sub && <> <span class="sub">{r.sub}</span></>}</th>
+          <th scope="row">{r.header}{r.sub && <><span class="vh">, </span><span class="sub">{r.sub}</span></>}</th>
           {r.cells.map((cell, i) => (
             <td class:list={{ num: columns[i + 1]?.numeric, int: integer && columns[i + 1]?.numeric }}>{cell}</td>
           ))}

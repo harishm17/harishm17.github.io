@@ -16,18 +16,19 @@ async function render(component: unknown, props: Record<string, unknown>) {
 }
 
 describe('FeaturedCard', () => {
-  it('links the title and adds a link line when the write-up is published', async () => {
+  it('links the title once, title first in the DOM, when the write-up is published', async () => {
     const { doc } = await render(FeaturedCard, { item: featured[0], href: '/work/agent-retrieval/' });
+    expect([...doc.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/work/agent-retrieval/']);
     expect(doc.querySelector('h3 a')?.getAttribute('href')).toBe('/work/agent-retrieval/');
-    expect(doc.querySelector('.card-link a')?.textContent).toBe('Read the retrieval case study');
-    expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI · 2025–26');
+    expect(doc.querySelector('li.card')?.firstElementChild?.tagName).toBe('H3');
+    expect(doc.querySelector('.card-link')).toBeNull();
+    expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI, · 2025–26');
   });
 
-  it('shows plain text and no link line without an href (the write-up is a draft)', async () => {
+  it('shows a plain-text title and no link without an href (the write-up is a draft)', async () => {
     const { doc } = await render(FeaturedCard, { item: featured[2] });
     expect(doc.querySelector('h3')?.textContent).toBe('a11y-stem');
     expect(doc.querySelector('a')).toBeNull();
-    expect(doc.querySelector('.card-link')).toBeNull();
   });
 });
 
@@ -58,7 +59,7 @@ describe('ResultsTable', () => {
     const rows = [...doc.querySelectorAll('tbody tr')].map((tr) =>
       [...tr.children].map((c) => c.textContent?.replace(/\s+/g, ' ').trim()),
     );
-    expect(rows[0]).toEqual(['Missed source tables 103-ticket benchmark', '79', '24']);
+    expect(rows[0]).toEqual(['Missed source tables, 103-ticket benchmark', '79', '24']);
     expect(rows[1]?.[2]).toBe('0.132 (7.6× lower)');
   });
 

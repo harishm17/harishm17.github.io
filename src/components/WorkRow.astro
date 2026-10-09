@@ -14,7 +14,7 @@ const { item, href, hideContext = false } = Astro.props;
   {hideContext ? (
     <p class="row-context meta muted">{item.years}</p>
   ) : (
-    <p class="row-context meta muted">{item.context} <span aria-hidden="true">·</span> {item.years}</p>
+    <p class="row-context meta muted">{item.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</p>
   )}
   <p class="row-summary">{item.summary}</p>
   {item.result && <p class="row-result">{item.result}</p>}

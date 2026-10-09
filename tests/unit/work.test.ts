@@ -30,10 +30,10 @@ describe('work data', () => {
     expect(new Set(featured.map((f) => f.id)).size).toBe(featured.length);
   });
 
-  it('featured pages are known write-ups and every card has a context, title, summary and link label', () => {
+  it('featured pages are known write-ups and every card has a context, title and summary', () => {
     for (const f of featured) {
       if (f.page) expect(SLUGS).toContain(f.page);
-      for (const field of [f.context, f.years, f.title, f.summary, f.linkLabel]) expect(field.trim()).not.toBe('');
+      for (const field of [f.context, f.years, f.title, f.summary]) expect(field.trim()).not.toBe('');
     }
   });
 

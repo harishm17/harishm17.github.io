@@ -25,7 +25,7 @@ describe('WorkRow', () => {
   it('shows context and years, the result line only when present, and external links', async () => {
     const thesis = work.find((w) => w.id === 'thesis')!;
     const doc = await render({ item: thesis });
-    expect(doc.querySelector('.row-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${thesis.context} · ${thesis.years}`);
+    expect(doc.querySelector('.row-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${thesis.context}, · ${thesis.years}`);
     expect(doc.querySelector('.row-result')).toBeNull();
     expect(doc.querySelector('.row-links a')?.getAttribute('href')).toBe('/Harish___DDP_Report.pdf');
     const sql = await render({ item: work.find((w) => w.id === 'digitus-sql')! });
@@ -39,12 +39,12 @@ describe('WorkRow', () => {
     expect(doc.querySelector('.row-context [aria-hidden]')).toBeNull();
   });
 
-  it('keeps a space between context and years once the aria-hidden dot is removed', async () => {
-    // Assistive tech skips aria-hidden content, so the words must not rely on the dot's own spaces.
+  it('reads as "context, years" once the aria-hidden dot is removed', async () => {
+    // Assistive tech skips aria-hidden content, so a visually hidden comma carries the pause.
     const item = work.find((w) => w.id === 'thesis')!;
     const doc = await render({ item });
     const context = doc.querySelector('.row-context')!.cloneNode(true) as Element;
     for (const hidden of context.querySelectorAll('[aria-hidden]')) hidden.remove();
-    expect(context.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${item.context} ${item.years}`);
+    expect(context.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${item.context}, ${item.years}`);
   });
 });

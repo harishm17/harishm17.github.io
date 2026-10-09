@@ -32,10 +32,8 @@ export interface Featured {
   years: string;
   title: string;
   summary: string;
-  /** Write-up the title and link line go to; both are hidden while that write-up is a draft. */
+  /** Write-up the title links to; the title is plain text while that write-up is a draft. */
   page?: Slug;
-  /** Text of the link line under the summary. */
-  linkLabel: string;
 }
 
 export const GROUPS: { id: Group; title: string; intro?: string }[] = [
@@ -258,7 +256,6 @@ export const featured: Featured[] = [
     summary:
       'I work across Purgo’s LangGraph agent: ticket analysis, retrieval, design, code generation and the checks that review its output. One retrieval change, following dbt lineage, cut missed tables by about 70%.',
     page: 'agent-retrieval',
-    linkLabel: 'Read the retrieval case study',
   },
   {
     id: 'llm-evaluation',
@@ -267,7 +264,6 @@ export const featured: Featured[] = [
     title: 'Testing LLMs for regulated use',
     summary: 'Qualification tests for models and Databricks platforms, with evidence an auditor can read.',
     page: 'llm-evaluation',
-    linkLabel: 'Read the write-up',
   },
   {
     id: 'a11y-stem',
@@ -277,7 +273,6 @@ export const featured: Featured[] = [
     summary:
       'Turning equations in STEM lecture PDFs into MathML a screen reader can speak. Private until the beta.',
     page: 'a11y-stem',
-    linkLabel: 'About a11y-stem',
   },
 ];
 
