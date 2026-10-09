@@ -47,4 +47,13 @@ describe('WorkRow', () => {
     for (const hidden of context.querySelectorAll('[aria-hidden]')) hidden.remove();
     expect(context.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${item.context}, ${item.years}`);
   });
+
+  it('keeps the dot with the years and "IIT Madras" whole, so neither starts or ends a line', async () => {
+    const item = work.find((w) => w.id === 'microbiome')!;
+    const doc = await render({ item });
+    const nowrap = doc.querySelector('.row-context > .nowrap');
+    expect(nowrap?.querySelector('[aria-hidden="true"]')?.textContent).toBe('·');
+    expect(nowrap?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`, · ${item.years}`);
+    expect(doc.querySelector('.row-context')?.textContent).toContain('IIT\u00a0Madras');
+  });
 });

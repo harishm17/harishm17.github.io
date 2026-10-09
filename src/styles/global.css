@@ -152,6 +152,10 @@ main:focus {
   font-weight: 650;
 }
 
+p, li, h3, td, th, caption, figcaption {
+  text-wrap: pretty;
+}
+
 .plain-list {
   list-style: none;
   padding: 0;

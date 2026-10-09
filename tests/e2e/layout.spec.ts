@@ -92,3 +92,33 @@ test('About photo ends on the nav line at 1440 and sits beside the story at 768'
   expect(story.y).toBeLessThan(tablet.y + tablet.height);
   expect(story.x + story.width).toBeLessThanOrEqual(tablet.x);
 });
+
+/** Number of words on the element's last rendered line. */
+async function wordsOnLastLine(page: import('@playwright/test').Page, selector: string) {
+  return page.locator(selector).first().evaluate((el) => {
+    const range = document.createRange();
+    const tops: number[] = [];
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      for (const m of (n.textContent ?? '').matchAll(/\S+/g)) {
+        range.setStart(n, m.index!);
+        range.setEnd(n, m.index! + m[0].length);
+        const r = range.getClientRects()[0];
+        if (r) tops.push(Math.round(r.top));
+      }
+    }
+    return tops.filter((t) => Math.abs(t - tops.at(-1)!) <= 2).length;
+  });
+}
+
+// text-wrap: pretty keeps a lone word ("code", "70%.") off the last line of the first Featured card.
+for (const width of [390, 1024, 1280, 1440]) {
+  test(`first Featured card has no one-word last line at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    for (const sel of ['.featured .card:first-child .card-title', '.featured .card:first-child .card-summary']) {
+      expect(await wordsOnLastLine(page, sel), sel).toBeGreaterThan(1);
+    }
+  });
+}

@@ -86,6 +86,13 @@ describe('/work/llm-evaluation/', () => {
     ]);
   });
 
+  it('keeps each multi-word tool name in Built with on one line', () => {
+    const built = [...doc.querySelectorAll('.side p')].find((p) => text(p).startsWith('Built with.'));
+    expect(text(built)).toBe('Built with. TypeScript, NestJS, Python, Azure OpenAI, Databricks, AWS, GCP Cloud Run');
+    const unbroken = [...built!.querySelectorAll('.nowrap')].map((s) => text(s));
+    for (const name of ['Azure OpenAI', 'GCP Cloud Run']) expect(unbroken).toContain(name);
+  });
+
   it('opens with a dek that names what the engine runs', () => {
     const dek = text(doc.querySelector('.dek'));
     expect(dek).toContain('19 tests');

@@ -11,7 +11,7 @@ const { item, href } = Astro.props;
 ---
 <li class="card">
   <h3 class="card-title">{href ? <a href={href}><NoBreak text={item.title} /></a> : <NoBreak text={item.title} />}</h3>
-  <p class="card-context meta muted">{item.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</p>
+  <p class="card-context meta muted">{item.context}<span class="nowrap"><span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</span></p>
   <p class="card-summary">{item.summary}</p>
 </li>
 
