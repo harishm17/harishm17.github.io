@@ -1,0 +1,140 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkRow from '../components/WorkRow.astro';
+import photo from '../assets/photo.jpg';
+import { site } from '../data/site';
+import { byGroup } from '../data/work';
+---
+<BaseLayout
+  title={`About: ${site.name}`}
+  description="Harish Manoharan: from biology at IIT Madras to LLM retrieval and evaluation at Purgo AI. Education, research and contact."
+  ogImage={site.og.home}
+  current="about"
+>
+  <div class="intro">
+    <h1 class="display">About</h1>
+    <Picture src={photo} alt="Harish Manoharan" widths={[240, 480]} sizes="240px" formats={['avif', 'webp']} loading="eager" class="photo" />
+    <div class="story">
+      <p>
+        I started at IIT Madras in biology, and my research as a student moved steadily toward computation:
+        estimating cell types from tumor gene-expression data, modeling microbial communities as metabolic networks,
+        and finally a master’s thesis with The Jackson Laboratory on finding behaviors in mouse videos without labels.
+        I finished with a dual degree, a B.S. in biological sciences and an M.Tech in data science.
+      </p>
+      <p>
+        I interned at PwC on demand forecasting and at Digitus on a text-to-SQL agent and a retrieval assistant,
+        then came to UT Dallas for an M.S. in computer science. I joined Purgo AI as an intern in June 2025 and have
+        been full-time since June 2026, working on what the company’s coding agent retrieves and how we measure it.
+      </p>
+      <p>
+        Most of the work I like best started with a benchmark I could trust. At Purgo that means sets of real
+        tickets with known answers. I’m also building a11y-stem, a personal project that turns STEM lecture PDFs into
+        accessible HTML, with equations as MathML a screen reader can speak. There the benchmark is OpenStax
+        textbooks: their expert-written MathML makes a ready-made answer key.
+      </p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="education">
+    <h2 id="education" class="section-title">Education</h2>
+    <ul class="plain-list edu" role="list">
+      <li>
+        <h3 class="edu-title">M.S. Computer Science, The University of Texas at Dallas</h3>
+        <p class="meta muted">May 2026 <span aria-hidden="true">·</span> GPA 3.92/4.00 <span aria-hidden="true">·</span> Dean’s Graduate Scholar</p>
+      </li>
+      <li>
+        <h3 class="edu-title">Dual degree: M.Tech Data Science and B.S. Biological Sciences, IIT Madras</h3>
+        <p class="meta muted">2024 <span aria-hidden="true">·</span> INSPIRE Scholar <span aria-hidden="true">·</span> Young Research Fellow</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="research-about">
+    <h2 id="research-about" class="section-title">Research and coursework</h2>
+    <ul class="plain-list rows" role="list">
+      {[...byGroup('research'), ...byGroup('coursework')].map((item) => <WorkRow item={item} />)}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="outside">
+    <h2 id="outside" class="section-title">Outside work</h2>
+    <p class="outside-body">
+      At IIT Madras I led the coding and logic events at Shaastra, the student-run technical festival. Those
+      events drew 6,000+ participants (a self-reported figure). I also taught greedy and dynamic-programming
+      sessions in the programming club. These days it’s chess on <a href="https://lichess.org/@/harishm17">Lichess</a>,
+      table tennis and reading. I used to do contests on <a href="https://codeforces.com/profile/harishm">Codeforces</a>.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="contact">
+    <h2 id="contact" class="section-title">Contact</h2>
+    <p class="outside-body">
+      Email is best: <a href={`mailto:${site.email}`}>{site.email}</a>. I’m also on <a href={site.github}>GitHub</a> and <a href={site.linkedin}>LinkedIn</a>.
+      I live in the {site.location}.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Stacked (h1, photo, story) on narrow screens; at 56.25em the photo moves to a right column beside the
+     h1 and story, top-aligned, so the h1 sits at the same height as on every other page. */
+  .intro {
+    margin-top: 3rem;
+  }
+  .intro :global(.photo) {
+    width: 240px;
+    height: auto;
+    border-radius: 4px;
+  }
+  /* Picture puts the class on the img; the grid item is the picture element around it. */
+  .intro :global(picture) {
+    margin-top: 1.5rem;
+  }
+  .story {
+    margin-top: 2rem;
+    max-width: 640px;
+  }
+  @media (min-width: 56.25em) {
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 640px) 240px;
+      grid-template-areas:
+        'title photo'
+        'story photo';
+      grid-template-rows: auto 1fr;
+      column-gap: 2.5rem;
+    }
+    .intro h1 {
+      grid-area: title;
+    }
+    .intro :global(picture) {
+      grid-area: photo;
+      margin-top: 0;
+    }
+    .story {
+      grid-area: story;
+    }
+  }
+  .story p + p {
+    margin-top: 1.25rem;
+  }
+  .edu {
+    margin-top: 1rem;
+  }
+  .edu li + li {
+    margin-top: 1rem;
+  }
+  .edu-title {
+    font-size: var(--fs-body);
+    font-weight: 650;
+    line-height: 1.4;
+  }
+  .rows {
+    margin-top: 1rem;
+  }
+  .outside-body {
+    margin-top: 0.75rem;
+    max-width: 640px;
+  }
+</style>

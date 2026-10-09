@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResultsBand from '../components/ResultsBand.astro';
+import WorkRow from '../components/WorkRow.astro';
+import { site } from '../data/site';
+import { bandResults } from '../data/results';
+import { homeItems } from '../data/work';
+import { getPublished } from '../lib/collection';
+import { workHref } from '../lib/published';
+
+const published = await getPublished();
+const slugs = new Set(published.map((e) => e.id));
+const caseStudy = published.find((e) => e.id === 'agent-retrieval');
+const a11yHref = workHref(slugs, 'a11y-stem');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: `${site.url}/`,
+  email: `mailto:${site.email}`,
+  jobTitle: 'Software Engineer',
+  worksFor: { '@type': 'Organization', name: 'Purgo AI' },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'The University of Texas at Dallas' },
+    { '@type': 'CollegeOrUniversity', name: 'Indian Institute of Technology Madras' },
+  ],
+  homeLocation: { '@type': 'Place', name: site.location },
+  sameAs: [site.github, site.linkedin],
+  knowsAbout: ['LLM agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt'],
+};
+---
+<BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd}>
+  <section class="intro" aria-labelledby="intro-title">
+    <h1 id="intro-title" class="display">I work on retrieval and evaluation for an LLM coding agent.</h1>
+    <ul class="plain-list dot-list id-line meta" role="list">
+      <li>Software engineer at Purgo AI</li>
+      <li>M.S. Computer Science, UT Dallas, 2026 (GPA 3.92)</li>
+      <li>M.Tech Data Science, IIT Madras, 2024</li>
+    </ul>
+    <p class="bio">
+      Purgo’s agent turns data-engineering tickets into Databricks and dbt code. I work on {caseStudy ? <a href="/work/agent-retrieval/">what it retrieves before it writes</a> : 'what it retrieves before it writes'},
+      and on the benchmarks that tell us whether a change helped. I joined as an intern in June 2025 and went
+      full-time in June 2026. Before that I interned at Digitus, building a text-to-SQL agent, and at PwC, on demand
+      forecasting.
+    </p>
+    <ul class="plain-list dot-list link-row" role="list">
+      <li><a class="hit" href={site.resume}>Resume (PDF)</a></li>
+      <li><a class="hit" href={site.github}>GitHub</a></li>
+      <li><a class="hit" href={site.linkedin}>LinkedIn</a></li>
+      <li><a class="hit" href={`mailto:${site.email}`}>Email</a></li>
+    </ul>
+  </section>
+
+  <div class="band-wrap">
+    <ResultsBand results={bandResults()} />
+    {caseStudy && (
+      <p class="case-link">
+        <a class="hit" href="/work/agent-retrieval/">Read the case study: {caseStudy.data.title}</a><span class="muted"> <span aria-hidden="true">·</span> {caseStudy.data.readMinutes} min</span>
+      </p>
+    )}
+  </div>
+
+  <section class="now section" aria-labelledby="now-title">
+    <h2 id="now-title" class="section-title">Now</h2>
+    <p class="meta muted">Updated <time datetime="2026-10-08">October 8, 2026</time></p>
+    <p class="now-body">
+      I’m building a11y-stem, a tool that turns STEM lecture PDFs into accessible HTML, with equations as MathML a
+      screen reader can speak. On a 30-equation development sample from one OpenStax physics chapter, the model
+      rated its own transcriptions 0.88 or higher whether they were right or wrong, so I added a check that compares
+      their bold and plain letters with the PDF’s text layer. On the same 30 equations I built it on, that check cut
+      wrong transcriptions accepted without review from 7 to 1. It’s private until the beta.
+    </p>
+    {a11yHref && <p><a href={a11yHref}>About a11y-stem</a></p>}
+  </section>
+
+  <section class="selected section" aria-labelledby="selected-title">
+    <h2 id="selected-title" class="section-title">Selected work</h2>
+    <ul class="plain-list rows" role="list">
+      {homeItems().map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} />)}
+    </ul>
+    <p class="more"><a href="/work/">All work, research and coursework</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Spacing is tuned so the first-screen tests pass at 1280x720 and 390x844 (spec §1). */
+  .intro h1 {
+    margin-top: 1.5rem;
+  }
+  .id-line {
+    margin-top: 0.75rem;
+  }
+  .bio {
+    margin-top: 1.25rem;
+    max-width: 640px;
+  }
+  .link-row {
+    margin-top: 1.25rem;
+    font-weight: 500;
+  }
+  .band-wrap {
+    margin-top: 2rem;
+  }
+  .case-link {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  .now-body {
+    margin-top: 0.75rem;
+    max-width: 640px;
+  }
+  .now p + p {
+    margin-top: 0.75rem;
+  }
+  .rows {
+    margin-top: 1rem;
+  }
+  .more {
+    margin-top: 1.5rem;
+    font-weight: 500;
+  }
+  /* The ID line fits on one row from about 920px up. Below that a wrapped item would start a line with its
+     "·", so it stacks with no separators; 60em leaves room for the fallback font being wider. */
+  @media (max-width: 60em) {
+    .id-line {
+      flex-direction: column;
+    }
+    .id-line.dot-list > li + li::before {
+      content: none;
+    }
+  }
+  @media (max-width: 37.5em) {
+    .bio {
+      margin-top: 1rem;
+    }
+    .link-row {
+      margin-top: 0.75rem;
+    }
+    .band-wrap {
+      margin-top: 1.5rem;
+    }
+    .band-wrap :global(.cells) {
+      gap: 1rem;
+    }
+  }
+</style>

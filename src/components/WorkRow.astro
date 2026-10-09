@@ -1,0 +1,64 @@
+---
+import type { WorkItem } from '../data/work';
+
+interface Props {
+  item: WorkItem;
+  href?: string;
+  /** Show only the years, for rows under a heading that already names the context (e.g. "Purgo AI"). */
+  hideContext?: boolean;
+}
+const { item, href, hideContext = false } = Astro.props;
+---
+<li class="row">
+  <h3 class="row-title">{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+  {hideContext ? (
+    <p class="row-context meta muted">{item.years}</p>
+  ) : (
+    <p class="row-context meta muted">{item.context} <span aria-hidden="true">·</span> {item.years}</p>
+  )}
+  <p class="row-summary">{item.summary}</p>
+  {item.result && <p class="row-result">{item.result}</p>}
+  {item.links && item.links.length > 0 && (
+    <ul class="plain-list dot-list row-links meta" role="list">
+      {item.links.map((l) => <li><a class="hit" href={l.href}>{l.label}</a></li>)}
+    </ul>
+  )}
+</li>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.25rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .row-title {
+    font-size: var(--fs-body);
+    line-height: 1.4;
+    font-weight: 650;
+  }
+  .row-result {
+    font-weight: 500;
+  }
+  .row-links {
+    margin-top: 0.25rem;
+  }
+  @media (min-width: 56.25em) {
+    .row {
+      grid-template-columns: calc((100% - 3 * var(--gap)) / 4) minmax(0, 640px);
+      grid-template-areas:
+        "ctx title"
+        "ctx summary"
+        "ctx result"
+        "ctx links";
+      column-gap: var(--gap);
+      align-content: start;
+    }
+    .row-title { grid-area: title; }
+    .row-context { grid-area: ctx; padding-top: 0.15rem; }
+    .row-summary { grid-area: summary; }
+    .row-result { grid-area: result; }
+    .row-links { grid-area: links; }
+  }
+</style>

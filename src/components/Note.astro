@@ -1,0 +1,21 @@
+---
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+<div class="note" role="note"><span class="note-label">Note.</span> {text}</div>
+
+<style>
+  .note {
+    font-size: var(--fs-meta);
+    line-height: 1.5;
+    color: var(--muted);
+    border-left: 2px solid var(--rule);
+    padding-left: 0.75rem;
+  }
+  .note-label {
+    color: var(--ink);
+    font-weight: 500;
+  }
+</style>

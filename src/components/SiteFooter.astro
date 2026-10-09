@@ -1,0 +1,46 @@
+---
+import { site } from '../data/site';
+---
+<footer class="site-foot container">
+  <ul class="plain-list foot-links" role="list">
+    <li><a class="hit" href={`mailto:${site.email}`}>{site.email}</a></li>
+    <li><a class="hit" href={site.github}>GitHub</a></li>
+    <li><a class="hit" href={site.linkedin}>LinkedIn</a></li>
+  </ul>
+  <p class="meta muted">Updated <time datetime={site.updated.iso}>{site.updated.label}</time></p>
+</footer>
+
+<style>
+  .site-foot {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-top: var(--section);
+    padding-block: 1.5rem 3rem;
+    font-size: var(--fs-meta);
+  }
+  /* The hairline spans the text column only (inside the container's side padding), like the row rules above it. */
+  .site-foot::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: var(--pad);
+    border-top: 1px solid var(--rule);
+  }
+  .foot-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+  .foot-links a {
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 37.5em) {
+    .foot-links {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+</style>

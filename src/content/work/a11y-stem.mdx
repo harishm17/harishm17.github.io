@@ -1,0 +1,41 @@
+---
+title: Making equations in lecture PDFs readable by screen readers
+dek: a11y-stem turns STEM lecture PDFs into accessible HTML, and OpenStax textbooks tell me how often it gets the equations right.
+description: a11y-stem, a tool in progress that turns STEM lecture PDFs into accessible HTML with MathML equations, measured against OpenStax textbooks.
+context: Personal project, in progress
+years: "2026"
+updated: 2026-10-09
+readMinutes: 3
+builtWith: [Python, FastAPI, PyMuPDF, OpenAI models, MathML, PostgreSQL]
+myPart: Everything so far; it’s a solo project.
+scope: Examples and numbers come only from openly licensed OpenStax textbooks.
+order: 3
+draft: true
+ogImage: /og/a11y-stem-2026-10.png
+numbers: ["20", "2026", "50,000", "26", "2027", "2.1", "0.88", "1", "2", "3", "0.367", "0.600", "0.767", "30", "0.833", "95", "0.59", "7", "43", "55", "73", "0.003", "0.733"]
+---
+import DataTable from '../../components/DataTable.astro';
+
+A screen reader can read the words in a lecture PDF, but an equation is usually a picture or a scatter of positioned glyphs, so a blind student hears nothing useful. HTML with MathML fixes that, because screen readers can speak and navigate MathML. Converting a course’s equations to MathML by hand is slow work.
+
+a11y-stem takes a PDF and produces HTML with the equations as MathML, descriptions for figures and a real heading structure. It doesn’t certify a document as accessible. When it isn’t sure about a fix, it asks a person to review it.
+
+## Why now
+
+Under the Justice Department’s [interim final rule of April 20, 2026](https://www.federalregister.gov/d/2026-07663), state and local governments with a total population of 50,000 or more, which includes state public universities, have until April 26, 2027 to make their web content meet WCAG 2.1 AA, with some exceptions. The rule may still change. A vendor comparison rates general-purpose remediation tools as less suitable for equations and STEM notation.
+
+## How I measure it
+
+OpenStax publishes openly licensed textbooks as web pages with expert-written MathML and alt text, which makes them a ready-made answer key. The evaluation prints a page to an ordinary PDF (or draws an equation as an image), runs the real pipeline on it and scores the output against the original.
+
+The most useful finding so far: the model’s own confidence told me nothing. Every answer scored 0.88 or higher, right or wrong. What separates right from wrong is a check against the PDF’s own text layer. Run 3 below added a check that compares bold and plain letters with the text layer: a bold letter read as plain, or the reverse, keeps the answer in review.
+
+<DataTable id="equation-runs" caption="Equations transcribed exactly (lenient match), 30-equation development sample" columns={[{ label: 'Run' }, { label: 'Change' }, { label: 'Exact', numeric: true }]} rows={[{ header: '1', cells: ['First run', '0.367'] }, { header: '2', cells: ['Fixed how the evaluation drew bold vectors', '0.600'] }, { header: '3', cells: ['Added a bold-vs-plain check against the text layer', '0.767'] }]} />
+
+The sample is 30 equations from three sections of one chapter of a high-school physics text, and I developed the fix on these same equations, so treat 0.767 as a development number. A perfect transcriber scores 0.833 on this scorer because of known gaps in how it compares MathML, and the 95% confidence interval on 0.767 runs from 0.59 to 0.88. A re-run the next day on the same 30 equations, with newer review checks, scored 0.733. The two scores sit inside each other’s intervals, because the model’s answers vary from run to run. The bold-vs-plain check also cut wrong answers that were accepted without review from 7 to 1.
+
+The end-to-end run used the same three sections, printed to 43 PDF pages, so it’s development data too. The tool found every equation, but only 55% of what it marked as equations were equations; most of the rest was math written inside prose. Of the equations it matched, 73% were exact under the lenient match. It cost about $0.003 per page. A separate test set comes next.
+
+## Status
+
+Private until the beta. I’ll add the code and a demo here when it’s public.
