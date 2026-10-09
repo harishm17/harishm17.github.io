@@ -44,11 +44,12 @@ describe('home: intro', () => {
     expect(lede.length).toBeLessThanOrEqual(125);
   });
 
-  it('puts both schools, years and GPA in the ID line', () => {
+  it('puts both schools and years in the ID line, without a GPA', () => {
     const id = text(doc.querySelector('.id-line'));
-    for (const s of ['UT Dallas', '2026', 'GPA 3.92', 'IIT Madras', '2024']) {
+    for (const s of ['UT Dallas', '2026', 'IIT Madras', '2024']) {
       expect(id).toContain(s);
     }
+    expect(id).not.toContain('GPA');
   });
 
   it('says intern then full-time, and names both earlier internships', () => {
