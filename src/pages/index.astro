@@ -30,7 +30,7 @@ const jsonLd = {
 ---
 <BaseLayout title={site.title} description={site.description} ogImage={site.og.home} jsonLd={jsonLd} showName={false}>
   <section class="intro" aria-labelledby="intro-title">
-    <h1 id="intro-title" class="intro-name">{site.name}</h1>
+    <h1 id="intro-title" class="display page-title">{site.name}</h1>
     <p class="lede">Software engineer at Purgo AI, working on its data-engineering agent and the evals behind it.</p>
     <ul class="plain-list dot-list id-line meta" role="list">
       <li>M.S. Computer Science, UT Dallas, 2026</li>
@@ -68,13 +68,6 @@ const jsonLd = {
 
 <style>
   /* Spacing is tuned so the first-screen tests pass at 1280x720 and 390x844 (spec §1). */
-  .intro-name {
-    margin-top: 2.5rem;
-    font-size: clamp(2rem, 1.6rem + 1.2vw, 2.5rem);
-    line-height: 1.1;
-    font-weight: 650;
-    letter-spacing: -0.02em;
-  }
   .lede {
     margin-top: 0.75rem;
     font-size: var(--fs-dek);
@@ -122,9 +115,6 @@ const jsonLd = {
     }
   }
   @media (max-width: 37.5em) {
-    .intro-name {
-      margin-top: 1.5rem;
-    }
     .bio {
       margin-top: 1rem;
     }

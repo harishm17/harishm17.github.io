@@ -58,3 +58,37 @@ for (const [path, selectors] of [
     }
   });
 }
+
+// One title size and one start line on every page, so moving between pages feels steady.
+for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+  test(`every h1 has the same size and top at ${vp.width}x${vp.height}`, async ({ page }) => {
+    await page.setViewportSize(vp);
+    const titles: { path: string; size: string; y: number }[] = [];
+    for (const path of ['/', '/work/', '/about/', '/404.html']) {
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const h1 = page.locator('h1');
+      titles.push({ path, size: await h1.evaluate((el) => getComputedStyle(el).fontSize), y: (await h1.boundingBox())!.y });
+    }
+    for (const t of titles.slice(1)) {
+      expect(t.size, t.path).toBe(titles[0].size);
+      expect(Math.abs(t.y - titles[0].y), t.path).toBeLessThanOrEqual(1);
+    }
+  });
+}
+
+test('About photo ends on the nav line at 1440 and sits beside the story at 768', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/about/');
+  await page.evaluate(() => document.fonts.ready);
+  const photo = (await page.locator('.intro .photo').boundingBox())!;
+  const nav = (await page.locator('.site-head nav').boundingBox())!;
+  expect(Math.abs(photo.x + photo.width - (nav.x + nav.width))).toBeLessThanOrEqual(1);
+
+  await page.setViewportSize({ width: 768, height: 900 });
+  const tablet = (await page.locator('.intro .photo').boundingBox())!;
+  const story = (await page.locator('.story').boundingBox())!;
+  expect(tablet.width).toBe(160);
+  expect(story.y).toBeLessThan(tablet.y + tablet.height);
+  expect(story.x + story.width).toBeLessThanOrEqual(tablet.x);
+});
