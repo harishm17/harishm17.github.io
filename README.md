@@ -18,6 +18,8 @@ Personal site of Harish Manoharan. Static [Astro](https://astro.build) site, no 
 | `npm run lighthouse` | Lighthouse on the home page and the main case study |
 | `npm run screenshots` | Full-page screenshots of every page at five widths into `test-results/screens/` (after `build`) |
 | `npm run og` | Regenerate share images in `public/og/` (after editing a title or headline, or publishing a draft; drafts get no image) |
+| `npm run favicons` | Regenerate the "HM" icons in `public/` (`favicon.svg`, `favicon.ico`, `favicon-192.png`, `apple-touch-icon.png`) from `scripts/favicons.mjs` |
+| `npm run photo` | Regenerate `public/harish-manoharan.jpg`, the square photo that structured data points at, after replacing `src/assets/harish-manoharan.jpg` |
 | `npm run verify` | Build plus every automated check |
 
 ## Where things live
@@ -25,6 +27,9 @@ Personal site of Harish Manoharan. Static [Astro](https://astro.build) site, no 
 - Numbers and rows: `src/data/results.ts`, `src/data/work.ts`, `src/data/site.ts`. Each number is written once.
 - Write-ups: `src/content/work/*.mdx`. Set `draft: true` to keep one unpublished; links to it and its share image disappear. Preview drafts with `SHOW_DRAFTS=1 npm run dev`. To publish one, set `draft: false`, run `npm run og` and commit the new image.
 - Every number used in a write-up's prose must be in `src/data/results.ts` or listed in that file's `numbers` frontmatter; `npm test` fails otherwise.
+- Name, handle, profile links, lede and meta description: `src/data/site.ts`. JSON-LD for every page: `src/lib/structured-data.ts` (home: WebSite and Person; About: ProfilePage; write-ups: Article; all share one Person `@id`). `profiles` in `site.ts` is both the Person's `sameAs` and the `rel="me"` links; list only accounts that are his and that the site links.
+- `site.updated.date` is the last real edit to the home, About or Work page. It sets the footer month, the sitemap `lastmod` for those pages and the About page's `dateModified`. Bump it with real content edits only; a write-up's `lastmod` comes from its own `updated` field.
+- Search engine files that must keep their URLs: the favicons, `public/harish-manoharan.jpg`, and the IndexNow key file `public/<key>.txt` (the deploy job pings IndexNow with it after each deploy; its key is in `.github/workflows/deploy.yml`).
 - Some content checks read a term list kept outside the repo (`.private/never-public.json`, gitignored, or the file named by `NEVER_PUBLIC_FILE`). Without it those tests are reported as skipped.
 
 ## Deploy
@@ -41,7 +46,7 @@ Launch only after Harish has reviewed the built site (`npx astro preview --host`
 4. Merge with a merge commit: `gh pr merge <n> --merge`, then `gh run watch`.
 5. Point Pages at the custom domain (DNS at Porkbun must already return GitHub's A/AAAA records for `harishmanoharan.com` and a `www` CNAME to `harishm17.github.io`): `gh api -X PUT repos/harishm17/harishm17.github.io/pages -f cname=harishmanoharan.com`. Wait until `gh api repos/harishm17/harishm17.github.io/pages --jq .https_certificate.state` shows `approved`, then `gh api -X PUT repos/harishm17/harishm17.github.io/pages -F https_enforced=true`. From then on `harishm17.github.io` redirects to `https://harishmanoharan.com`.
 6. Check: every page returns 200, old URLs (including `harishm17.github.io/...`) land on their new pages, `/box-backup/` is unchanged, PDFs open, `npx linkinator https://harishmanoharan.com/ --recurse --check-fragments`, and the LinkedIn Post Inspector preview.
-7. If the site is in Google Search Console, add `harishmanoharan.com` and submit `sitemap-index.xml`.
+7. Search engines: in Google Search Console (Domain property `harishmanoharan.com`, verified by the DNS TXT record; keep that record) submit `https://harishmanoharan.com/sitemap-index.xml` and request indexing of `/`, `/about/` and `/work/`. Then import the site into Bing Webmaster Tools from Search Console.
 
 If the deploy fails while the old site is still served, fix forward on `main`. Never switch back to the legacy source while `main` contains the Astro source.
 

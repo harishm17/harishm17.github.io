@@ -8,25 +8,67 @@ const main = () => text(doc.querySelector('main'));
 describe('home: head', () => {
   it('uses the positioning title and description', () => {
     expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer at Purgo AI');
-    expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Software engineer at Purgo AI, working on its data-engineering agent and the evals behind it. M.S. CS, UT Dallas; IIT Madras.',
+    const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
+    expect(description).toBe(
+      'Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on its data-engineering agent and evals. UT Dallas; IIT Madras.',
     );
-    expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeLessThanOrEqual(160);
+    expect(description.length).toBeLessThanOrEqual(160);
   });
 
-  it('has Person JSON-LD with employer, schools and profiles', () => {
-    const raw = doc.querySelector('script[type="application/ld+json"]')?.textContent ?? '';
-    const ld = JSON.parse(raw);
-    expect(ld['@type']).toBe('Person');
-    expect(ld.name).toBe('Harish Manoharan');
-    expect(ld.worksFor.name).toBe('Purgo AI');
-    expect(ld.alumniOf.map((a: { name: string }) => a.name)).toEqual([
-      'The University of Texas at Dallas',
-      'Indian Institute of Technology Madras',
-    ]);
-    expect(ld.sameAs).toEqual(['https://github.com/harishm17', 'https://www.linkedin.com/in/harishm17/']);
-    // Says what kind of agent, like the byline.
-    expect(ld.knowsAbout).toEqual(['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt']);
+  it('names him, his employer, region and schools in the description, to tell him apart from namesakes', () => {
+    const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
+    for (const s of ['Harish Manoharan', 'Purgo AI', 'San Francisco Bay Area', 'UT Dallas', 'IIT Madras']) expect(description).toContain(s);
+  });
+
+  describe('JSON-LD', () => {
+    const scripts = doc.querySelectorAll('script[type="application/ld+json"]');
+    const graph = () => JSON.parse(scripts[0]?.textContent ?? '{}')['@graph'] as Record<string, any>[];
+    const node = (type: string) => graph().find((n) => n['@type'] === type)!;
+
+    it('is one script holding the WebSite and the Person', () => {
+      expect(scripts.length).toBe(1);
+      expect(graph().map((n) => n['@type'])).toEqual(['WebSite', 'Person']);
+    });
+
+    it('gives the site its name for search results', () => {
+      expect(node('WebSite')).toMatchObject({
+        '@id': 'https://harishmanoharan.com/#website',
+        url: 'https://harishmanoharan.com/',
+        name: 'Harish Manoharan',
+        alternateName: ['harishmanoharan.com'],
+        publisher: { '@id': 'https://harishmanoharan.com/#person' },
+      });
+    });
+
+    it('describes the Person with the handle, employer, schools and profiles', () => {
+      const p = node('Person');
+      expect(p['@id']).toBe('https://harishmanoharan.com/#person');
+      expect(p.name).toBe('Harish Manoharan');
+      expect(p.alternateName).toBe('harishm17');
+      expect(p.url).toBe('https://harishmanoharan.com/');
+      expect(p.jobTitle).toBe('Software Engineer');
+      expect(p.worksFor).toEqual({ '@type': 'Organization', name: 'Purgo AI', url: 'https://www.purgo.ai/' });
+      expect(p.alumniOf.map((a: { name: string; url: string }) => [a.name, a.url])).toEqual([
+        ['The University of Texas at Dallas', 'https://www.utdallas.edu/'],
+        ['Indian Institute of Technology Madras', 'https://www.iitm.ac.in/'],
+      ]);
+      expect(p.homeLocation.name).toBe('San Francisco Bay Area');
+      // Confirmed profiles the site links, and no others.
+      expect(p.sameAs).toEqual([
+        'https://github.com/harishm17',
+        'https://www.linkedin.com/in/harishm17/',
+        'https://codeforces.com/profile/harishm',
+        'https://lichess.org/@/harishm17',
+      ]);
+      // Says what kind of agent, like the byline.
+      expect(p.knowsAbout).toEqual(['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt']);
+    });
+
+    it('marks up only what the page shows: the lede as the description, and no photo', () => {
+      const p = node('Person');
+      expect(p.description).toBe(text(doc.querySelector('.lede')));
+      expect(p.image).toBeUndefined();
+    });
   });
 });
 
@@ -81,6 +123,11 @@ describe('home: intro', () => {
       'https://www.linkedin.com/in/harishm17/',
       'mailto:harish_manoharan@outlook.com',
     ]);
+  });
+
+  it('marks the GitHub and LinkedIn links rel="me"', () => {
+    const me = [...doc.querySelectorAll('.link-row a[rel~="me"]')].map((a) => a.getAttribute('href'));
+    expect(me).toEqual(['https://github.com/harishm17', 'https://www.linkedin.com/in/harishm17/']);
   });
 });
 

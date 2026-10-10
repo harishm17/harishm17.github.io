@@ -18,6 +18,8 @@
     "lighthouse": "node scripts/lighthouse.mjs",
     "screenshots": "node scripts/screenshots.mjs",
     "og": "node scripts/og.mjs",
+    "favicons": "node scripts/favicons.mjs",
+    "photo": "node scripts/photo.mjs",
     "verify": "npm run build && npm test && npm run test:dist && npm run validate:html && npm run check:links && npm run test:e2e"
   },
   "dependencies": {
@@ -34,6 +36,7 @@
     "lighthouse": "^13.5.0",
     "linkedom": "^0.18.13",
     "linkinator": "^8.1.0",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "vitest": "^5.0.3",
     "yaml": "^2.9.1"
