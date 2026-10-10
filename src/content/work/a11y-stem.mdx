@@ -1,10 +1,10 @@
 ---
-title: Making equations in lecture PDFs readable by screen readers
-dek: a11y-stem turns STEM lecture PDFs into accessible HTML, and OpenStax textbooks tell me how often it gets the equations right.
-description: a11y-stem, a tool in progress that turns STEM lecture PDFs into accessible HTML with MathML equations, measured against OpenStax textbooks.
+title: Making equations in course PDFs readable by screen readers
+dek: a11y-stem turns STEM course PDFs into accessible web pages, and OpenStax textbooks tell me how often it gets the equations right.
+description: a11y-stem, a tool in progress that turns STEM course PDFs into accessible web pages with MathML equations, measured against OpenStax textbooks.
 context: Personal project, in progress
 years: "2026"
-updated: 2026-10-09
+updated: 2026-10-10
 readMinutes: 3
 builtWith: [Python, FastAPI, PyMuPDF, OpenAI models, MathML, PostgreSQL]
 myPart: Everything so far; it’s a solo project.
@@ -15,13 +15,13 @@ numbers: ["20", "2026", "50,000", "26", "2027", "2.1", "0.88", "1", "2", "3", "0
 ---
 import DataTable from '../../components/DataTable.astro';
 
-A screen reader can read the words in a lecture PDF, but an equation is usually a picture or a scatter of positioned glyphs, so a blind student hears nothing useful. HTML with MathML fixes that, because screen readers can speak and navigate MathML. Converting a course’s equations to MathML by hand is slow work.
+A screen reader can read the words in a course PDF, but an equation is usually a picture or a scatter of positioned glyphs, so a blind student hears nothing useful. HTML with MathML fixes that, because screen readers can speak and navigate MathML. Converting a course’s equations to MathML by hand is slow work.
 
-a11y-stem takes a PDF and produces HTML with the equations as MathML, descriptions for figures and a real heading structure. It doesn’t certify a document as accessible. When it isn’t sure about a fix, it asks a person to review it.
+a11y-stem takes a typed course PDF (notes, slides or problem sets) and produces one web page: equations as MathML, headings and lists as HTML structure, and short alt text for figures. It doesn’t certify a document as accessible. It asks the instructor to decide only on fixes that could change what a student reads, such as a letter, digit or sign that differs from the PDF’s own text. Smaller fixes are accepted and listed.
 
 ## Why now
 
-Under the Justice Department’s [interim final rule of April 20, 2026](https://www.federalregister.gov/d/2026-07663), state and local governments with a total population of 50,000 or more, which includes state public universities, have until April 26, 2027 to make their web content meet WCAG 2.1 AA, with some exceptions. The rule may still change. A vendor comparison rates general-purpose remediation tools as less suitable for equations and STEM notation.
+Under the Justice Department’s [interim final rule of April 20, 2026](https://www.federalregister.gov/d/2026-07663), state and local governments with a total population of 50,000 or more, which includes state public universities, have until April 26, 2027 to make their web content meet WCAG 2.1 AA, with some exceptions. The rule may still change.
 
 ## How I measure it
 
@@ -37,4 +37,4 @@ The end-to-end run used the same three sections, printed to 43 PDF pages, so it�
 
 ## Status
 
-Private until the beta.
+October 2026: private until the beta.

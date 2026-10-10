@@ -13,10 +13,10 @@ const FONT = pathToFileURL(
 const MISSED = { label: 'Missed source tables, 103-ticket benchmark', before: '79', after: '24', b: 98.8, a: 30 };
 
 const CARDS = [
-  { file: 'home-2026-10.png', kicker: 'Harish Manoharan', title: 'Software engineer at Purgo AI, working on its data-engineering agent and the evals behind it.', line: 'M.S. Computer Science, UT Dallas · M.Tech Data Science, IIT Madras' },
+  { file: 'home-2026-10.png', kicker: 'Harish Manoharan', title: 'Software engineer at Purgo AI, working on agents, retrieval and LLM evaluation.', line: 'M.S. Computer Science, UT Dallas · M.Tech Data Science, IIT Madras' },
   { file: 'agent-retrieval-2026-10.png', slug: 'agent-retrieval', kicker: 'Harish Manoharan · Purgo AI', title: 'Finding the tables an agent misses', result: MISSED },
   { file: 'llm-evaluation-2026-10.png', slug: 'llm-evaluation', kicker: 'Harish Manoharan · Purgo AI', title: 'Testing LLMs and Databricks platforms for regulated use', line: 'Qualification tests with evidence an auditor can read' },
-  { file: 'a11y-stem-2026-10.png', slug: 'a11y-stem', kicker: 'Harish Manoharan', title: 'Making equations in lecture PDFs readable by screen readers', line: 'a11y-stem, in progress' },
+  { file: 'a11y-stem-2026-10.png', slug: 'a11y-stem', kicker: 'Harish Manoharan', title: 'Making equations in course PDFs readable by screen readers', line: 'a11y-stem, in progress' },
 ];
 
 function isDraft(slug) {

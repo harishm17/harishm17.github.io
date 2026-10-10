@@ -4,12 +4,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkRow from '../components/WorkRow.astro';
 import photo from '../assets/harish-manoharan.jpg';
 import { site } from '../data/site';
-import { byGroup } from '../data/work';
+import { studies } from '../data/work';
+import { publishedSlugs } from '../lib/collection';
+import { workHref } from '../lib/published';
 import { aboutJsonLd } from '../lib/structured-data';
+
+const slugs = await publishedSlugs();
+const retrieval = workHref(slugs, 'agent-retrieval');
+const evaluation = workHref(slugs, 'llm-evaluation');
 ---
 <BaseLayout
   title={`About: ${site.name}`}
-  description="Harish Manoharan: from biology at IIT Madras, through an M.S. in computer science at UT Dallas, to a data-engineering agent at Purgo AI."
+  description="Harish Manoharan, a software engineer at Purgo AI, studied biology and data science at IIT Madras and computer science at UT Dallas."
   ogImage={site.og.home}
   current="about"
   jsonLd={aboutJsonLd()}
@@ -19,21 +25,20 @@ import { aboutJsonLd } from '../lib/structured-data';
     <Picture src={photo} alt="Harish Manoharan" widths={[240, 480]} sizes="(min-width: 56.25em) 240px, (min-width: 45em) 160px, 240px" formats={['avif', 'webp']} loading="eager" class="photo" />
     <div class="story">
       <p>
-        I started at IIT Madras in biology, and my research as a student moved steadily toward computation:
-        estimating cell types from tumor gene-expression data, modeling microbial communities as metabolic networks,
-        and finally a master’s thesis with The Jackson Laboratory on finding behaviors in mouse videos without labels.
-        I finished with a dual degree, a B.S. in biological sciences and an M.Tech in data science.
+        I’m a software engineer at Purgo AI. I joined in June 2025 as an intern during my M.S. at UT Dallas and
+        have been full-time since June 2026. Our agent turns data-engineering tickets into Databricks and dbt code,
+        and I work on how it {retrieval ? <a href={retrieval}>finds the tables a ticket needs</a> : 'finds the tables a ticket needs'} and checks the code it
+        writes. I also wrote the tests our validation engine uses to {evaluation ? <a href={evaluation}>qualify LLMs and Databricks platforms for regulated use</a> : 'qualify LLMs and Databricks platforms for regulated use'}.
       </p>
       <p>
-        I interned at PwC on demand forecasting and at Digitus on a text-to-SQL agent and a retrieval assistant,
-        then came to UT Dallas for an M.S. in computer science. I joined Purgo AI as an intern in June 2025 and have
-        been full-time since June 2026, working across the company’s agent, from ticket analysis and retrieval to code generation and the evals behind it.
+        Outside Purgo, I’m building <span class="nowrap">a11y-stem</span> on my own. It turns a STEM course PDF into
+        an accessible web page, and I score its equations against OpenStax textbooks, whose online editions carry
+        expert-written MathML.
       </p>
       <p>
-        Most of the work I like best started with a benchmark I could trust. At Purgo that means sets of real
-        tickets with known answers. I’m also building <span class="nowrap">a11y-stem</span>, a personal project that turns STEM lecture PDFs into
-        accessible HTML, with equations as MathML a screen reader can speak. There the benchmark is OpenStax
-        textbooks: their expert-written MathML makes a ready-made answer key.
+        Before Purgo, I interned at Digitus in 2024, where I built a <span class="nowrap">text-to-SQL</span> agent
+        and a retrieval assistant for slide decks and videos, and at PwC in 2023, on sales forecasting. From 2019 to
+        2024 I was at IIT Madras, where I studied biology and then data science and wrote my <a href="/Harish___DDP_Report.pdf">master’s thesis</a> with The Jackson Laboratory.
       </p>
     </div>
   </div>
@@ -55,17 +60,17 @@ import { aboutJsonLd } from '../lib/structured-data';
   <section class="section" aria-labelledby="research-about">
     <h2 id="research-about" class="section-title">Research and coursework</h2>
     <ul class="plain-list rows" role="list">
-      {[...byGroup('research'), ...byGroup('coursework')].map((item) => <WorkRow item={item} />)}
+      {studies().map((item) => <WorkRow item={item} compact />)}
     </ul>
   </section>
 
   <section class="section" aria-labelledby="outside">
     <h2 id="outside" class="section-title">Outside work</h2>
     <p class="outside-body">
-      At IIT Madras I led the coding and logic events at Shaastra, the student-run technical festival. Those
-      events drew 6,000+ participants. I also taught greedy and dynamic-programming
-      sessions in the programming club. These days it’s chess on <a href={site.lichess} rel="me">Lichess</a>,
-      table tennis and reading. I used to do contests on <a href={site.codeforces} rel="me">Codeforces</a>.
+      These days it’s table tennis, reading and fast chess on <a href={site.lichess} rel="me">Lichess</a>. At IIT Madras
+      I headed the coding and logic events at Shaastra, the student-run technical festival. Those events drew
+      6,000+ participants. Before that, I taught greedy and dynamic-programming sessions in the programming club,
+      and reached Expert on <a href={site.codeforces} rel="me">Codeforces</a> in 2020.
     </p>
   </section>
 

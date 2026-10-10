@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { GROUPS, byGroup } from '../../src/data/work';
+import { GROUPS, byGroup, studies } from '../../src/data/work';
 import { distFile, loadPage, text } from './helpers';
 
 describe('/work/', () => {
@@ -104,17 +104,58 @@ describe('/about/', () => {
   });
 
   it('says what a11y-stem is, without a repo link or launch claims', () => {
-    expect(main).toContain(
-      'a personal project that turns STEM lecture PDFs into accessible HTML, with equations as MathML a screen reader can speak',
-    );
+    expect(main).toContain('It turns a STEM course PDF into an accessible web page, and I score its equations against OpenStax textbooks');
     expect(main).not.toMatch(/open[- ]source|\bbeta\b|\bADA\b|\blaunch/i);
     expect([...doc.querySelectorAll('main a')].some((a) => /a11y-stem/i.test(a.getAttribute('href') ?? ''))).toBe(false);
   });
 
   it('keeps the spaces next to inline links', () => {
     // Guards against whitespace dropped at a line break beside an inline tag ("contests onCodeforces").
-    for (const s of ['chess on Lichess,', 'contests on Codeforces.', 'Email is best: harish_manoharan@outlook.com. I’m harishm17 on GitHub, LinkedIn and Lichess. I live in the San Francisco Bay Area.']) {
+    for (const s of [
+      'fast chess on Lichess.',
+      'Expert on Codeforces in 2020.',
+      'how it finds the tables a ticket needs and checks the code it writes.',
+      'uses to qualify LLMs and Databricks platforms for regulated use.',
+      'wrote my master’s thesis with The Jackson Laboratory.',
+      'Email is best: harish_manoharan@outlook.com. I’m harishm17 on GitHub, LinkedIn and Lichess. I live in the San Francisco Bay Area.']) {
       expect(main).toContain(s);
+    }
+  });
+
+  it('opens with what he does now (Harish, 2026-10-10: the page used to start in 2019)', () => {
+    expect(text(doc.querySelector('.story p'))).toMatch(/^I’m a software engineer at Purgo AI\./);
+  });
+
+  it('links the story to the write-ups and the thesis', () => {
+    expect([...doc.querySelectorAll('.story a')].map((a) => a.getAttribute('href'))).toEqual([
+      '/work/agent-retrieval/',
+      '/work/llm-evaluation/',
+      '/Harish___DDP_Report.pdf',
+    ]);
+  });
+
+  it('drops the theme and arc lines', () => {
+    for (const s of ['benchmark I could trust', 'moved steadily toward computation', 'the evals behind it']) expect(main).not.toContain(s);
+  });
+
+  it('lists research and coursework as one list, newest first (Harish, 2026-10-10)', () => {
+    const section = doc.querySelector('section[aria-labelledby="research-about"]')!;
+    expect([...section.querySelectorAll('.row-title')].map((h) => text(h))).toEqual(studies().map((w) => w.title));
+    const ends = [...section.querySelectorAll('.row-context')].map((p) => {
+      const m = text(p).match(/(\d{4})(?:–(\d{2}))?\s*$/)!;
+      return m[2] ? Number(m[1].slice(0, 2) + m[2]) : Number(m[1]);
+    });
+    for (let i = 1; i < ends.length; i++) expect(ends[i]).toBeLessThanOrEqual(ends[i - 1]);
+  });
+
+  it('shows research rows compactly, with their labels and files (Work has the summaries)', () => {
+    const section = doc.querySelector('section[aria-labelledby="research-about"]')!;
+    expect(section.querySelector('.row-summary, .row-result')).toBeNull();
+    const contexts = text(section).replace(/\u00a0/g, ' ');
+    for (const s of ['Paper presentation', 'Course project']) expect(contexts).toContain(s);
+    const hrefs = [...section.querySelectorAll('a')].map((a) => a.getAttribute('href'));
+    for (const f of ['/Harish___DDP_Report.pdf', '/Harish-YRF_poster.pdf', '/CS6130_Report.pdf', '/CS6130.pdf', '/AACB_Report.pdf']) {
+      expect(hrefs).toContain(f);
     }
   });
 

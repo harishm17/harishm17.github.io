@@ -10,7 +10,7 @@ describe('home: head', () => {
     expect(text(doc.querySelector('title'))).toBe('Harish Manoharan: software engineer at Purgo AI');
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
     expect(description).toBe(
-      'Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on its data-engineering agent and evals. UT Dallas; IIT Madras.',
+      'Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on agents, retrieval and LLM evaluation. UT Dallas; IIT Madras.',
     );
     expect(description.length).toBeLessThanOrEqual(160);
   });
@@ -87,7 +87,7 @@ describe('home: intro', () => {
 
   it('names the employer and what he builds in a short lede, not one narrow sub-area', () => {
     const lede = text(doc.querySelector('.lede'));
-    expect(lede).toBe('Software engineer at Purgo AI, working on its data-engineering agent and the evals behind it.');
+    expect(lede).toBe('Software engineer at Purgo AI, working on agents, retrieval and LLM evaluation.');
     expect(lede).not.toContain('retrieval and evaluation');
   });
 
