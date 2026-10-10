@@ -67,7 +67,7 @@ describe('home: head', () => {
         'https://lichess.org/@/harishm17',
       ]);
       // Says what kind of agent, like the byline.
-      expect(p.knowsAbout).toEqual(['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt']);
+      expect(p.knowsAbout).toEqual(['AI engineering', 'AI agents', 'Large language models (LLMs)', 'Generative AI', 'LLM evaluation', 'Retrieval-augmented generation (RAG)']);
     });
 
     it('marks up only what the page shows: the lede as the description, and no photo', () => {

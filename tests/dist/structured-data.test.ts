@@ -64,8 +64,8 @@ describe('/about/ ProfilePage', () => {
 
   it('is about this page and dated by the last real edit', () => {
     expect(page.url).toBe(canonical('about/index.html'));
-    expect(page.dateModified).toBe(site.updated.date);
-    expect(page.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    // Google reports a bare date as an invalid datetime; it wants a time and a zone.
+    expect(page.dateModified).toBe(`${site.updated.date}T12:00:00Z`);
     expect(page.mainEntity['@id']).toBe(PERSON_ID);
   });
 
@@ -85,19 +85,21 @@ describe.each(writeups)('%s Article', (path) => {
   it('repeats the visible headline, description, date and share image', () => {
     expect(article.headline).toBe(text(doc.querySelector('h1')));
     expect(article.description).toBe(doc.querySelector('meta[name="description"]')?.getAttribute('content'));
-    expect(article.dateModified).toBe(doc.querySelector('.side time')?.getAttribute('datetime'));
+    expect(article.dateModified).toBe(`${doc.querySelector('.side time')?.getAttribute('datetime')}T12:00:00Z`);
+    expect(article.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}T12:00:00Z$/);
+    expect(article.datePublished <= article.dateModified).toBe(true);
     expect(article.image).toEqual([doc.querySelector('meta[property="og:image"]')?.getAttribute('content')]);
     expect(article.mainEntityOfPage).toBe(canonical(path));
     expect(urlPath(path)).toBe(new URL(article.mainEntityOfPage).pathname);
   });
 
-  it('credits the Person, with the About ProfilePage as the author page', () => {
+  it('credits the Person with the same @id and url as the full node, so parsers merge them', () => {
     expect(article.author).toEqual({
       '@type': 'Person',
       '@id': PERSON_ID,
       name: 'Harish Manoharan',
-      url: 'https://harishmanoharan.com/about/',
+      url: 'https://harishmanoharan.com/',
     });
-    expect(nodes('about/index.html', 'ProfilePage')[0].url).toBe(article.author.url);
+    expect(nodes('index.html', 'Person')[0].url).toBe(article.author.url);
   });
 });
