@@ -77,9 +77,9 @@ describe('/about/', () => {
   });
 
   it('has outside work and a contact line', () => {
-    for (const s of ['Shaastra', 'Lichess', 'Codeforces', 'table tennis', 'harish_manoharan@outlook.com']) expect(main).toContain(s);
-    // The Codeforces profile shows no contest since February 2024, so it is past tense, not "these days".
-    expect(main).not.toMatch(/These days[^.]*Codeforces/);
+    for (const s of ['Shaastra', 'Lichess', 'hiking', 'table tennis', 'harish_manoharan@outlook.com']) expect(main).toContain(s);
+    // Harish, 2026-10-10: the 2020 Codeforces rating is too long ago to mention.
+    expect(main).not.toMatch(/Codeforces/);
   });
 
   it('links Contact once (the footer already carries GitHub and LinkedIn)', () => {
@@ -92,9 +92,9 @@ describe('/about/', () => {
     expect(main.match(/harishm17/g)?.length).toBe(1);
   });
 
-  it('marks the Lichess and Codeforces links rel="me"', () => {
+  it('marks the Lichess link rel="me"', () => {
     const me = [...doc.querySelectorAll('main a[rel~="me"]')].map((a) => a.getAttribute('href'));
-    expect(me).toEqual(['https://lichess.org/@/harishm17', 'https://codeforces.com/profile/harishm']);
+    expect(me).toEqual(['https://lichess.org/@/harishm17']);
   });
 
   it('states the 6,000+ participants figure without a provenance hedge', () => {
@@ -110,10 +110,9 @@ describe('/about/', () => {
   });
 
   it('keeps the spaces next to inline links', () => {
-    // Guards against whitespace dropped at a line break beside an inline tag ("contests onCodeforces").
+    // Guards against whitespace dropped at a line break beside an inline tag ("chess onLichess").
     for (const s of [
       'fast chess on Lichess.',
-      'Expert on Codeforces in 2020.',
       'how it finds the tables a ticket needs and checks the code it writes.',
       'uses to qualify LLMs and Databricks platforms for regulated use.',
       'wrote my master’s thesis with The Jackson Laboratory.',

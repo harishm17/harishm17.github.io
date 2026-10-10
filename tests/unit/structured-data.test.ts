@@ -7,7 +7,6 @@ describe('site identity data', () => {
     expect([...profiles]).toEqual([
       'https://github.com/harishm17',
       'https://www.linkedin.com/in/harishm17/',
-      'https://codeforces.com/profile/harishm',
       'https://lichess.org/@/harishm17',
     ]);
   });

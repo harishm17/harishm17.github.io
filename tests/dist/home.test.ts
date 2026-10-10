@@ -63,7 +63,6 @@ describe('home: head', () => {
       expect(p.sameAs).toEqual([
         'https://github.com/harishm17',
         'https://www.linkedin.com/in/harishm17/',
-        'https://codeforces.com/profile/harishm',
         'https://lichess.org/@/harishm17',
       ]);
       // Says what kind of agent, like the byline.

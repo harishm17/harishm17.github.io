@@ -14,7 +14,6 @@ export const site = {
   github: 'https://github.com/harishm17',
   linkedin: 'https://www.linkedin.com/in/harishm17/',
   lichess: 'https://lichess.org/@/harishm17',
-  codeforces: 'https://codeforces.com/profile/harishm',
   resume: '/HarishManoharan.pdf',
   /** A square copy of the About photo at a URL that never changes (`npm run photo`), for structured data. */
   photo: '/harish-manoharan.jpg',
@@ -37,4 +36,4 @@ export const site = {
  * tells search engines these accounts and this site belong to one person. Add one only when the account is
  * his, shows his name or links back here, and the site links it.
  */
-export const profiles = [site.github, site.linkedin, site.codeforces, site.lichess] as const;
+export const profiles = [site.github, site.linkedin, site.lichess] as const;

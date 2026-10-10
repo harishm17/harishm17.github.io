@@ -5,7 +5,6 @@ import { contentPagePaths, jsonLd, loadPage, readDist, text, urlPath } from './h
 const PROFILES = [
   'https://github.com/harishm17',
   'https://www.linkedin.com/in/harishm17/',
-  'https://codeforces.com/profile/harishm',
   'https://lichess.org/@/harishm17',
 ];
 
