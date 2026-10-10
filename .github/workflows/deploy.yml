@@ -37,3 +37,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+      # Tells Bing and the other IndexNow engines that the sitemap's pages changed. Google doesn't use IndexNow;
+      # it reads the sitemap. The key is public by design: public/<key>.txt proves the site owns it. A failed
+      # ping leaves the deploy green.
+      - name: Ping IndexNow
+        continue-on-error: true
+        env:
+          SITE: https://harishmanoharan.com
+          INDEXNOW_KEY: 62855230cd095d4b3d36e20fdbd38a62
+        run: |
+          curl -fsS "$SITE/sitemap-0.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>//' -e 's/<\/loc>//' > urls.txt
+          jq -R . urls.txt | jq -s --arg site "$SITE" --arg key "$INDEXNOW_KEY" \
+            '{host: ($site | ltrimstr("https://")), key: $key, keyLocation: "\($site)/\($key).txt", urlList: .}' > indexnow.json
+          cat indexnow.json
+          curl -fsS -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' \
+            --data @indexnow.json -o /dev/null -w 'IndexNow: HTTP %{http_code}\n'
