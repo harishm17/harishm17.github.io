@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import sharp from 'sharp';
@@ -23,6 +24,27 @@ describe('kept files', () => {
     'AACB_Report.pdf',
   ])('keeps %s at its old path', (pdf) => {
     expect(readFileSync(distFile(pdf)).subarray(0, 5).toString()).toBe('%PDF-');
+  });
+});
+
+// Search engines title a PDF result from its metadata, so each research PDF names itself and its authors.
+// Reading the (compressed) metadata needs pdfinfo from poppler-utils; without it these are reported as skipped.
+const pdfinfo = (file: string): Record<string, string> | null => {
+  try {
+    const out = execFileSync('pdfinfo', [file], { encoding: 'utf8' });
+    return Object.fromEntries(out.split('\n').map((l) => [l.slice(0, l.indexOf(':')), l.slice(l.indexOf(':') + 1).trim()]));
+  } catch {
+    return null;
+  }
+};
+describe.skipIf(!pdfinfo(distFile('CS6130.pdf')))('research PDFs carry search-friendly metadata', () => {
+  it.each(['Harish___DDP_Report.pdf', 'Harish-YRF_poster.pdf', 'CS6130_Report.pdf', 'CS6130.pdf', 'AACB_Report.pdf'])('%s', (pdf) => {
+    const info = pdfinfo(distFile(pdf))!;
+    expect(info.Title?.length).toBeGreaterThan(10);
+    expect(info.Author).toContain('Harish Manoharan');
+    // No student roll number (the poster's Author used to carry one).
+    expect(info.Author).not.toMatch(/\d/);
+    expect(info.Keywords ?? '').toBe('');
   });
 });
 

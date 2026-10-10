@@ -82,9 +82,10 @@ describe('page markup', () => {
       headline: 'H',
       description: 'D',
       image: ['https://harishmanoharan.com/og/x.png'],
-      dateModified: '2026-10-08',
+      datePublished: '2026-10-08T12:00:00Z',
+      dateModified: '2026-10-08T12:00:00Z',
       mainEntityOfPage: 'https://harishmanoharan.com/work/x/',
-      author: { '@type': 'Person', '@id': PERSON_ID, name: 'Harish Manoharan', url: 'https://harishmanoharan.com/about/' },
+      author: { '@type': 'Person', '@id': PERSON_ID, name: 'Harish Manoharan', url: 'https://harishmanoharan.com/' },
     });
   });
 });

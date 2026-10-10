@@ -10,8 +10,14 @@ export type JsonLd = Record<string, unknown>;
 const HOME = `${site.url}/`;
 export const PERSON_ID = `${site.url}/#person`;
 export const WEBSITE_ID = `${site.url}/#website`;
+const PHOTO = `${site.url}${site.photo}`;
 
-/** The full Person. `extra` adds properties shown only on some pages (the photo on /about/). */
+/** Google wants a full ISO 8601 date-time with a time zone; dates here are YYYY-MM-DD (noon UTC keeps the day). */
+export function isoDateTime(date: string): string {
+  return `${date}T12:00:00Z`;
+}
+
+/** The full Person. `extra` adds properties shown only on some pages (the photo on /about/, the only page that shows it). */
 export function person(extra: JsonLd = {}): JsonLd {
   return {
     '@type': 'Person',
@@ -38,7 +44,7 @@ export function person(extra: JsonLd = {}): JsonLd {
       },
     ],
     homeLocation: { '@type': 'Place', name: site.location },
-    knowsAbout: ['Data-engineering agents', 'Retrieval', 'LLM evaluation', 'Databricks', 'dbt'],
+    knowsAbout: ['AI engineering', 'AI agents', 'Large language models (LLMs)', 'Generative AI', 'LLM evaluation', 'Retrieval-augmented generation (RAG)'],
     sameAs: [...profiles],
     ...extra,
   };
@@ -69,8 +75,8 @@ export function aboutJsonLd(): JsonLd {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     url: `${site.url}/about/`,
-    dateModified: site.updated.date,
-    mainEntity: person({ image: `${site.url}${site.photo}` }),
+    dateModified: isoDateTime(site.updated.date),
+    mainEntity: person({ image: PHOTO }),
   };
 }
 
@@ -84,9 +90,11 @@ export interface ArticleInput {
   image: string;
   /** YYYY-MM-DD, as shown next to "Updated". */
   dateModified: string;
+  /** YYYY-MM-DD the write-up was first published; defaults to dateModified. */
+  datePublished?: string;
 }
 
-/** A write-up, credited to the Person; author.url is the About page, which carries the ProfilePage. */
+/** A write-up, credited to the Person (same @id and url as the full node on home and /about/). */
 export function articleJsonLd(a: ArticleInput): JsonLd {
   return {
     '@context': 'https://schema.org',
@@ -94,8 +102,9 @@ export function articleJsonLd(a: ArticleInput): JsonLd {
     headline: a.headline,
     description: a.description,
     image: [a.image],
-    dateModified: a.dateModified,
+    datePublished: isoDateTime(a.datePublished ?? a.dateModified),
+    dateModified: isoDateTime(a.dateModified),
     mainEntityOfPage: a.url,
-    author: { '@type': 'Person', '@id': PERSON_ID, name: site.name, url: `${site.url}/about/` },
+    author: { '@type': 'Person', '@id': PERSON_ID, name: site.name, url: HOME },
   };
 }
