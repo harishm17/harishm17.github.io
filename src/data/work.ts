@@ -17,6 +17,8 @@ export interface WorkItem {
   result?: string;
   /** Write-up this row links to (hidden while that write-up is a draft). */
   page?: Slug;
+  /** Year and month the work ended (YYYY-MM); orders the research and coursework list on About, newest first. */
+  end?: string;
   /** Section id inside the write-up. */
   anchor?: string;
   links?: ExtLink[];
@@ -155,7 +157,7 @@ export const work: WorkItem[] = [
   {
     id: 'pwc',
     group: 'earlier',
-    title: 'Demand forecasting and review analysis',
+    title: 'Sales forecasting and review analysis',
     context: 'PwC, internship',
     years: '2023',
     summary:
@@ -168,6 +170,7 @@ export const work: WorkItem[] = [
     title: 'Finding behaviors in mouse videos without labels',
     context: 'Master’s thesis, IIT Madras and The Jackson Laboratory',
     years: '2023–24',
+    end: '2024-06',
     summary:
       'Segmented pose-tracking video of mice into behaviors with a bidirectional RNN autoencoder and clustering, for genetic analysis. Advised by Balaraman Ravindran and Vivek Kumar.',
     links: [{ label: 'Thesis (PDF)', href: '/Harish___DDP_Report.pdf' }],
@@ -179,6 +182,7 @@ export const work: WorkItem[] = [
     title: 'How microbes in homes support each other',
     context: 'Young Research Fellowship, IIT Madras',
     years: '2021–22',
+    end: '2022-09',
     summary:
       'Built metabolic models of the 20 best-connected species in microbiomes from rural and urban homes, and measured which ones support which with a metabolic support index. Advised by Karthik Raman.',
     links: [{ label: 'Poster (PDF)', href: '/Harish-YRF_poster.pdf' }],
@@ -189,8 +193,9 @@ export const work: WorkItem[] = [
     title: 'Tumor deconvolution',
     context: 'SciWhyLab, research internship',
     years: '2021',
+    end: '2021-08',
     summary: 'Estimated cell-type proportions from bulk gene expression with dimensionality reduction and an SVM.',
-    links: [{ label: 'GitHub', href: 'https://github.com/harishm17/Tumor-Deconvolution-Challenge' }],
+    links: [{ label: 'Code (GitHub)', href: 'https://github.com/harishm17/Tumor-Deconvolution-Challenge' }],
   },
   {
     id: 'cs6130',
@@ -198,6 +203,7 @@ export const work: WorkItem[] = [
     title: 'Classified rank-maximal matchings',
     context: 'Paper presentation, Advanced Graph Algorithms, IIT Madras',
     years: '2024',
+    end: '2024-05',
     summary:
       'Presented a paper’s algorithm for rank-maximal matchings under laminar classifications and its hardness result for the general case.',
     links: [
@@ -209,8 +215,9 @@ export const work: WorkItem[] = [
     id: 'covid',
     group: 'coursework',
     title: 'Gene co-expression networks in COVID-19',
-    context: 'Course project, IIT Madras',
+    context: 'Course project, Algorithmic Approaches in Computational Biology, IIT Madras',
     years: '2023',
+    end: '2023-05',
     summary: 'Network and co-expression analysis of gene expression data to find gene signatures linked to COVID-19.',
     links: [{ label: 'Report (PDF)', href: '/AACB_Report.pdf' }],
   },
@@ -220,7 +227,8 @@ export const work: WorkItem[] = [
     title: 'a11y-stem',
     context: 'Personal project, in progress',
     years: '2026',
-    summary: 'Turns STEM lecture PDFs into accessible HTML, with equations as MathML a screen reader can speak. In progress.',
+    summary:
+      'Turns STEM course PDFs into accessible web pages with MathML equations, headings, lists and figure alt text, measured against an OpenStax physics textbook. In progress.',
     page: 'a11y-stem',
   },
   {
@@ -274,7 +282,7 @@ export const featured: Featured[] = [
     years: 'in progress',
     title: 'a11y-stem',
     summary:
-      'Turning equations in STEM lecture PDFs into MathML a screen reader can speak. Private until the beta.',
+      'Turns STEM course PDFs into accessible web pages, with equations as MathML a screen reader can speak. It checks equations against the PDF’s own text and asks the instructor only about fixes that could change what a student reads. Private until the beta.',
     page: 'a11y-stem',
   },
 ];
@@ -285,4 +293,9 @@ export function homeItems(): WorkItem[] {
 
 export function byGroup(group: Group): WorkItem[] {
   return work.filter((w) => w.group === group);
+}
+
+/** Research and coursework as one list, newest first by end month (About). On a tie, research stays first. */
+export function studies(): WorkItem[] {
+  return [...byGroup('research'), ...byGroup('coursework')].sort((a, b) => (b.end ?? '').localeCompare(a.end ?? ''));
 }

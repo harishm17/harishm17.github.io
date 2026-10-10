@@ -44,6 +44,17 @@ describe('WorkRow', () => {
     expect(sql.querySelector('.row-result')?.textContent).toContain('52% to 76%');
   });
 
+  it('compact rows show title, context and links only', async () => {
+    const item = work.find((w) => w.id === 'thesis')!;
+    const doc = await render({ item, compact: true });
+    expect(doc.querySelector('.row-summary')).toBeNull();
+    expect(doc.querySelector('.row-result')).toBeNull();
+    expect(doc.querySelector('li.row.compact')).not.toBeNull();
+    expect(doc.querySelector('h3')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(item.title);
+    expect(doc.querySelector('.row-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`${item.context}, · ${item.years}`);
+    expect(doc.querySelector('.row-links a')?.getAttribute('href')).toBe('/Harish___DDP_Report.pdf');
+  });
+
   it('can show the years alone when the group heading already names the context', async () => {
     const item = work.find((w) => w.id === 'agent-retrieval')!;
     const doc = await render({ item, hideContext: true });

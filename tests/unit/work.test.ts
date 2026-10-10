@@ -1,12 +1,23 @@
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { GROUPS, byGroup, featured, homeItems, work } from '../../src/data/work';
+import { GROUPS, byGroup, featured, homeItems, studies, work } from '../../src/data/work';
 
 const SLUGS = ['agent-retrieval', 'llm-evaluation', 'a11y-stem'];
 // Never-public terms are checked against the private list in private-terms.test.ts.
 const NEVER = ['—', '→'];
 
 describe('work data', () => {
+  it('orders research and coursework together, newest first by end month', () => {
+    expect(studies().map((w) => w.id)).toEqual(['thesis', 'cs6130', 'covid', 'microbiome', 'tumor']);
+    for (const w of [...byGroup('research'), ...byGroup('coursework')]) {
+      expect(w.end, w.id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+      // The end year is the last year in `years` ('2023–24' ends in 2024).
+      const m = w.years.match(/^(\d{4})(?:–(\d{2}))?$/)!;
+      const last = m[2] ? `${m[1].slice(0, 2)}${m[2]}` : m[1];
+      expect(w.end!.slice(0, 4), w.id).toBe(last);
+    }
+  });
+
   it('has unique ids and known groups', () => {
     expect(new Set(work.map((w) => w.id)).size).toBe(work.length);
     const groups = new Set(GROUPS.map((g) => g.id));

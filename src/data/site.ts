@@ -21,9 +21,9 @@ export const site = {
   location: 'San Francisco Bay Area',
   title: 'Harish Manoharan: software engineer at Purgo AI',
   /** The home page's one-line role, also the Person description in structured data. */
-  lede: 'Software engineer at Purgo AI, working on its data-engineering agent and the evals behind it.',
+  lede: 'Software engineer at Purgo AI, working on agents, retrieval and LLM evaluation.',
   description:
-    'Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on its data-engineering agent and evals. UT Dallas; IIT Madras.',
+    'Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on agents, retrieval and LLM evaluation. UT Dallas; IIT Madras.',
   updated: {
     date: updated,
     iso: updated.slice(0, 7),

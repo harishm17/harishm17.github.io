@@ -7,20 +7,22 @@ interface Props {
   href?: string;
   /** Show only the years, for rows under a heading that already names the context (e.g. "Purgo AI"). */
   hideContext?: boolean;
+  /** Title, context and links only, for a list that the Work page already describes in full (About). */
+  compact?: boolean;
 }
-const { item, href, hideContext = false } = Astro.props;
+const { item, href, hideContext = false, compact = false } = Astro.props;
 // A no-break space keeps the institute's name whole when the line wraps.
 const context = item.context.replaceAll('IIT Madras', 'IIT\u00a0Madras');
 ---
-<li class="row">
+<li class:list={['row', { compact }]}>
   <h3 class="row-title">{href ? <a class="hit" href={href}><NoBreak text={item.title} joinLast /></a> : <NoBreak text={item.title} joinLast />}</h3>
   {hideContext ? (
     <p class="row-context meta muted">{item.years}</p>
   ) : (
     <p class="row-context meta muted">{context}<span class="nowrap"><span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</span></p>
   )}
-  <p class="row-summary">{item.summary}</p>
-  {item.result && <p class="row-result">{item.result}</p>}
+  {!compact && <p class="row-summary">{item.summary}</p>}
+  {!compact && item.result && <p class="row-result">{item.result}</p>}
   {item.links && item.links.length > 0 && (
     <ul class="plain-list dot-list row-links meta" role="list">
       {item.links.map((l) => <li><a class="hit" href={l.href}>{l.label}</a></li>)}
@@ -61,6 +63,14 @@ const context = item.context.replaceAll('IIT Madras', 'IIT\u00a0Madras');
         "ctx links";
       column-gap: var(--gap);
       align-content: start;
+    }
+    /* A third, flexible track takes the context's extra height, so the links stay under the title. */
+    .row.compact {
+      grid-template-areas:
+        "ctx title"
+        "ctx links"
+        "ctx .";
+      grid-template-rows: auto auto 1fr;
     }
     .row-title { grid-area: title; }
     .row-context { grid-area: ctx; padding-top: 0.15rem; }
