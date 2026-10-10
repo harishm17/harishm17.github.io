@@ -3,7 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-const SITE = 'https://harishm17.github.io';
+const SITE = 'https://harishmanoharan.com';
 
 /** Old SPA routes that people may still have links to (spec §3). */
 export const REDIRECTS = {

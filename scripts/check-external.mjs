@@ -16,7 +16,7 @@ for (const file of htmlFiles('dist')) {
   if (file.includes('box-backup')) continue;
   for (const m of readFileSync(file, 'utf8').matchAll(/<a\b[^>]*href="(https?:\/\/[^"]+)"/g)) {
     const url = m[1].replaceAll('&amp;', '&');
-    if (!url.startsWith('https://harishm17.github.io')) urls.add(url);
+    if (!/^https:\/\/(?:www\.)?(?:harishmanoharan\.com|harishm17\.github\.io)/.test(url)) urls.add(url);
   }
 }
 

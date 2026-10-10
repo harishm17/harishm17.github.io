@@ -6,7 +6,7 @@ import { mkdirSync, readFileSync } from 'node:fs';
 const PORT = 4323;
 const WIDTHS = [390, 720, 768, 1024, 1440];
 const xml = readFileSync('dist/sitemap-0.xml', 'utf8');
-const pages = [...xml.matchAll(/<loc>https:\/\/harishm17\.github\.io(\/[^<]*)<\/loc>/g)].map((m) => m[1]).concat('/404.html');
+const pages = [...xml.matchAll(/<loc>https?:\/\/[^/<]+(\/[^<]*)<\/loc>/g)].map((m) => m[1]).concat('/404.html');
 
 mkdirSync('test-results/screens', { recursive: true });
 // --ignore-lock keeps preview in the foreground (Astro 7 daemonizes it when it detects an AI agent);

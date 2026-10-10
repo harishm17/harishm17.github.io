@@ -25,6 +25,6 @@ export function text(el: Element | null | undefined): string {
 /** Content pages = sitemap URLs (redirect stubs are excluded there) plus the 404 page, as dist file paths. */
 export function contentPagePaths(): string[] {
   const xml = readDist('sitemap-0.xml');
-  const paths = [...xml.matchAll(/<loc>https:\/\/harishm17\.github\.io(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
+  const paths = [...xml.matchAll(/<loc>https?:\/\/[^/<]+(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
   return [...paths.map((p) => `${p.replace(/^\//, '')}index.html`), '404.html'];
 }

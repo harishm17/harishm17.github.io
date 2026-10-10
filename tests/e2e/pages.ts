@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 /** URL paths of every content page (from the built sitemap) plus the 404 page. */
 export function contentPages(): string[] {
   const xml = readFileSync('dist/sitemap-0.xml', 'utf8');
-  const paths = [...xml.matchAll(/<loc>https:\/\/harishm17\.github\.io(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
+  const paths = [...xml.matchAll(/<loc>https?:\/\/[^/<]+(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
   return [...paths, '/404.html'];
 }
 

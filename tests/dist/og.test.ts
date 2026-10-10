@@ -12,7 +12,7 @@ describe('share images', () => {
 
   it.each(pages)('%s points at an existing 1200x630 PNG under 300 KB', (path) => {
     const url = loadPage(path).querySelector('meta[property="og:image"]')?.getAttribute('content') ?? '';
-    expect(url).toMatch(/^https:\/\/harishm17\.github\.io\/og\/.+\.png$/);
+    expect(url).toMatch(/^https:\/\/harishmanoharan\.com\/og\/.+\.png$/);
     const file = distFile(new URL(url).pathname.slice(1));
     expect(pngSize(file)).toEqual({ width: 1200, height: 630 });
     expect(statSync(file).size).toBeLessThan(300 * 1024);

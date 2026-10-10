@@ -44,13 +44,13 @@ describe('redirects from the old SPA routes', () => {
 describe('robots and sitemap', () => {
   it('robots.txt allows everything and points at the sitemap index', () => {
     expect(readDist('robots.txt').trim()).toBe(
-      'User-agent: *\nAllow: /\nSitemap: https://harishm17.github.io/sitemap-index.xml',
+      'User-agent: *\nAllow: /\nSitemap: https://harishmanoharan.com/sitemap-index.xml',
     );
   });
 
   it('the sitemap lists real pages and none of the redirect stubs', () => {
     const xml = readDist('sitemap-0.xml');
-    expect(xml).toContain('<loc>https://harishm17.github.io/</loc>');
+    expect(xml).toContain('<loc>https://harishmanoharan.com/</loc>');
     for (const stub of ['experience', 'projects', 'research', 'skills', 'certifications', 'leadership', 'hobbies', 'contact', 'box-backup', '404']) {
       expect(xml).not.toContain(`/${stub}`);
     }

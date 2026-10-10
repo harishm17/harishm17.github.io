@@ -1,6 +1,6 @@
 export const site = {
   name: 'Harish Manoharan',
-  url: 'https://harishm17.github.io',
+  url: 'https://harishmanoharan.com',
   email: 'harish_manoharan@outlook.com',
   github: 'https://github.com/harishm17',
   linkedin: 'https://www.linkedin.com/in/harishm17/',

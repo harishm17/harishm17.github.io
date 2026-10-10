@@ -36,7 +36,7 @@ describe('every content page', () => {
     expect(doc.querySelectorAll('h1').length).toBe(1);
     expect(doc.querySelector('a.skip')?.getAttribute('href')).toBe('#main');
     expect(doc.querySelector('main#main')).not.toBeNull();
-    expect(doc.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/^https:\/\/harishm17\.github\.io\//);
+    expect(doc.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/^https:\/\/harishmanoharan\.com\//);
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeGreaterThan(20);
     expect(doc.querySelector('meta[name="twitter:card"]')?.getAttribute('content')).toBe('summary_large_image');
     expect(doc.querySelector('link[rel="icon"]')?.getAttribute('href')).toBe('/favicon.svg');

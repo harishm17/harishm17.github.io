@@ -39,8 +39,9 @@ Launch only after Harish has reviewed the built site (`npx astro preview --host`
 2. Watch the live site: `while :; do date +%T; curl -s -o /dev/null -w '%{http_code}\n' https://harishm17.github.io/; sleep 10; done`
 3. Switch Pages to Actions: `gh api -X PUT repos/harishm17/harishm17.github.io/pages -f build_type=workflow`. Then confirm `/` still returns 200 with the old content; if it does not, go straight to step 4 and merge.
 4. Merge with a merge commit: `gh pr merge <n> --merge`, then `gh run watch`.
-5. Check: every page returns 200, old URLs land on their new pages, `/box-backup/` is unchanged, PDFs open, `npx linkinator https://harishm17.github.io/ --recurse --check-fragments`, and the LinkedIn Post Inspector preview.
-6. If the site is in Google Search Console, submit `sitemap-index.xml`.
+5. Point Pages at the custom domain (DNS at Porkbun must already return GitHub's A/AAAA records for `harishmanoharan.com` and a `www` CNAME to `harishm17.github.io`): `gh api -X PUT repos/harishm17/harishm17.github.io/pages -f cname=harishmanoharan.com`. Wait until `gh api repos/harishm17/harishm17.github.io/pages --jq .https_certificate.state` shows `approved`, then `gh api -X PUT repos/harishm17/harishm17.github.io/pages -F https_enforced=true`. From then on `harishm17.github.io` redirects to `https://harishmanoharan.com`.
+6. Check: every page returns 200, old URLs (including `harishm17.github.io/...`) land on their new pages, `/box-backup/` is unchanged, PDFs open, `npx linkinator https://harishmanoharan.com/ --recurse --check-fragments`, and the LinkedIn Post Inspector preview.
+7. If the site is in Google Search Console, add `harishmanoharan.com` and submit `sitemap-index.xml`.
 
 If the deploy fails while the old site is still served, fix forward on `main`. Never switch back to the legacy source while `main` contains the Astro source.
 
