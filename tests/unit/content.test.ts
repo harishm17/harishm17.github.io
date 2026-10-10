@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parse as parseYaml } from 'yaml';
+import { DISCLAIMERS } from '../disclaimers';
 
 const DIR = 'src/content/work';
 const files = readdirSync(DIR).filter((f) => f.endsWith('.mdx'));
@@ -15,11 +16,11 @@ function split(file: string) {
   const raw = readFileSync(`${DIR}/${file}`, 'utf8');
   const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!m) throw new Error(`${file} has no frontmatter`);
-  return { data: parseYaml(m[1]) as Record<string, unknown>, body: m[2] };
+  return { raw, data: parseYaml(m[1]) as Record<string, unknown>, body: m[2] };
 }
 
 describe.each(files)('%s', (file) => {
-  const { data, body } = split(file);
+  const { raw, data, body } = split(file);
   const prose = body
     .split('\n')
     .filter((line) => !/^\s*(import|export)\s/.test(line))
@@ -47,6 +48,11 @@ describe.each(files)('%s', (file) => {
   it('uses no banned words, PR numbers, em dashes or arrows', () => {
     for (const re of BANNED) expect(body).not.toMatch(re);
     for (const bad of NEVER) expect(body).not.toContain(bad);
+  });
+
+  it('states no disclaimer in its frontmatter or prose, drafts included', () => {
+    // The built-page lint cannot see drafts, so the source is checked too.
+    for (const re of DISCLAIMERS) expect(raw).not.toMatch(re);
   });
 
   it('has a description that fits search snippets', () => {

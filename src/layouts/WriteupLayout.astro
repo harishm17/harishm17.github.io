@@ -29,7 +29,6 @@ const pageTitle = withName.length <= 70 ? withName : tagTitle;
       <div class="side meta muted">
         <p>{d.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.years}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.readMinutes} min read</p>
         <p>Updated <time datetime={updatedIso}>{updatedLabel}</time></p>
-        <p class="scope">{d.scope}</p>
         <p><span class="side-label">My part.</span> {d.myPart}</p>
         <p><span class="side-label">Built with.</span> {d.builtWith.map((t, i) => <>{i > 0 && ', '}<span class="nowrap">{t}</span></>)}</p>
       </div>

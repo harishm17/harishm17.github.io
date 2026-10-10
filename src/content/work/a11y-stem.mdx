@@ -8,7 +8,6 @@ updated: 2026-10-09
 readMinutes: 3
 builtWith: [Python, FastAPI, PyMuPDF, OpenAI models, MathML, PostgreSQL]
 myPart: Everything so far; it’s a solo project.
-scope: Examples and numbers come only from openly licensed OpenStax textbooks.
 order: 3
 draft: true
 ogImage: /og/a11y-stem-2026-10.png
@@ -28,7 +27,7 @@ Under the Justice Department’s [interim final rule of April 20, 2026](https://
 
 OpenStax publishes openly licensed textbooks as web pages with expert-written MathML and alt text, which makes them a ready-made answer key. The evaluation prints a page to an ordinary PDF (or draws an equation as an image), runs the real pipeline on it and scores the output against the original.
 
-The most useful finding so far: the model’s own confidence told me nothing. Every answer scored 0.88 or higher, right or wrong. What separates right from wrong is a check against the PDF’s own text layer. Run 3 below added a check that compares bold and plain letters with the text layer: a bold letter read as plain, or the reverse, keeps the answer in review.
+The most useful finding so far: the model’s own confidence told me nothing. Every answer scored 0.88 or higher, right or wrong. What separates right from wrong is a check against the PDF’s own text layer. Run 3 added a check that compares bold and plain letters with the text layer: a bold letter read as plain, or the reverse, keeps the answer in review.
 
 <DataTable id="equation-runs" caption="Equations transcribed exactly (lenient match), 30-equation development sample" columns={[{ label: 'Run' }, { label: 'Change' }, { label: 'Exact', numeric: true }]} rows={[{ header: '1', cells: ['First run', '0.367'] }, { header: '2', cells: ['Fixed how the evaluation drew bold vectors', '0.600'] }, { header: '3', cells: ['Added a bold-vs-plain check against the text layer', '0.767'] }]} />
 
@@ -38,4 +37,4 @@ The end-to-end run used the same three sections, printed to 43 PDF pages, so it�
 
 ## Status
 
-Private until the beta. I’ll add the code and a demo here when it’s public.
+Private until the beta.

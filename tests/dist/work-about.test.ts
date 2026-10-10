@@ -86,12 +86,10 @@ describe('/about/', () => {
     expect(doc.querySelector('section[aria-labelledby="contact"] a')?.getAttribute('href')).toBe('mailto:harish_manoharan@outlook.com');
   });
 
-  it('qualifies the 6,000+ participants figure as self-reported, and only that way', () => {
-    // Spec section 9: the figure is Harish's own claim from the old site, so it never appears bare.
-    const mentions = main.match(/6,000\+/g) ?? [];
-    const qualified = main.match(/6,000\+ participants \(a self-reported figure\)/g) ?? [];
-    expect(mentions.length).toBeGreaterThan(0);
-    expect(qualified.length).toBe(mentions.length);
+  it('states the 6,000+ participants figure without a provenance hedge', () => {
+    // Harish, 2026-10-09: no "self-reported" qualifier on his own claims. This overrides the caveat in spec section 9.
+    expect(main).toContain('Those events drew 6,000+ participants.');
+    expect(main).not.toMatch(/self-reported/i);
   });
 
   it('says what a11y-stem is, without a repo link or launch claims', () => {

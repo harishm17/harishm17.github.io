@@ -8,7 +8,6 @@ updated: 2026-10-08
 readMinutes: 5
 builtWith: [Python, LangGraph, sqlglot, Pinecone, Databricks, dbt]
 myPart: I built lineage expansion and its 48 tests, the schema check, the Pinecone search path, the catalog search benchmark and the model comparison. The agent, its orchestration, the benchmark harness and most of the prompts are the team’s.
-scope: Numbers from Purgo’s internal benchmarks. No code, prompts or customer details.
 order: 1
 ogImage: /og/agent-retrieval-2026-10.png
 numbers: ["58", "18", "154", "71", "41", "25", "20", "99", "87", "126", "27", "0.965", "0.969", "282", "10", "0.10", "0.931", "0.944", "0.012", "3,712", "31", "210", "4", "70"]
@@ -26,7 +25,7 @@ Purgo’s agent is a LangGraph pipeline: it analyzes a data-engineering ticket, 
 
 ## How I measured it
 
-Each benchmark ticket comes from real work and has a known answer that lists the tables it should use. A miss is one of those expected tables that never reached the agent’s context. I count misses summed over all tickets, so a ticket missing three tables counts three times. The benchmarks had between 95 and 103 tickets and ran at different times on different builds of the agent, so each section below names its own baseline.
+Purgo’s internal benchmarks are built from real tickets, and each ticket has a known answer that lists the tables it should use. A miss is one of those expected tables that never reached the agent’s context. I count misses summed over all tickets, so a ticket missing three tables counts three times. The benchmarks had between 95 and 103 tickets and ran at different times on different builds of the agent, so each result is compared with a baseline from its own run.
 
 ## Following the lineage
 

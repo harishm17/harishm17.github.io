@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { DISCLAIMERS } from '../disclaimers';
 import { contentPagePaths, loadPage, readDist, text } from './helpers';
 
 // Task 5's banned list plus the spec's closing phrase (spec section 8).
@@ -24,6 +25,8 @@ const BANNED = [
   /\bLLM agents?\b/i,
   // "building agents" alone says nothing about what kind (Harish, 2026-10-09).
   /building agents/i,
+  // Rules like "no code, prompts or customer details" are followed, never stated (Harish, 2026-10-09).
+  ...DISCLAIMERS,
 ];
 
 describe('every content page', () => {

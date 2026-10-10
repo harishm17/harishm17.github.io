@@ -16,7 +16,6 @@ const work = defineCollection({
     readMinutes: z.number().int().positive(),
     builtWith: z.array(z.string()).min(1),
     myPart: z.string(),
-    scope: z.string(),
     order: z.number().int(),
     draft: z.boolean().default(false),
     ogImage: z.string().startsWith('/og/'),

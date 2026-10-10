@@ -4,7 +4,7 @@ import { loadPage, readDist, text } from './helpers';
 describe('/work/agent-retrieval/', () => {
   const doc = loadPage('work/agent-retrieval/index.html');
 
-  it('has the title, dek, meta, scope note and Work marked current', () => {
+  it('has the title, dek, meta and Work marked current', () => {
     expect(text(doc.querySelector('h1'))).toBe('Finding the tables an agent misses');
     expect(text(doc.querySelector('.dek'))).toContain('from 79 to 24');
     const side = text(doc.querySelector('.side'));
@@ -48,12 +48,20 @@ describe('/work/agent-retrieval/', () => {
     expect(text(doc.querySelector('.side'))).toContain('catalog search benchmark');
   });
 
-  it('keeps the side block short: spoken meta line, a one-line date and a one-sentence scope', () => {
+  it('keeps the side block short: spoken meta line, a one-line date, My part and Built with, and no scope note', () => {
     const meta = doc.querySelector('.side p')!.cloneNode(true) as Element;
     meta.querySelectorAll('[aria-hidden]').forEach((n) => n.remove());
     expect(text(meta)).toMatch(/^Purgo AI, 2026, \d+ min read$/);
     expect(text(doc.querySelector('.side time')?.parentElement)).toMatch(/^Updated \w+ \d+, \d{4}$/);
-    expect(text(doc.querySelector('.side .scope'))).toBe('Numbers from Purgo’s internal benchmarks. No code, prompts or customer details.');
+    // The never-public rules are followed, not stated, so there is no scope or disclaimer line (Harish, 2026-10-09).
+    const lines = [...doc.querySelectorAll('.side p')].map((p) => text(p));
+    expect(lines.length).toBe(4);
+    expect(lines[2]).toMatch(/^My part\. /);
+    expect(lines[3]).toMatch(/^Built with\. /);
+  });
+
+  it('says where the numbers come from in the measurement section, as a plain fact', () => {
+    expect(text(doc.querySelector('.prose'))).toContain('Purgo’s internal benchmarks are built from real tickets, and each ticket has a known answer');
   });
 
   it('ends with one plain link to the next write-up', () => {
