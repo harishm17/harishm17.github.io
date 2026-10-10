@@ -15,6 +15,12 @@ describe('home: head', () => {
     expect(description.length).toBeLessThanOrEqual(160);
   });
 
+  it('keeps the Search Console tag that verifies the old harishm17.github.io property (it redirects here)', () => {
+    expect(doc.querySelector('meta[name="google-site-verification"]')?.getAttribute('content')).toBe(
+      'g2gm7MzwJ0dX58WbB_p0Vtj_8En_oBaQN3DElBbdDUg',
+    );
+  });
+
   it('names him, his employer, region and schools in the description, to tell him apart from namesakes', () => {
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
     for (const s of ['Harish Manoharan', 'Purgo AI', 'San Francisco Bay Area', 'UT Dallas', 'IIT Madras']) expect(description).toContain(s);

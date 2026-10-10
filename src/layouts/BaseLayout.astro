@@ -29,6 +29,8 @@ const ogImageUrl = new URL(ogImage, site.url).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <!-- Search Console ownership of the old https://harishm17.github.io/ property (Change of Address). Keep it. -->
+    <meta name="google-site-verification" content="g2gm7MzwJ0dX58WbB_p0Vtj_8En_oBaQN3DElBbdDUg" />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     {/* Google and Bing don't use SVG favicons, so the ICO and PNG are for them; browsers pick the SVG. Keep these URLs (npm run favicons). */}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -51,7 +53,7 @@ const ogImageUrl = new URL(ogImage, site.url).href;
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="theme-color" content="#ffffff" />
     <Font cssVariable="--font-sans" preload />
-    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
