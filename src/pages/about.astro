@@ -2,15 +2,17 @@
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkRow from '../components/WorkRow.astro';
-import photo from '../assets/photo.jpg';
+import photo from '../assets/harish-manoharan.jpg';
 import { site } from '../data/site';
 import { byGroup } from '../data/work';
+import { aboutJsonLd } from '../lib/structured-data';
 ---
 <BaseLayout
   title={`About: ${site.name}`}
   description="Harish Manoharan: from biology at IIT Madras, through an M.S. in computer science at UT Dallas, to a data-engineering agent at Purgo AI."
   ogImage={site.og.home}
   current="about"
+  jsonLd={aboutJsonLd()}
 >
   <div class="intro">
     <h1 class="display">About</h1>
@@ -62,15 +64,16 @@ import { byGroup } from '../data/work';
     <p class="outside-body">
       At IIT Madras I led the coding and logic events at Shaastra, the student-run technical festival. Those
       events drew 6,000+ participants. I also taught greedy and dynamic-programming
-      sessions in the programming club. These days it’s chess on <a href="https://lichess.org/@/harishm17">Lichess</a>,
-      table tennis and reading. I used to do contests on <a href="https://codeforces.com/profile/harishm">Codeforces</a>.
+      sessions in the programming club. These days it’s chess on <a href={site.lichess} rel="me">Lichess</a>,
+      table tennis and reading. I used to do contests on <a href={site.codeforces} rel="me">Codeforces</a>.
     </p>
   </section>
 
   <section class="section" aria-labelledby="contact">
     <h2 id="contact" class="section-title">Contact</h2>
     <p class="outside-body">
-      Email is best: <a href={`mailto:${site.email}`}>{site.email}</a>. I live in the {site.location}.
+      Email is best: <a href={`mailto:${site.email}`}>{site.email}</a>. I’m {site.handle} on GitHub, LinkedIn and Lichess.
+      I live in the {site.location}.
     </p>
   </section>
 </BaseLayout>

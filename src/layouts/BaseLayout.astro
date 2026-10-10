@@ -3,7 +3,8 @@ import { Font } from 'astro:assets';
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { site } from '../data/site';
+import { profiles, site } from '../data/site';
+import type { JsonLd } from '../lib/structured-data';
 
 interface Props {
   title: string;
@@ -13,9 +14,11 @@ interface Props {
   current?: 'work' | 'about' | null;
   inWriteup?: boolean;
   showName?: boolean;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: JsonLd;
+  /** For the 404 page: keeps it out of search results and gives it no canonical URL, since it has none. */
+  noindex?: boolean;
 }
-const { title, description, ogImage, ogType = 'website', current = null, inWriteup = false, showName = true, jsonLd } = Astro.props;
+const { title, description, ogImage, ogType = 'website', current = null, inWriteup = false, showName = true, jsonLd, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImageUrl = new URL(ogImage, site.url).href;
 ---
@@ -26,13 +29,18 @@ const ogImageUrl = new URL(ogImage, site.url).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {/* Google and Bing don't use SVG favicons, so the ICO and PNG are for them; browsers pick the SVG. Keep these URLs (npm run favicons). */}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {profiles.map((href) => <link rel="me" href={href} />)}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

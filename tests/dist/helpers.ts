@@ -22,6 +22,19 @@ export function text(el: Element | null | undefined): string {
   return (el?.textContent ?? '').replace(/\s+/g, ' ').trim();
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type LdNode = Record<string, any>;
+
+/** Every ld+json script on the page, parsed. */
+export function jsonLd(doc: Document): LdNode[] {
+  return [...doc.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent ?? ''));
+}
+
+/** URL path of a content page's dist file: "about/index.html" is "/about/", "404.html" is "/404.html". */
+export function urlPath(file: string): string {
+  return `/${file.replace(/index\.html$/, '')}`;
+}
+
 /** Content pages = sitemap URLs (redirect stubs are excluded there) plus the 404 page, as dist file paths. */
 export function contentPagePaths(): string[] {
   const xml = readDist('sitemap-0.xml');

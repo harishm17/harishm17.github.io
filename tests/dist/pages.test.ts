@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { DISCLAIMERS } from '../disclaimers';
-import { contentPagePaths, loadPage, readDist, text } from './helpers';
+import { contentPagePaths, jsonLd, loadPage, readDist, text, urlPath } from './helpers';
+
+const PROFILES = [
+  'https://github.com/harishm17',
+  'https://www.linkedin.com/in/harishm17/',
+  'https://codeforces.com/profile/harishm',
+  'https://lichess.org/@/harishm17',
+];
 
 // Task 5's banned list plus the spec's closing phrase (spec section 8).
 const BANNED = [
@@ -36,10 +43,8 @@ describe('every content page', () => {
     expect(doc.querySelectorAll('h1').length).toBe(1);
     expect(doc.querySelector('a.skip')?.getAttribute('href')).toBe('#main');
     expect(doc.querySelector('main#main')).not.toBeNull();
-    expect(doc.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/^https:\/\/harishmanoharan\.com\//);
     expect(doc.querySelector('meta[name="description"]')?.getAttribute('content')?.length).toBeGreaterThan(20);
     expect(doc.querySelector('meta[name="twitter:card"]')?.getAttribute('content')).toBe('summary_large_image');
-    expect(doc.querySelector('link[rel="icon"]')?.getAttribute('href')).toBe('/favicon.svg');
     expect(text(doc.querySelector('footer'))).toContain('Updated October 2026');
     // Same order as the home link row.
     expect([...doc.querySelectorAll('footer a')].map((a) => a.getAttribute('href'))).toEqual([
@@ -48,6 +53,60 @@ describe('every content page', () => {
       'https://www.linkedin.com/in/harishm17/',
       'mailto:harish_manoharan@outlook.com',
     ]);
+    expect([...doc.querySelectorAll('footer a[rel~="me"]')].map((a) => a.getAttribute('href'))).toEqual(PROFILES.slice(0, 2));
+  });
+
+  it.each(contentPagePaths().filter((path) => path !== '404.html'))('%s has a self-referencing canonical and no robots block', (path) => {
+    const doc = loadPage(path);
+    const canonical = `https://harishmanoharan.com${urlPath(path)}`;
+    expect(doc.querySelectorAll('link[rel="canonical"]').length).toBe(1);
+    expect(doc.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(canonical);
+    expect(doc.querySelector('meta[property="og:url"]')?.getAttribute('content')).toBe(canonical);
+    expect(doc.querySelector('meta[name="robots"]')).toBeNull();
+  });
+
+  it('404 is noindex and has no canonical, since its URL is any missing page', () => {
+    const doc = loadPage('404.html');
+    expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex');
+    expect(doc.querySelector('link[rel="canonical"]')).toBeNull();
+    expect(doc.querySelector('meta[property="og:url"]')).toBeNull();
+  });
+
+  it.each(contentPagePaths())('%s declares the favicons search engines can use, with the SVG for browsers', (path) => {
+    const doc = loadPage(path);
+    const icons = [...doc.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]')].map((l) => [
+      l.getAttribute('rel'),
+      l.getAttribute('href'),
+      l.getAttribute('sizes'),
+      l.getAttribute('type'),
+    ]);
+    expect(icons).toEqual([
+      ['icon', '/favicon.ico', '48x48', null],
+      ['icon', '/favicon.svg', null, 'image/svg+xml'],
+      ['icon', '/favicon-192.png', '192x192', 'image/png'],
+      ['apple-touch-icon', '/apple-touch-icon.png', null, null],
+    ]);
+  });
+
+  it.each(contentPagePaths())('%s links his profiles rel="me" in the head', (path) => {
+    const me = [...loadPage(path).querySelectorAll('head link[rel="me"]')].map((l) => l.getAttribute('href'));
+    expect(me).toEqual(PROFILES);
+  });
+
+  it('every title carries the name: "Harish Manoharan: …" on home, "…: Harish Manoharan" elsewhere, unique and at most 70 characters', () => {
+    const titles = contentPagePaths().map((path) => [path, loadPage(path).title] as const);
+    for (const [path, title] of titles) {
+      if (path === 'index.html') expect(title.startsWith('Harish Manoharan: '), title).toBe(true);
+      else expect(title.endsWith(': Harish Manoharan'), title).toBe(true);
+      expect(title.length, title).toBeLessThanOrEqual(70);
+    }
+    expect(new Set(titles.map(([, t]) => t)).size).toBe(titles.length);
+  });
+
+  it.each(contentPagePaths())('%s has at most one ld+json script, and it parses', (path) => {
+    const doc = loadPage(path);
+    expect(doc.querySelectorAll('script[type="application/ld+json"]').length).toBeLessThanOrEqual(1);
+    expect(() => jsonLd(doc)).not.toThrow();
   });
 
   it.each(contentPagePaths().filter((path) => path !== 'index.html'))('%s shows the name link in the header', (path) => {
@@ -63,7 +122,7 @@ describe('every content page', () => {
     const doc = loadPage(path);
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
     // Machine-read copy (JSON-LD) follows the same rules.
-    const ld = doc.querySelector('script[type="application/ld+json"]')?.textContent ?? '';
+    const ld = [...doc.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent ?? '').join(' ');
     const copy = [doc.title, description, ld, text(doc.body)].join(' ');
     for (const re of BANNED) expect(copy).not.toMatch(re);
   });

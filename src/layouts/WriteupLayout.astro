@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import NoBreak from '../components/NoBreak.astro';
 import { site } from '../data/site';
+import { articleJsonLd } from '../lib/structured-data';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -18,8 +19,15 @@ const updatedLabel = d.updated.toLocaleDateString('en-US', { year: 'numeric', mo
 const tagTitle = d.shortTitle ?? d.title;
 const withName = `${tagTitle}: ${site.name}`;
 const pageTitle = withName.length <= 70 ? withName : tagTitle;
+const jsonLd = articleJsonLd({
+  headline: d.title,
+  description: d.description,
+  url: new URL(`/work/${entry.id}/`, site.url).href,
+  image: new URL(d.ogImage, site.url).href,
+  dateModified: updatedIso,
+});
 ---
-<BaseLayout title={pageTitle} description={d.description} ogImage={d.ogImage} ogType="article" current="work" inWriteup>
+<BaseLayout title={pageTitle} description={d.description} ogImage={d.ogImage} ogType="article" current="work" inWriteup jsonLd={jsonLd}>
   <article class="writeup">
     <header class="writeup-head">
       <h1 class="display">{d.title}</h1>

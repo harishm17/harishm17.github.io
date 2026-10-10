@@ -19,6 +19,7 @@
     "screenshots": "node scripts/screenshots.mjs",
     "og": "node scripts/og.mjs",
     "favicons": "node scripts/favicons.mjs",
+    "photo": "node scripts/photo.mjs",
     "verify": "npm run build && npm test && npm run test:dist && npm run validate:html && npm run check:links && npm run test:e2e"
   },
   "dependencies": {

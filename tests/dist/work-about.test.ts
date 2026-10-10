@@ -69,9 +69,10 @@ describe('/about/', () => {
     }
   });
 
-  it('shows an optimized photo with alt text', () => {
+  it('shows an optimized photo with alt text and a descriptive file name', () => {
     const img = doc.querySelector('main picture img');
     expect(img?.getAttribute('alt')).toBe('Harish Manoharan');
+    expect(img?.getAttribute('src')).toMatch(/\/harish-manoharan\.[^/]+\.jpg$/);
     expect(doc.querySelector('main picture source[type="image/avif"]')).not.toBeNull();
   });
 
@@ -84,6 +85,16 @@ describe('/about/', () => {
   it('links Contact once (the footer already carries GitHub and LinkedIn)', () => {
     expect(doc.querySelectorAll('section[aria-labelledby="contact"] a').length).toBe(1);
     expect(doc.querySelector('section[aria-labelledby="contact"] a')?.getAttribute('href')).toBe('mailto:harish_manoharan@outlook.com');
+  });
+
+  it('names the handle once, in plain text, so a search for it finds the site', () => {
+    expect(text(doc.querySelector('section[aria-labelledby="contact"]'))).toContain('I’m harishm17 on GitHub, LinkedIn and Lichess.');
+    expect(main.match(/harishm17/g)?.length).toBe(1);
+  });
+
+  it('marks the Lichess and Codeforces links rel="me"', () => {
+    const me = [...doc.querySelectorAll('main a[rel~="me"]')].map((a) => a.getAttribute('href'));
+    expect(me).toEqual(['https://lichess.org/@/harishm17', 'https://codeforces.com/profile/harishm']);
   });
 
   it('states the 6,000+ participants figure without a provenance hedge', () => {
@@ -102,7 +113,7 @@ describe('/about/', () => {
 
   it('keeps the spaces next to inline links', () => {
     // Guards against whitespace dropped at a line break beside an inline tag ("contests onCodeforces").
-    for (const s of ['chess on Lichess,', 'contests on Codeforces.', 'Email is best: harish_manoharan@outlook.com. I live in the San Francisco Bay Area.']) {
+    for (const s of ['chess on Lichess,', 'contests on Codeforces.', 'Email is best: harish_manoharan@outlook.com. I’m harishm17 on GitHub, LinkedIn and Lichess. I live in the San Francisco Bay Area.']) {
       expect(main).toContain(s);
     }
   });
