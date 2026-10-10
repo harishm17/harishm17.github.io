@@ -125,7 +125,8 @@ async function wordsOnLastLine(page: import('@playwright/test').Page, selector: 
   });
 }
 
-// text-wrap: pretty keeps a lone word ("code", "70%.") off the last line of the first Featured card.
+// A lone word ("code", "70%.") stays off the last line of the first Featured card: text-wrap: pretty does it
+// for the summary, and a no-break space between the last two words does it for the title.
 for (const width of [390, 1024, 1280, 1440]) {
   test(`first Featured card has no one-word last line at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -136,3 +137,48 @@ for (const width of [390, 1024, 1280, 1440]) {
     }
   });
 }
+
+/** Every element matching the selector that wraps and ends on a line of one word, as its text. */
+async function oneWordLastLines(page: import('@playwright/test').Page, selector: string) {
+  return page.locator(selector).evaluateAll((els) =>
+    els.flatMap((el) => {
+      const range = document.createRange();
+      const tops: number[] = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+        for (const m of (n.textContent ?? '').matchAll(/\S+/g)) {
+          range.setStart(n, m.index!);
+          range.setEnd(n, m.index! + m[0].length);
+          const r = range.getClientRects()[0];
+          if (r) tops.push(Math.round(r.top));
+        }
+      }
+      const last = tops.filter((t) => Math.abs(t - tops.at(-1)!) <= 2).length;
+      return last === 1 && tops.length > 1 ? [(el.textContent ?? '').replace(/\s+/g, ' ').trim()] : [];
+    }),
+  );
+}
+
+// The .hit tap area is an absolutely positioned box, and Chrome skips text-wrap: pretty in any block that holds
+// one, so linked titles can't count on it. hasTouch turns on pointer: coarse, which makes the tap areas live at
+// every width, as on a phone, touch tablet or touch laptop.
+test.describe('linked titles on touch screens', () => {
+  test.use({ hasTouch: true });
+  for (const width of [320, 360, 375, 1024, 1440]) {
+    test(`no title ends on a one-word line at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      for (const [path, selectors] of [
+        ['/', ['.card-title', '.row-title']],
+        ['/work/', ['.row-title']],
+        ['/work/agent-retrieval/', ['.writeup-next']],
+        ['/work/llm-evaluation/', ['.writeup-next']],
+      ] as const) {
+        await page.goto(path);
+        await page.evaluate(() => document.fonts.ready);
+        const position = await page.locator(`${selectors[0]} a.hit`).first().evaluate((a) => getComputedStyle(a).position);
+        expect(position, `${path}: the tap areas are on`).toBe('relative');
+        for (const sel of selectors) expect(await oneWordLastLines(page, sel), `${path} ${sel}`).toEqual([]);
+      }
+    });
+  }
+});

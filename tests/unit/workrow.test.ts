@@ -19,7 +19,19 @@ describe('WorkRow', () => {
     expect(linked.querySelector('h3 a')?.getAttribute('href')).toBe('/work/agent-retrieval/');
     const plain = await render({ item });
     expect(plain.querySelector('h3 a')).toBeNull();
-    expect(plain.querySelector('h3')?.textContent?.trim()).toBe(item.title);
+    expect(plain.querySelector('h3')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(item.title);
+  });
+
+  it('joins the last two words of the title, so it never ends on a line of one word', async () => {
+    // The .hit tap area turns off text-wrap: pretty in the title, so the no-break space does the job instead.
+    const item = work.find((w) => w.id === 'iqoq')!;
+    for (const doc of [await render({ item, href: '/work/llm-evaluation/#platform' }), await render({ item })]) {
+      expect(doc.querySelector('h3')?.textContent?.trim()).toBe('Validation engine for Databricks platforms');
+    }
+    const covid = await render({ item: work.find((w) => w.id === 'covid')! });
+    const title = covid.querySelector('h3')!;
+    expect(title.textContent).toContain('in COVID-19');
+    expect([...title.querySelectorAll('.nowrap')].map((s) => s.textContent)).toEqual(['co-expression', 'COVID-19']);
   });
 
   it('shows context and years, the result line only when present, and external links', async () => {

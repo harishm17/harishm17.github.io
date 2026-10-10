@@ -25,6 +25,8 @@ describe('FeaturedCard', () => {
     expect(doc.querySelector('.card-context')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Purgo AI, · 2025–26');
     // The dot travels with the years, so a wrapped line never starts or ends with "·".
     expect(doc.querySelector('.card-context > .nowrap')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(', · 2025–26');
+    // The tap area turns off text-wrap: pretty in the title, so a no-break space keeps "code" off a line alone.
+    expect(doc.querySelector('h3 a')?.textContent).toBe('An agent that writes data-engineering code');
   });
 
   it('shows a plain-text title and no link without an href (the write-up is a draft)', async () => {

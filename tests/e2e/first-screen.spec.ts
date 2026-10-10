@@ -60,3 +60,45 @@ for (const width of [360, 390, 601, 640, 720, 768, 899, 900, 959, 960, 1024, 128
     if (width >= 1024) expect(items.slice(1).every((item) => item.dotShown), 'dots show when the line fits').toBe(true);
   });
 }
+
+// The intro links fit on one line from 360px up, with dots only where the line never wraps. hasTouch turns on
+// pointer: coarse, so the .hit tap areas are live at every width and must not overlap.
+test.describe('home link row on touch screens', () => {
+  test.use({ hasTouch: true });
+  for (const width of [320, 340, 360, 375, 390, 412, 601, 1024, 1440]) {
+    test(`link row: one line from 360px, no line starts with a dot, tap areas apart at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto('/');
+      await page.evaluate(() => document.fonts.ready);
+      const items = await page.locator('.link-row > li').evaluateAll((lis) =>
+        lis.map((li, i) => {
+          const a = li.querySelector('a')!;
+          const r = a.getBoundingClientRect();
+          const after = getComputedStyle(a, '::after');
+          const dy = -parseFloat(after.top);
+          const dx = -parseFloat(after.left);
+          const dot = getComputedStyle(li, '::before').content;
+          return {
+            top: Math.round(r.top),
+            dotShown: i > 0 && dot !== 'none' && dot !== 'normal' && dot !== '""',
+            tap: { left: r.left - dx, right: r.right + dx, top: r.top - dy, bottom: r.bottom + dy },
+          };
+        }),
+      );
+      expect(items).toHaveLength(4);
+      expect(items[0].tap.bottom - items[0].tap.top, 'tap area height').toBeGreaterThanOrEqual(41);
+      items.forEach((item, i) => {
+        if (i === 0 || !item.dotShown) return;
+        expect(item.top, `item ${i + 1} starts a new line while its dot is shown`).toBe(items[i - 1].top);
+      });
+      if (width >= 360) expect(new Set(items.map((item) => item.top)).size, 'links on one line').toBe(1);
+      for (let i = 0; i < items.length; i++) {
+        for (let j = i + 1; j < items.length; j++) {
+          const [p, q] = [items[i].tap, items[j].tap];
+          const apart = p.right <= q.left || q.right <= p.left || p.bottom <= q.top || q.bottom <= p.top;
+          expect(apart, `tap areas of links ${i + 1} and ${j + 1} overlap`).toBe(true);
+        }
+      }
+    });
+  }
+});

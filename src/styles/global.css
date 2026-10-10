@@ -179,6 +179,8 @@ h2[id] {
   color: var(--muted);
 }
 
+/* Larger tap areas on phones and touch screens. The ::after box turns off text-wrap: pretty in the block that
+   holds it, so titles with a .hit link keep their last two words together in the markup (NoBreak joinLast). */
 @media (max-width: 37.5em), (pointer: coarse) {
   .hit {
     position: relative;

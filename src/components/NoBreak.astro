@@ -1,8 +1,14 @@
 ---
 interface Props {
   text: string;
+  /** Also join the last two words with a no-break space, so the text never ends on a line of one word. */
+  joinLast?: boolean;
 }
+const { text, joinLast = false } = Astro.props;
+// Linked titles can't rely on text-wrap: pretty for that: Chrome skips pretty wrapping in any block that holds
+// an absolutely positioned box, and the .hit tap area on phones and touch screens is one.
+const joined = joinLast ? text.replace(/ (\S+)$/, '\u00a0$1') : text;
 // A hyphenated compound stays on one line, so a heading or lede never ends a line in "data-".
-const parts = Astro.props.text.split(/(\S+-\S+)/);
+const parts = joined.split(/(\S+-\S+)/);
 ---
 {parts.map((part, i) => (i % 2 ? <span class="nowrap">{part}</span> : part))}

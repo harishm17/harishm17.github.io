@@ -118,9 +118,14 @@ const jsonLd = {
     .bio {
       margin-top: 1rem;
     }
+    /* The row fits from 360px up only without the dots; below that "Email" wraps, and a wrapped item would
+       start its line with "·". So phones get a plain gap, like the footer, sized to clear the tap areas. */
     .link-row {
       margin-top: 0.75rem;
-      row-gap: 1.25rem;
+      gap: 1.25rem 1rem;
+    }
+    .link-row.dot-list > li + li::before {
+      content: none;
     }
   }
 </style>
