@@ -1,0 +1,39 @@
+---
+import NoBreak from './NoBreak.astro';
+import type { Featured } from '../data/work';
+
+interface Props {
+  item: Featured;
+  /** Set only when the write-up is published; without it the title is plain text. */
+  href?: string;
+}
+const { item, href } = Astro.props;
+---
+<li class="card">
+  <h3 class="card-title">{href ? <a class="hit" href={href}><NoBreak text={item.title} joinLast /></a> : <NoBreak text={item.title} joinLast />}</h3>
+  <p class="card-context meta muted">{item.context}<span class="nowrap"><span class="vh">,</span> <span aria-hidden="true">·</span> {item.years}</span></p>
+  <p class="card-summary">{item.summary}</p>
+</li>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+    min-width: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 0.75rem;
+  }
+  .card-title {
+    font-size: var(--fs-body);
+    line-height: 1.4;
+    font-weight: 650;
+  }
+  /* The h3 comes first in the DOM, but the context line still shows above it. */
+  .card-context {
+    order: -1;
+  }
+  .card-summary {
+    max-width: var(--measure);
+  }
+</style>

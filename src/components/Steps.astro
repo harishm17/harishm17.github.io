@@ -1,0 +1,42 @@
+---
+interface Step {
+  label: string;
+  mine?: boolean;
+}
+interface Props {
+  caption: string;
+  steps: Step[];
+}
+const { caption, steps } = Astro.props;
+---
+<figure class="steps">
+  <ol class="step-list" role="list">
+    {steps.map((s) => (
+      <li class:list={{ mine: s.mine }}>{s.label}{s.mine && <span class="mine-note"> (my part)</span>}</li>
+    ))}
+  </ol>
+  <figcaption class="meta muted">{caption}</figcaption>
+</figure>
+
+<style>
+  .steps {
+    margin-block: 1.5rem;
+  }
+  .step-list {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .step-list li + li {
+    margin-top: 0.25rem;
+  }
+  .step-list li.mine {
+    font-weight: 650;
+  }
+  /* Chrome's built-in ::marker style sets tabular-nums, which spaced the markers as "1 ." in the mock. */
+  .step-list li::marker {
+    font-variant-numeric: normal;
+  }
+  figcaption {
+    margin-top: 0.75rem;
+  }
+</style>

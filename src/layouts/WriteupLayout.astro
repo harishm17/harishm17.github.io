@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import NoBreak from '../components/NoBreak.astro';
+import { site } from '../data/site';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  /** The next published write-up, linked in a plain line after the article; omitted when there is only one. */
+  next?: CollectionEntry<'work'>;
+}
+const { entry, next } = Astro.props;
+const d = entry.data;
+const updatedIso = d.updated.toISOString().slice(0, 10);
+const updatedLabel = d.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+// html-validate (long-title) allows 70 characters. A long title uses its shortTitle so the tab and search
+// result still carry the name; without one it goes without the site name rather than being cut.
+const tagTitle = d.shortTitle ?? d.title;
+const withName = `${tagTitle}: ${site.name}`;
+const pageTitle = withName.length <= 70 ? withName : tagTitle;
+---
+<BaseLayout title={pageTitle} description={d.description} ogImage={d.ogImage} ogType="article" current="work" inWriteup>
+  <article class="writeup">
+    <header class="writeup-head">
+      <h1 class="display">{d.title}</h1>
+      <p class="dek"><NoBreak text={d.dek} /></p>
+    </header>
+    <div class="writeup-body">
+      <div class="side meta muted">
+        <p>{d.context}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.years}<span class="vh">,</span> <span aria-hidden="true">·</span> {d.readMinutes} min read</p>
+        <p>Updated <time datetime={updatedIso}>{updatedLabel}</time></p>
+        <p><span class="side-label">My part.</span> {d.myPart}</p>
+        <p><span class="side-label">Built with.</span> {d.builtWith.map((t, i) => <>{i > 0 && ', '}<span class="nowrap">{t}</span></>)}</p>
+      </div>
+      <div class="prose">
+        <slot />
+      </div>
+      {next && <p class="writeup-next">Next: <a class="hit" href={`/work/${next.id}/`}><NoBreak text={next.data.title} joinLast /></a></p>}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .writeup-head {
+    margin-top: var(--title-top);
+  }
+  .dek {
+    margin-top: 1rem;
+    max-width: 36em;
+    font-size: var(--fs-dek);
+    line-height: 1.45;
+  }
+  .writeup-body {
+    margin-top: 2.5rem;
+  }
+  .side {
+    max-width: var(--measure);
+    margin-bottom: 2rem;
+  }
+  .side p + p {
+    margin-top: 0.5rem;
+  }
+  .side time {
+    white-space: nowrap;
+  }
+  .side-label {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .prose {
+    max-width: var(--measure);
+  }
+  .writeup-next {
+    clear: left;
+    margin-top: 2.5rem;
+  }
+  .prose > :global(* + *) {
+    margin-top: 1.25rem;
+  }
+  .prose :global(h2) {
+    margin-top: 2.5rem;
+    font-size: var(--fs-h2);
+    line-height: 1.3;
+    font-weight: 650;
+  }
+  .prose :global(ul) {
+    padding-left: 1.25rem;
+  }
+  .prose :global(li + li) {
+    margin-top: 0.5rem;
+  }
+  .prose :global(code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.875em;
+  }
+  @media (min-width: 56.25em) {
+    .writeup {
+      container-type: inline-size;
+    }
+    .writeup-body {
+      --col: calc((100cqi - 3 * var(--gap)) / 4);
+      padding-left: calc(var(--col) + var(--gap));
+    }
+    .side,
+    .prose :global(.note) {
+      float: left;
+      clear: left;
+      width: var(--col);
+      margin-left: calc(-1 * (var(--col) + var(--gap)));
+    }
+    .prose :global(.note) {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+</style>

@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://harishm17.github.io/sitemap.xml
+Sitemap: https://harishmanoharan.com/sitemap-index.xml

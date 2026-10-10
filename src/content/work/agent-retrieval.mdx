@@ -1,0 +1,71 @@
+---
+title: Finding the tables an agent misses
+dek: How following dbt lineage cut missed source tables from 79 to 24 on a 103-ticket benchmark, and what I tried that didn’t work.
+description: How dbt lineage expansion cut missed source tables from 79 to 24 on a 103-ticket benchmark for an agent that writes Databricks and dbt code.
+context: Purgo AI
+years: "2026"
+updated: 2026-10-08
+readMinutes: 5
+builtWith: [Python, LangGraph, sqlglot, Pinecone, Databricks, dbt]
+myPart: I built lineage expansion and its 48 tests, the schema check, the Pinecone search path, the catalog search benchmark and the model comparison. The agent, its orchestration, the benchmark harness and most of the prompts are the team’s.
+order: 1
+ogImage: /og/agent-retrieval-2026-10.png
+numbers: ["58", "18", "154", "71", "41", "25", "20", "99", "87", "126", "27", "0.965", "0.969", "282", "10", "0.10", "0.931", "0.944", "0.012", "3,712", "31", "210", "4", "70"]
+---
+import ResultsTable from '../../components/ResultsTable.astro';
+import DataTable from '../../components/DataTable.astro';
+import Note from '../../components/Note.astro';
+import Steps from '../../components/Steps.astro';
+
+<ResultsTable id="results" caption="Results" ids={['missed-tables', 'wrong-tables', 'catalog-recall', 'catalog-latency', 'stage-cost']} />
+
+Purgo’s agent is a LangGraph pipeline: it analyzes a data-engineering ticket, finds the tables it needs, drafts a design, then writes and reviews the Databricks or dbt code. Everything after the retrieval step depends on which tables it puts into the agent’s context. If a table the ticket needs never arrives, the model either guesses a name, which later checks may or may not catch, or quietly leaves out a join, which nothing catches.
+
+<Steps caption="Where my changes sit in the agent’s retrieval. I also built the catalog search path, one of the ways candidates are found." steps={[{ label: 'Analyze the ticket' }, { label: 'Find candidate tables' }, { label: 'Follow dbt lineage', mine: true }, { label: 'Check candidates against the warehouse schema', mine: true }, { label: 'Rank candidates with an LLM' }, { label: 'Draft a design' }, { label: 'Write and review the code' }]} />
+
+## How I measured it
+
+Purgo’s internal benchmarks are built from real tickets, and each ticket has a known answer that lists the tables it should use. A miss is one of those expected tables that never reached the agent’s context. I count misses summed over all tickets, so a ticket missing three tables counts three times. The benchmarks had between 95 and 103 tickets and ran at different times on different builds of the agent, so each result is compared with a baseline from its own run.
+
+## Following the lineage
+
+When a dbt ticket names the model it wants changed, that model’s SQL already says what it reads. So before any ranking, retrieval now parses the named model with sqlglot, follows its `ref()` and `source()` calls one hop, resolves sources through the names the project declares, and adds those tables to the candidates.
+
+<Note text="Lineage expansion fired on 58 of the 103 tickets. 18 of those gained at least one expected table, and none lost one." />
+
+On the 103-ticket benchmark, missed source tables went from 79 to 24. Each added table costs about 154 tokens of context.
+
+Adding a table to the candidates doesn’t mean it survives ranking, so I tested ways of handing lineage tables to the ranker. That was a separate run, and its baseline came out at 71 misses rather than 79, so compare these arms with each other rather than with the headline.
+
+<DataTable id="ablation" caption="Ablation on the same 103 tickets, separate run" integer columns={[{ label: 'Variant' }, { label: 'Missed source tables', numeric: true }]} rows={[{ header: 'No lineage tables (baseline)', cells: ['71'] }, { header: 'Tell the ranker what the model reads', cells: ['41'] }, { header: 'Put back lineage tables the ranker dropped', cells: ['25'] }, { header: 'Both (shipped)', cells: ['20'] }]} />
+
+Doing both worked best, and that’s what shipped.
+
+I also tried a simpler idea: search the repo for files that look like the ticket and pull in the tables they use. In another run, on 99 tickets, it fired on 87 and brought in 126 tables that no expected answer wanted, against 27 for lineage expansion in the same comparison. That’s a lot more noise for the ranker, so I dropped it.
+
+## Fewer wrong tables
+
+Extra tables are the other failure, because each wrong one takes up context and can mislead the model. Some candidates named tables that don’t exist in the warehouse at all. Now, before the LLM ranks anything, a check compares each candidate with the warehouse’s actual schema and drops anything that isn’t there.
+
+On 95 tickets, the share of wrong tables in context fell from 8.6% to 5.3%, and recall moved from 0.965 to 0.969. That’s one run with no confidence interval, and the absolute change is small. But it removes a whole kind of mistake, tables that don’t exist, without giving up recall.
+
+<h2 id="catalog-search">Faster catalog search</h2>
+
+For Iceberg catalogs on Polaris, I built a semantic search path on Pinecone that re-indexes only the tables whose schema changed. I compared it with the earlier search path on the same 188 real queries over a 282-table schema, where the right tables for each query come from real tickets’ expected tables.
+
+Recall@10 went from 0.54 to 0.68, and mean latency from 4.0 s to 0.18 s per query. Precision@10 is only about 0.10, which is fine here: search hands candidates to the ranker, and the ranker’s job is to throw most of them away. These numbers come from one benchmark run.
+
+<h2 id="cost">Making it cheaper</h2>
+
+Two stages, retrieval and drafting, ran on a larger model. I compared it with a smaller reasoning model on those stages over five runs of 102 tickets. Recall was 0.931 with the larger model and 0.944 with the smaller one. Runs varied by about 0.012 among themselves, so I read that as no loss rather than a gain. Retrieval recall is the only quality measure I compared.
+
+On the smaller model the two stages cost 7.6 times less, but they’re a small share of a full run’s cost; the code-generation stage carries most of it. After the comparison I moved both stages to the smaller model and set the reasoning effort for each stage.
+
+On one example ranking call, high effort used 3,712 reasoning tokens and took 31 s, while low effort used 210 and took 4 s.
+
+## What this doesn’t show
+
+- I chose the lineage design on the same 103 tickets I report it on. There’s no held-out set, so the gain may be a little optimistic.
+- The headline run and the ablation are separate runs. Both show about a 70% cut, so I trust the size of the effect more than any single count.
+- Lineage expansion follows one hop, so tables two models away still depend on search.
+- Everything here measures retrieval. I didn’t measure whether the generated code got more correct as a result.

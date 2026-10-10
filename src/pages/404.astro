@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+// Astro's HTML compression drops whitespace at a newline next to an inline tag, so the body paragraph keeps each link and its spaces on one line.
+---
+<BaseLayout title={`Page not found: ${site.name}`} description="This page doesn’t exist." ogImage={site.og.home}>
+  <h1 class="display page-title">This page doesn’t exist.</h1>
+  <p class="nf-body">
+    It may have moved when the site was rebuilt in October 2026. Try the <a href="/">home page</a> or the <a href="/work/">Work page</a>.
+  </p>
+</BaseLayout>
+
+<style>
+  .nf-body {
+    margin-top: 1.5rem;
+    max-width: var(--measure);
+  }
+</style>

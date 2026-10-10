@@ -1,0 +1,109 @@
+---
+export interface Column {
+  label: string;
+  numeric?: boolean;
+}
+export interface Row {
+  header: string;
+  sub?: string;
+  cells: string[];
+}
+interface Props {
+  id: string;
+  caption: string;
+  columns: Column[];
+  rows: Row[];
+  /** Tabular figures for integer-only numeric columns (spec §7). */
+  integer?: boolean;
+  /** Keep short row labels on one line from 37.5em up; leave off for long labels that must wrap on phones. */
+  nowrapLabels?: boolean;
+}
+const { id, caption, columns, rows, integer = false, nowrapLabels = false } = Astro.props;
+---
+<section class="table-wrap" aria-labelledby={`${id}-caption`} tabindex="0">
+  <table id={id} class:list={{ 'nowrap-labels': nowrapLabels }}>
+    <caption id={`${id}-caption`}>{caption}</caption>
+    <thead>
+      <tr>{columns.map((c) => <th scope="col" class:list={{ num: c.numeric }}>{c.label}</th>)}</tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <th scope="row">{r.header}{r.sub && <><span class="vh">, </span><span class="sub">{r.sub}</span></>}</th>
+          {r.cells.map((cell, i) => (
+            <td class:list={{ num: columns[i + 1]?.numeric, int: integer && columns[i + 1]?.numeric }}>{cell}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+    margin-block: 1.5rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-size: var(--fs-meta);
+    color: var(--muted);
+    padding-bottom: 0.5rem;
+  }
+  thead th {
+    font-size: var(--fs-meta);
+    font-weight: 500;
+    color: var(--muted);
+    text-align: left;
+    border-bottom: 1px solid var(--ink);
+    padding: 0.375rem 0.75rem 0.5rem 0;
+  }
+  tbody th,
+  tbody td {
+    text-align: left;
+    font-weight: 400;
+    vertical-align: top;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:last-child th,
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  /* The last column ends flush with the rules, so right-aligned figures line up with their edge. */
+  thead th:last-child,
+  tbody td:last-child {
+    padding-right: 0;
+  }
+  /* Selectors carry thead/tbody so they outrank the left-aligned header and cell rules above. */
+  thead th.num,
+  tbody td.num {
+    text-align: right;
+  }
+  .num {
+    white-space: nowrap;
+  }
+  th.num {
+    white-space: normal;
+  }
+  .int {
+    font-variant-numeric: tabular-nums;
+  }
+  .sub {
+    display: block;
+    font-size: var(--fs-meta);
+    color: var(--muted);
+  }
+  @media (min-width: 37.5em) {
+    .nowrap-labels tbody th {
+      white-space: nowrap;
+    }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import DataTable from './DataTable.astro';
+import { getResult } from '../data/results';
+
+interface Props {
+  id: string;
+  caption: string;
+  ids: string[];
+}
+const { id, caption, ids } = Astro.props;
+const rows = ids.map((rid) => {
+  const r = getResult(rid);
+  return {
+    header: r.short,
+    sub: r.display ? `${r.display}; ${r.sample}` : r.sample,
+    cells: [r.before.text, r.after.text],
+  };
+});
+---
+<DataTable
+  id={id}
+  caption={caption}
+  columns={[{ label: 'Metric' }, { label: 'Before', numeric: true }, { label: 'After', numeric: true }]}
+  rows={rows}
+/>

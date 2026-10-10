@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkRow from '../../components/WorkRow.astro';
+import { site } from '../../data/site';
+import { GROUPS, byGroup } from '../../data/work';
+import { publishedSlugs } from '../../lib/collection';
+import { workHref } from '../../lib/published';
+
+const slugs = await publishedSlugs();
+---
+<BaseLayout
+  title={`Work: ${site.name}`}
+  description="Work at Purgo AI and before, research, coursework and side projects by Harish Manoharan."
+  ogImage={site.og.home}
+  current="work"
+>
+  <h1 class="display page-title">Work</h1>
+  {GROUPS.map((g) => (
+    <section class="section" aria-labelledby={g.id}>
+      <h2 id={g.id} class="section-title">{g.title}</h2>
+      <ul class="plain-list rows" role="list">
+        {byGroup(g.id).map((item) => <WorkRow item={item} href={workHref(slugs, item.page, item.anchor)} hideContext={g.id === 'purgo' || g.id === 'projects'} />)}
+      </ul>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .page-title + .section {
+    margin-top: 2.5rem;
+  }
+  .rows {
+    margin-top: 1rem;
+  }
+</style>
