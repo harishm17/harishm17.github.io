@@ -59,6 +59,7 @@
 <li><strong>The claim I registered, that it clearly beats the chatbot recipe, was not met.</strong></li>
 </ul>
 <p>The run cost $13.55 of an $18 cap.</p>
+<p>Measured again on the 15 textbook sections on October 21, with these fixes and later changes, it got 0.596 of equations exactly right end to end, against 0.504 in the registered run. That is not a blind result: I had examined those sections since the registered run.</p>
 <h2 id="handwriting-goes-to-review">Handwriting goes to review</h2>
 <p>The handwriting set is 24 pages of real human touchscreen ink, 205 expressions from Google’s MathWriting set, registered before the run. ReadableSTEM got 0.566 of the equations exactly right (interval 0.515 to 0.618), so 43% were wrong. None was silent, because the model called most handwritten blocks medium or low confidence and so 5.7 decisions a page were required, against 1.4 on typed pages. It also dropped four whole display equations of one page without a flag, which the tool now catches by comparing the page’s ink with what it read. The cost was $0.066 a page.</p>
 <p>By the letter of my rule, an advertising bar of 0.50 and zero silent errors, both held. They did not on the fresh set: 0.589 right on 24 pages (192 expressions), and 2 of 192 wrong without being flagged, both in blocks the model called high confidence. One was not a wrong reading at all, only a different notation, and the score still counts it:</p>
