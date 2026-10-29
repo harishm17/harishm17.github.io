@@ -1,0 +1,43 @@
+# Harish Manoharan
+
+> Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on agents, retrieval and evals. Studied at UT Dallas and IIT Madras.
+
+- Role: Software engineer at Purgo AI, working on agents, retrieval and evals.
+- Location: San Francisco Bay Area
+- Education: M.S. Computer Science, The University of Texas at Dallas, 2026
+- Education: Dual degree: M.Tech Data Science and B.S. Biological Sciences, IIT Madras, 2024
+- Handle: harishm17 (GitHub, LinkedIn and Lichess)
+
+## Pages
+
+- [Home](https://harishmanoharan.com/)
+- [About](https://harishmanoharan.com/about/)
+- [Work](https://harishmanoharan.com/work/)
+- [Resume (PDF)](https://harishmanoharan.com/HarishManoharan.pdf)
+
+## Write-ups
+
+- [Designing retrieval and code review for a data-engineering agent](https://harishmanoharan.com/work/agent-retrieval/): How an agent that writes PySpark, SQL and dbt code finds the right tables and checks its own code, and the design choices behind each step.
+- [Testing LLMs and Databricks platforms for regulated use](https://harishmanoharan.com/work/llm-evaluation/): How two products qualify LLMs and Databricks platforms for regulated (GxP) use: test engines, evidence an auditor can read, generated tests and signing.
+- [ReadableSTEM turns STEM PDFs into accessible pages](https://harishmanoharan.com/work/readablestem/): How ReadableSTEM turns STEM PDFs into accessible web pages: one service, two models, checks against the PDF’s own text, instructor review and capped spend.
+- [Evaluating ReadableSTEM against a chatbot and three open parsers](https://harishmanoharan.com/work/readablestem-evaluation/): Pre-registered, held-out tests of ReadableSTEM against a chatbot and three open parsers: where it led, where it trailed and why it lost on equations.
+
+## Projects
+
+- [ReadableSTEM](https://readablestem.com/): An open-source tool that turns STEM course PDFs into accessible web pages, live as a free beta that anyone can sign in to. It also reads scanned and handwritten pages from their image, sending every equation it reads there to review.
+  Source: https://github.com/harishm17/readablestem
+- [Margins](https://studymargins.com/): Turns your own course files into notes, worked examples, quizzes and timed practice exams, each citing the pages it came from, plus a voice coach. Give it your exam date and it plans each day’s work and tracks what you’ve mastered from your quizzes and exams.
+  Source: https://github.com/harishm17/margins
+- [Holdbrief](https://holdbrief.com/): A daily brief on the stocks you follow, for US and Indian markets, free during its beta. After each close it gathers prices, filings and news, sets each stock’s stance with fixed scoring methods, and has Claude write the explanation. Every sentence has to cite the facts behind it, and a checker rejects any that don’t.
+
+## Earlier internships
+
+- Digitus Business Solutions, Software engineer intern, 2024: Four projects for the sales, support, legal and finance teams: an agent, a RAG assistant, a drafting tool and an ERP integration.
+- PwC India, Technology consulting intern, data analytics, 2023: Built a customer analytics platform, served to the client team through Django REST APIs and Power BI: demand forecasting with an XGBoost and SARIMA ensemble using seasonality and promotion features, market basket analysis, customer segmentation and sentiment analysis of more than 30,000 reviews to find what drove satisfaction and churn.
+
+## Profiles and contact
+
+- [GitHub](https://github.com/harishm17)
+- [LinkedIn](https://www.linkedin.com/in/harishm17/)
+- [Lichess](https://lichess.org/@/harishm17)
+- Email: harish_manoharan@outlook.com
