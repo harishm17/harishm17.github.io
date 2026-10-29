@@ -29,7 +29,7 @@
   Source: https://github.com/harishm17/readablestem
 - [Margins](https://studymargins.com/): Turns your own course files into notes, worked examples, quizzes and timed practice exams, each citing the pages it came from, plus a voice coach. Give it your exam date and it plans each day’s work and tracks what you’ve mastered from your quizzes and exams.
   Source: https://github.com/harishm17/margins
-- [Holdbrief](https://holdbrief.com/): A daily brief on the stocks you follow, for US and Indian markets, free during its beta. After each close it ranks every company against its market’s peers (301 US and 200 Indian stocks), values the price three ways and sets the stance by fixed rules. Claude writes the explanation, and a checker rejects any sentence that doesn’t cite its facts.
+- [Holdbrief](https://holdbrief.com/): A daily brief on the stocks you follow, for US and Indian markets, free during its beta. After each close it ranks every company against its market’s peers (301 US and 200 Indian stocks), values the price three ways around a fair zone that widens with uncertainty, and sets the stance by fixed, versioned rules. Every fact carries an ID, and a checker rejects any sentence of the explanation that cites nothing or a fact that isn’t there. Each view is logged and graded later against the index.
 
 ## Earlier internships
 
