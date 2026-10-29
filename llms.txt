@@ -1,8 +1,8 @@
 # Harish Manoharan
 
-> Harish Manoharan is a software engineer at Purgo AI in the San Francisco Bay Area, working on agents, retrieval and evals. Studied at UT Dallas and IIT Madras.
+> Harish Manoharan is an AI engineer at Purgo AI in the San Francisco Bay Area, working on agents, retrieval and evals. Studied at UT Dallas and IIT Madras.
 
-- Role: Software engineer at Purgo AI, working on agents, retrieval and evals.
+- Role: AI engineer at Purgo AI, working on agents, retrieval and evals.
 - Location: San Francisco Bay Area
 - Education: M.S. Computer Science, The University of Texas at Dallas, 2026
 - Education: Dual degree: M.Tech Data Science and B.S. Biological Sciences, IIT Madras, 2024
