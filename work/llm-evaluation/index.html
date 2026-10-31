@@ -164,10 +164,19 @@
       if (!a) return;
       const area = a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('nav, details') ? 'contents' : 'body';
       const section = currentSection();
+      // Visible text only (screen-reader suffixes like "(opens in a new tab)" are .vh); an image link falls back to
+      // its alt text. `item` is the heading of the card or row the link sits in, e.g. "Margins" for its screenshot.
+      const clean = (t) => (t || '').trim().replace(/\s+/g, ' ').slice(0, 120);
+      const copy = a.cloneNode(true);
+      copy.querySelectorAll('.vh').forEach((n) => n.remove());
+      const img = a.querySelector('img');
+      const row = a.closest('li, article');
       posthog.capture('link_clicked', {
         kind: kindOf(a),
         href: a.href,
-        text: (a.textContent || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 120),
+        text: clean(copy.textContent) || clean(a.getAttribute('aria-label')) || clean(img && img.alt),
+        item: clean(row && row.querySelector('h2, h3') && row.querySelector('h2, h3').textContent.replace(/\(opens in a new tab\)/, '')),
+        via_image: !!img && !clean(copy.textContent),
         area,
         section,
         section_title: titleOf(section),
