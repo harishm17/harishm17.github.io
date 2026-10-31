@@ -127,9 +127,10 @@
       posthog.capture('link_clicked', {
         kind: kindOf(a),
         href: a.href,
-        text: clean(copy.textContent) || clean(a.getAttribute('aria-label')) || clean(img && img.alt),
+        text: clean(copy.textContent) || clean(a.getAttribute('aria-label')) || clean(img && img.alt) || clean(a.dataset.label),
         item: clean(row && row.querySelector('h2, h3') && row.querySelector('h2, h3').textContent.replace(/\(opens in a new tab\)/, '')),
         via_image: !!img && !clean(copy.textContent),
+        via_diagram: a.classList.contains('zone'),
         area,
         section,
         section_title: titleOf(section),
