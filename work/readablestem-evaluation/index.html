@@ -174,7 +174,7 @@
           focusTo.focus({ preventScroll: true });
         });
       })();
-    </script><script data-analytics>(function(){const config = {"token":"phc_nT2JxCxLcAiSQGP4d4iJ2mWef6k3gNa6ptFaEJmz5cJ9","apiHost":"https://hm.harishmanoharan.com","host":"harishmanoharan.com"};
+    </script><script data-analytics>(function(){const config = {"token":"phc_nT2JxCxLcAiSQGP4d4iJ2mWef6k3gNa6ptFaEJmz5cJ9","apiHost":"https://harishmanoharan.com/m","host":"harishmanoharan.com"};
 
   (() => {
     if (location.hostname !== config.host || navigator.webdriver) return;
@@ -189,11 +189,23 @@
 
     const ref = (params.get('ref') || params.get('utm_source') || '').trim().toLowerCase().slice(0, 80);
     const beacon = { transport: 'sendBeacon' };
+    const hmId = (document.cookie.match(/(?:^|; )hm_id=([^;]+)/) || [])[1];
     posthog.init(config.token, {
       api_host: config.apiHost,
       ui_host: 'https://us.posthog.com',
       defaults: '2026-08-30',
       person_profiles: 'always',
+      // The edge Worker gives first-time visitors an hm_id cookie and logs their page requests under it; adopting it
+      // here joins those server-side events to this browser's events.
+      bootstrap: hmId ? { distinctID: hmId } : {},
+      // Several extension file names (posthog-recorder.js, dead-clicks-autocapture.js) are on filter lists; the edge
+      // Worker serves each under a short alias and maps it back (EXTENSIONS in edge/worker.js).
+      prepare_external_dependency_script: (script) => {
+        const alias = { 'posthog-recorder': 'rec', 'dead-clicks-autocapture': 'dc', 'web-vitals-with-attribution': 'wv',
+          'exception-autocapture': 'ex', surveys: 'sv', toolbar: 'tb', 'lazy-recorder': 'lz', 'tracing-headers': 'ti', customizations: 'ci' };
+        script.src = script.src.replace(/\/([a-z-]+)\.js(\?|$)/, (m, name, tail) => (alias[name] ? `/${alias[name]}.js${tail}` : m));
+        return script;
+      },
       capture_pageleave: true,
       enable_heatmaps: true,
       capture_dead_clicks: true,
