@@ -174,4 +174,125 @@
           focusTo.focus({ preventScroll: true });
         });
       })();
-    </script></body></html>
+    </script><script data-analytics>(function(){const config = {"token":"phc_nT2JxCxLcAiSQGP4d4iJ2mWef6k3gNa6ptFaEJmz5cJ9","apiHost":"https://hm.harishmanoharan.com","host":"harishmanoharan.com"};
+
+  (() => {
+    if (location.hostname !== config.host || navigator.webdriver) return;
+    const params = new URLSearchParams(location.search);
+    try {
+      if (params.has('notrack')) params.get('notrack') === '0' ? localStorage.removeItem('hm_notrack') : localStorage.setItem('hm_notrack', '1');
+      if (localStorage.getItem('hm_notrack')) return;
+    } catch {}
+
+    // PostHog's official loader stub (docs: posthog.com/docs/libraries/js): queues calls until array.js arrives.
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+    const ref = (params.get('ref') || params.get('utm_source') || '').trim().toLowerCase().slice(0, 80);
+    const beacon = { transport: 'sendBeacon' };
+    posthog.init(config.token, {
+      api_host: config.apiHost,
+      ui_host: 'https://us.posthog.com',
+      defaults: '2026-08-30',
+      person_profiles: 'always',
+      capture_pageleave: true,
+      enable_heatmaps: true,
+      capture_dead_clicks: true,
+      autocapture: { capture_copied_text: true },
+      session_recording: { maskAllInputs: true },
+      // Runs before the first $pageview, so the ref is on it.
+      loaded: (ph) => {
+        if (!ref) return;
+        ph.register({ ref });
+        ph.register_once({ first_ref: ref });
+        ph.setPersonProperties({ last_ref: ref }, { first_ref: ref });
+      },
+    });
+
+    // The tag has done its job once the first page view is sent: drop it so a shared link doesn't carry it.
+    if (['ref', 'notrack', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].some((k) => params.has(k))) {
+      setTimeout(() => {
+        const url = new URL(location.href);
+        for (const k of [...url.searchParams.keys()]) if (k === 'ref' || k === 'notrack' || k.startsWith('utm_')) url.searchParams.delete(k);
+        history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+      }, 1500);
+    }
+
+    // Sections: the h2s in <main>; the part above the first one is "top".
+    const headings = () => [...document.querySelectorAll('main h2[id]')];
+    const currentSection = () => {
+      let id = 'top';
+      for (const h of headings()) if (h.getBoundingClientRect().top < innerHeight * 0.35) id = h.id; else break;
+      return id;
+    };
+    const titleOf = (id) => (id === 'top' ? document.title : (document.getElementById(id)?.textContent || id).trim().slice(0, 120));
+
+    // Links: what kind, where on the page, and which section was being read.
+    const kindOf = (a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.startsWith('mailto:')) return 'email';
+      const url = new URL(a.href, location.href);
+      if (url.origin === location.origin) {
+        if (url.pathname === location.pathname && url.hash) return 'in_page';
+        if (url.pathname.endsWith('.pdf')) return 'resume';
+        if (/^\/work\/[^/]+\/?$/.test(url.pathname)) return 'writeup';
+        return 'internal';
+      }
+      if (/(^|\.)github\.com$/.test(url.hostname)) return 'github';
+      if (/(^|\.)linkedin\.com$/.test(url.hostname)) return 'linkedin';
+      if (/(^|\.)(readablestem\.com|studymargins\.com)$/.test(url.hostname)) return 'project_site';
+      return 'external';
+    };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      const area = a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('nav, details') ? 'contents' : 'body';
+      const section = currentSection();
+      posthog.capture('link_clicked', {
+        kind: kindOf(a),
+        href: a.href,
+        text: (a.textContent || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 120),
+        area,
+        section,
+        section_title: titleOf(section),
+      }, beacon);
+    }, true);
+
+    // Reading time per section: one-second ticks while the tab is visible and someone touched the page in the
+    // last 45 s. A section counts as viewed after 4 s; the totals go out when the tab is hidden or closed.
+    let lastActive = Date.now();
+    for (const ev of ['scroll', 'pointermove', 'pointerdown', 'keydown', 'touchstart', 'wheel']) addEventListener(ev, () => { lastActive = Date.now(); }, { passive: true });
+    const seconds = {};
+    const viewed = new Set();
+    let active = 0;
+    setInterval(() => {
+      if (document.visibilityState !== 'visible' || Date.now() - lastActive > 45000) return;
+      const id = currentSection();
+      seconds[id] = (seconds[id] || 0) + 1;
+      active += 1;
+      if (seconds[id] >= 4 && !viewed.has(id)) {
+        viewed.add(id);
+        const all = headings();
+        posthog.capture('section_viewed', { section: id, section_title: titleOf(id), section_index: all.findIndex((h) => h.id === id) + 1, section_count: all.length });
+      }
+    }, 1000);
+    const flush = () => {
+      if (!active) return;
+      const all = headings();
+      const order = ['top', ...all.map((h) => h.id)];
+      const deepest = order.reduce((d, id, i) => (seconds[id] ? i : d), 0);
+      posthog.capture('reading_summary', {
+        active_seconds: active,
+        section_seconds: { ...seconds },
+        sections_viewed: [...viewed],
+        deepest_section: order[deepest],
+        deepest_section_index: deepest,
+        section_count: all.length,
+        reached_last_section: all.length > 0 && deepest === all.length,
+      }, beacon);
+      for (const k of Object.keys(seconds)) delete seconds[k];
+      active = 0;
+    };
+    addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(); });
+    addEventListener('pagehide', flush);
+  })();
+})();</script></body></html>
