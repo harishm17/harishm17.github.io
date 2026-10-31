@@ -257,6 +257,15 @@
     document.addEventListener('click', (e) => {
       const a = e.target.closest && e.target.closest('a[href]');
       if (!a) return;
+      // His product sites share this PostHog project: hand the visitor id over so the journey reads as one person.
+      // (holdbrief.com keeps no visitor tracking, so it gets no id.)
+      if (/(^|\.)(readablestem\.com|studymargins\.com)$/.test(a.hostname)) {
+        try {
+          const u = new URL(a.href);
+          u.searchParams.set('hm_id', posthog.get_distinct_id());
+          a.href = u.href;
+        } catch {}
+      }
       const area = a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('nav, details') ? 'contents' : 'body';
       const section = currentSection();
       // Visible text only (screen-reader suffixes like "(opens in a new tab)" are .vh); an image link falls back to
