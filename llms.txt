@@ -20,16 +20,19 @@
 
 - [Designing retrieval and code review for a data-engineering agent](https://harishmanoharan.com/work/agent-retrieval/): How an agent that writes PySpark, SQL and dbt code finds the right tables and checks its own code, and the design choices behind each step.
 - [Testing LLMs and Databricks platforms for regulated use](https://harishmanoharan.com/work/llm-evaluation/): How two products qualify LLMs and Databricks platforms for regulated (GxP) use: test engines, evidence an auditor can read, generated tests and signing.
-- [ReadableSTEM turns STEM PDFs into accessible pages](https://harishmanoharan.com/work/readablestem/): How ReadableSTEM turns STEM PDFs into accessible web pages: one service, two models, checks against the PDF’s own text, instructor review and capped spend.
-- [Evaluating ReadableSTEM against a chatbot and three open parsers](https://harishmanoharan.com/work/readablestem-evaluation/): Pre-registered, held-out tests of ReadableSTEM against a chatbot and three open parsers: where it led, where it trailed and why it lost on equations.
+- [ReadableSTEM turns STEM PDFs into accessible pages](https://harishmanoharan.com/work/readablestem/): How ReadableSTEM turns STEM PDFs and LaTeX source into accessible web pages: two models, checks against the PDF, instructor review, a sandbox and capped spend.
+- [Evaluating ReadableSTEM with tests registered before they ran](https://harishmanoharan.com/work/readablestem-evaluation/): Registered tests of ReadableSTEM: the newest equation set, how the equation score came about, handwriting, tables and chemistry, and what was missed.
+- [Margins, a study app that makes you try before it helps](https://harishmanoharan.com/work/margins/): How Margins plans study from a student’s own files and makes them try first: its learner model, a tutor that withholds answers, voice teach-back and its limits.
+- [Holdbrief: a daily read on every stock you own](https://harishmanoharan.com/work/holdbrief/): How Holdbrief works: ranking, valuation and a fair zone computed by code, a language model that only explains them behind a checker, and a public track record.
 
 ## Projects
 
-- [ReadableSTEM](https://readablestem.com/): An open-source tool that turns STEM course PDFs into accessible web pages, live as a free beta that anyone can sign in to. It also reads scanned and handwritten pages from their image, sending every equation it reads there to review.
+- [ReadableSTEM](https://readablestem.com/): An open-source tool that turns STEM course PDFs, and LaTeX source, into accessible web pages, live as a free beta that anyone can sign in to. It also reads scanned and handwritten pages from their image, sending every equation it reads there to review.
   Source: https://github.com/harishm17/readablestem
-- [Margins](https://studymargins.com/): Turns your own course files into notes, worked examples, quizzes and timed practice exams, each citing the pages it came from, plus a voice coach. Give it your exam date and it plans each day’s work and tracks what you’ve mastered from your quizzes and exams. Hybrid search with reciprocal rank fusion raised retrieval MRR from 0.83 to 0.96 on a 38-topic eval.
+- [Margins](https://studymargins.com/): A study app that makes you try before it helps. From your own course files it plans each day to your exam date and takes you through warm-up, reading, recall, practice and a quiz. Mastery counts only the answers you gave without help, and its tutor holds back the answer, which I test with scripted students who try to get it. Free, with Google sign-in.
   Source: https://github.com/harishm17/margins
-- [Holdbrief](https://holdbrief.com/): A daily brief on the stocks you follow, for US and Indian markets, free during its beta. After each close it ranks every company against its market’s peers (301 US and 200 Indian stocks), values the price three ways around a fair zone that widens with uncertainty, and sets the stance by fixed, versioned rules. Every fact carries an ID, and a checker rejects any sentence of the explanation that cites nothing or a fact that isn’t there. Each view is logged and graded later against the index.
+- [Holdbrief](https://holdbrief.com/): An open-source daily brief on the stocks you follow, for US and Indian markets, with a read-only live demo and sign-in by invitation. After each close it ranks every company against its market’s peers, values the price around a fair zone that widens with uncertainty, and sets the stance by fixed, versioned rules. A language model explains the result, and a checker rejects any sentence that cites a fact that isn’t there. Each view is logged and graded later against the index.
+  Source: https://github.com/harishm17/holdbrief
 
 ## Earlier internships
 
