@@ -31,7 +31,7 @@
   Source: https://github.com/harishm17/readablestem
 - [Margins](https://studymargins.com/): A study app that makes you try before it helps. From your own course files it plans each day to your exam date and takes you through warm-up, reading, recall, practice and a quiz. Mastery counts only the answers you gave without help, and its tutor holds back the answer, which I test with scripted students who try to get it. Free, with Google sign-in.
   Source: https://github.com/harishm17/margins
-- [Holdbrief](https://holdbrief.com/): An open-source daily brief on the stocks you follow, for US and Indian markets, with a read-only live demo and sign-in by invitation. After each close it ranks every company against its market’s peers, values the price around a fair zone that widens with uncertainty, and picks its rating by fixed, versioned rules. A language model only writes the explanation, and a checker rejects any sentence that cites a fact not in the data. Each view is logged and graded later against the index.
+- [Holdbrief](https://holdbrief.com/): An open-source daily brief on the stocks you follow, for US and Indian markets, with a read-only live demo and sign-in by invitation. After each close it ranks every company against its market’s peers, values the price around a fair zone that widens with uncertainty, and picks Keep, Watch closely or Reconsider by fixed, versioned rules. A language model only writes the explanation, and a checker rejects any sentence that cites a fact not in the data. Each view is logged and graded later against the index.
   Source: https://github.com/harishm17/holdbrief
 
 ## Earlier internships
