@@ -21,9 +21,9 @@
 - [Designing retrieval and code review for a data-engineering agent](https://harishmanoharan.com/work/agent-retrieval/): How an agent that writes PySpark, SQL and dbt code finds the right tables and checks its own code, and the design choices behind each step.
 - [Testing LLMs and Databricks platforms for regulated use](https://harishmanoharan.com/work/llm-evaluation/): How two products qualify LLMs and Databricks platforms for regulated (GxP) use: test engines, evidence an auditor can read, generated tests and signing.
 - [ReadableSTEM turns STEM PDFs into accessible pages](https://harishmanoharan.com/work/readablestem/): How ReadableSTEM turns STEM PDFs and LaTeX source into accessible web pages: two models, checks against the PDF, instructor review, a sandbox and capped spend.
-- [Evaluating ReadableSTEM with tests registered before they ran](https://harishmanoharan.com/work/readablestem-evaluation/): Registered tests of ReadableSTEM: the newest equation set, how the equation score came about, handwriting, tables and chemistry, and what was missed.
+- [Evaluating ReadableSTEM with tests registered before they ran](https://harishmanoharan.com/work/readablestem-evaluation/): Registered tests of ReadableSTEM: the newest equation set against a Claude chatbot, how the score was built, handwriting, tables, chemistry and what was missed.
 - [Margins, a study app that makes you try before it helps](https://harishmanoharan.com/work/margins/): How Margins plans study from a student’s own files and makes them try first: its learner model, a tutor that withholds answers, voice teach-back and its limits.
-- [Holdbrief: a daily read on every stock you own](https://harishmanoharan.com/work/holdbrief/): How Holdbrief works: ranking, valuation and a fair zone computed by code, a language model that only explains them behind a checker, and a public track record.
+- [Holdbrief: a daily read on the stocks you follow](https://harishmanoharan.com/work/holdbrief/): How Holdbrief works: code computes every number and the stance, a language model only explains them behind a checker, and the record is being built in public.
 
 ## Projects
 
