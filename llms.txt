@@ -36,8 +36,8 @@
 
 ## Earlier internships
 
-- Digitus Business Solutions, Software engineer intern, 2024: Four projects for the sales, support, legal and finance teams: an agent, a RAG assistant, a drafting tool and an ERP integration.
-- PwC India, Technology consulting intern, data analytics, 2023: Built a customer analytics platform, served to the client team through Django REST APIs and Power BI: demand forecasting with an XGBoost and SARIMA ensemble using seasonality and promotion features, market basket analysis, customer segmentation and sentiment analysis of more than 30,000 reviews to find what drove satisfaction and churn.
+- Digitus Business Solutions, Software engineer intern, May–Jul 2024: Four projects for the sales, support, legal and finance teams. A text-to-SQL agent that looks up the schema first and retries failed queries: right answers rose from 52% to 76% on an internal set of 500 questions. A RAG helpdesk assistant that cites documentation, videos and past tickets: median time to resolution fell from 20 minutes to 6. A contract drafting and comparison tool with a reviewer in the loop: legal review fell from 5 days to 2. An integration that sends signed invoices from the QAD ERP to Malaysia’s MyInvois tax system.
+- PwC India, Technology consulting intern, data analytics, May–Jul 2023: Built demand forecasting (an XGBoost and SARIMA ensemble) and customer analytics for a client team. Forecast error (MAPE) came out 15% lower than the baseline across more than 50 products.
 
 ## Profiles and contact
 
