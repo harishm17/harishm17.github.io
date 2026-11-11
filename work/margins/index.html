@@ -151,8 +151,20 @@
     if (location.hostname !== config.host || navigator.webdriver) return;
     const params = new URLSearchParams(location.search);
     try {
-      if (params.has('notrack')) params.get('notrack') === '0' ? localStorage.removeItem('hm_notrack') : localStorage.setItem('hm_notrack', '1');
-      if (localStorage.getItem('hm_notrack')) return;
+      // The choice is kept twice: in localStorage, and in an hm_notrack cookie that the edge Worker reads (so the
+      // browser stays out of its server-side log too) and re-sends (so it outlives Safari's 7-day limit on
+      // storage written by script). Either one is enough to stay opted out.
+      const hasCookie = /(?:^|; )hm_notrack=1(?:;|$)/.test(document.cookie);
+      const off = params.has('notrack') ? params.get('notrack') !== '0' : !!localStorage.getItem('hm_notrack') || hasCookie;
+      if (off) {
+        localStorage.setItem('hm_notrack', '1');
+        if (!hasCookie) document.cookie = 'hm_notrack=1; Path=/; Max-Age=31536000; SameSite=Lax; Secure';
+        return;
+      }
+      if (params.has('notrack')) {
+        localStorage.removeItem('hm_notrack');
+        document.cookie = 'hm_notrack=; Path=/; Max-Age=0; SameSite=Lax; Secure';
+      }
     } catch {}
 
     // PostHog's official loader stub (docs: posthog.com/docs/libraries/js): queues calls until array.js arrives.
