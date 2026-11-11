@@ -36,8 +36,8 @@
 
 ## Earlier internships
 
-- Digitus Business Solutions, Software engineer intern, May–Jul 2024: Four projects for the sales, support, legal and finance teams. A text-to-SQL agent that looks up the schema first and retries failed queries: right answers rose from 52% to 76% on an internal set of 500 questions. A RAG helpdesk assistant that cites documentation, videos and past tickets: median time to resolution fell from 20 minutes to 6. A contract drafting and comparison tool with a reviewer in the loop: legal review fell from 5 days to 2. An integration that sends signed invoices from the QAD ERP to Malaysia’s MyInvois tax system.
-- PwC India, Technology consulting intern, data analytics, May–Jul 2023: Built demand forecasting (an XGBoost and SARIMA ensemble) and customer analytics for a client team. Forecast error (MAPE) came out 15% lower than the baseline across more than 50 products.
+- Digitus Business Solutions, Software engineer intern, May–Jul 2024: I built four projects for the sales, support, legal and finance teams. A text-to-SQL agent that looks up the schema first and retries failed queries: right answers rose from 52% to 76% on an internal set of 500 questions. A RAG helpdesk assistant that cites documentation, videos and past tickets: median time to resolution fell from 20 minutes to 6. A contract drafting and comparison tool with a reviewer in the loop: legal review fell from 5 days to 2. An integration that sends signed invoices from the QAD ERP to Malaysia’s MyInvois tax system.
+- PwC India, Technology consulting intern, data analytics, May–Jul 2023: I built demand forecasting (an XGBoost and SARIMA ensemble) and customer analytics for a client team. Forecast error (MAPE) came out 15% lower than the baseline across more than 50 products.
 
 ## Profiles and contact
 
